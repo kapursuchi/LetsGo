@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:local="clr-namespace:LetsGo"  
+             x:Class="LetsGo.MainPage">
+
+    <!--User's name prompt and button to add user to database.
+        This is just for testing to check that connection to firebase works
+    -->
+    <StackLayout>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                <Entry x:Name="txtName" Placeholder="Enter Name"></Entry>
+            <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Button x:Name="btnAdd" WidthRequest="200" Text="Add" Clicked="BtnAdd_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>  
