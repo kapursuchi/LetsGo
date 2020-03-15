@@ -29,15 +29,20 @@ namespace LetsGo
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
 
             string token = await auth.LoginWithEmailPassword(eMail, pass);
-            if (token != "")
+            if (token.Contains("There is no user record") || token == "")
             {
-                await DisplayAlert("Success", "User is successfully logged in!", "OK");
+                if (token != "")
+                    await DisplayAlert("Login Unsuccessful", token, "OK");
+                else
+                    await DisplayAlert("Login Unsuccessful", "Invalid login credentials", "OK");
+
             }
             else
             {
-                await DisplayAlert("Failure", token, "OK");
+                await DisplayAlert("Login Successful", "User has logged in", "OK");
             }
-            
+
+               
         }
 
         private async void CreateAccount_Clicked(object sender, EventArgs e)
@@ -54,7 +59,7 @@ namespace LetsGo
             }
             else
             {
-                await DisplayAlert("Failure", token, "OK");
+                await DisplayAlert("Failure", "User account could not be created", "OK");
             }
             
         }

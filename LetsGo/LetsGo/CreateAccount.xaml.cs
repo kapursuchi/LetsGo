@@ -23,7 +23,7 @@ namespace LetsGo
         private async void createAccount_Clicked(object sender, EventArgs e)
         {
             //Create user and add to database
-            await firebaseDB.CreateUser(email.Text, password.Text, dob.Text, name.Text);
+            //await firebaseDB.CreateUser(email.Text, password.Text, dob.Text, name.Text);
 
             //Clear all fields
             email.Text = string.Empty;
@@ -32,7 +32,7 @@ namespace LetsGo
             name.Text = string.Empty;
 
             //Success Message
-            await DisplayAlert("Success", "You have successfully created an account!", "OK");
+            //await DisplayAlert("Success", "You have successfully created an account!", "OK");
 
         }
     }
