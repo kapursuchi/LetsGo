@@ -10,6 +10,7 @@
     <StackLayout>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                 <Entry x:Name="txtName" Placeholder="Enter Name"></Entry>
+                <Entry x:Name="txtPassword" Placeholder="Enter Password"></Entry>
             <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                 <Button x:Name="btnAdd" WidthRequest="200" Text="Add" Clicked="BtnAdd_Clicked"/>
             </StackLayout>

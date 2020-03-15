@@ -23,8 +23,10 @@ namespace LetsGo
         //This is just a test function that adds the user to the database
         private async void BtnAdd_Clicked(object sender, EventArgs e)
         {
-            await firebaseDatabase.AddUser(txtName.Text);
+            await firebaseDatabase.AddUser(txtName.Text,txtPassword.Text);
+
             txtName.Text = string.Empty;
+            txtPassword.Text = string.Empty;
             await DisplayAlert("Success", "User Added Successfully", "OK");
         }
     }
