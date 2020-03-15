@@ -16,18 +16,12 @@ namespace LetsGo.Model
 
         //method that gets called once the user presses the "add" button
         //adds the user's name they've provided to the database
-        public async Task CreateUser(string email, string password, string dob, string name)
+        public async Task AddUser(string name, string pass)
         {
             await firebase
               .Child("Users")
-              .PostAsync(new UserProfile(name, dob, email, password));
-        }
+              .PostAsync(new User() { Name = name, Password = pass });
 
-        public async Task AddUser(string email, string password)
-        {
-            await firebase
-                .Child("Users")
-                .PostAsync(new UserProfile("no name", "no dob", email, password));
         }
 
     }
