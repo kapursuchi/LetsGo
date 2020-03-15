@@ -14,18 +14,9 @@ namespace LetsGo
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        FirebaseDatabase firebaseDatabase = new FirebaseDatabase();
         public MainPage()
         {
             InitializeComponent();
-        }
-
-        //This is just a test function that adds the user to the database
-        private async void BtnAdd_Clicked(object sender, EventArgs e)
-        {
-            await firebaseDatabase.AddUser(txtName.Text);
-            txtName.Text = string.Empty;
-            await DisplayAlert("Success", "User Added Successfully", "OK");
         }
     }
 }

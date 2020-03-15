@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 namespace LetsGo
 {
     public partial class App : Application
@@ -9,8 +10,7 @@ namespace LetsGo
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new LoginPage(); //making login page as the main page
         }
 
         protected override void OnStart()

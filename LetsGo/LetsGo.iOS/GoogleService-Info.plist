@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>967356054347-u1snjjtl1hib7h98bg4kn1jd53ct4c70.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.967356054347-u1snjjtl1hib7h98bg4kn1jd53ct4c70</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBESxDTXJsA3gsYaIZLJ7OH7-6U9bmZEmU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>967356054347</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>PROJECT_ID</key>
+	<string>letsgo-f4d0d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>letsgo-f4d0d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>BUNDLE_ID</key>
+	<string>com.companyname.LetsGo</string>
+</dict>
+</plist>

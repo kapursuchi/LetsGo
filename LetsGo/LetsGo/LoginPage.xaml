@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.LoginPage">
+
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Image Source="LetsGoLogo.PNG" />
+            <Label Text="Login" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" 
+                   TextColor="Black" 
+                   FontSize="Title" 
+                   FontAttributes="Bold" 
+            />
+
+            <!--User Name Entry-->
+            <Entry x:Name="email" Placeholder="Email" BackgroundColor="Ivory"/>
+
+            <!--Password Entry-->
+            <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory"/>
+
+            <!-- Login Button-->
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="DimGray" TextColor="White"/>
+
+            <!--Create Account Button (Needs to be updated later to redirect
+            user to create account page) -->
+            <Button x:Name="register" Text="Create an Account" Clicked="CreateAccount_Clicked" BackgroundColor="DimGray" TextColor="White"/>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
