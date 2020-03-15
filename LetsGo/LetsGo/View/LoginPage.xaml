@@ -5,21 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
-             x:Class="LetsGo.CreateAccount">
+             x:Class="LetsGo.Model.LoginPage">
 
     <ContentPage.Content>
 
         <StackLayout VerticalOptions="CenterAndExpand">
             <Image Source="LetsGoLogo.PNG" />
-            <Label Text="Create an Account" 
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" 
+            <Label Text="Login" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" 
                    TextColor="Black" 
                    FontSize="Title" 
                    FontAttributes="Bold" 
             />
-
-            <Entry x:Name="name" Placeholder="Name" BackgroundColor="Ivory" />
 
             <!--User Name Entry-->
             <Entry x:Name="email" Placeholder="Email" BackgroundColor="Ivory"/>
@@ -27,11 +25,12 @@
             <!--Password Entry-->
             <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory"/>
 
-            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" IsPassword="True" BackgroundColor="Ivory"/>
-            
-            <Entry x:Name="dob" Placeholder="Date of Birth" BackgroundColor="Ivory" />
+            <!-- Login Button-->
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="DimGray" TextColor="White"/>
 
-            <Button x:Name="createAccount" Text="Create an Account" Clicked="createAccount_Clicked" />
+            <!--Create Account Button (Needs to be updated later to redirect
+            user to create account page) -->
+            <Button x:Name="register" Text="Create an Account" Clicked="CreateAccount_Clicked" BackgroundColor="DimGray" TextColor="White"/>
         </StackLayout>
 
     </ContentPage.Content>

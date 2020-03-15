@@ -7,7 +7,7 @@ using LetsGo.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace LetsGo
+namespace LetsGo.Model
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
