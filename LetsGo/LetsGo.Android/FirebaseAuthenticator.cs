@@ -1,5 +1,5 @@
 ﻿using Firebase.Auth;
-using LetsGo.Authentication;
+using LetsGo.Model.Authentication;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System;

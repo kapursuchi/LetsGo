@@ -6,28 +6,26 @@ using System.Threading.Tasks;
 using LetsGo.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using LetsGo.Authentication;
+using LetsGo.Model.Authentication;
 using System.ComponentModel;
+
+
 
 namespace LetsGo.Model
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public LoginPage()
+        public async Task<string> loginUser(string email, string pass)
         {
-            InitializeComponent();
-            
-        }
-
-        private async void Login_Clicked(object sender, EventArgs e)
-        {
-            string eMail = email.Text;
-            string pass = password.Text;
+            //string eMail = email.Text;
+            //string pass = password.Text;
 
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
 
-            string token = await auth.LoginWithEmailPassword(eMail, pass);
+            string token = await auth.LoginWithEmailPassword(email, pass);
+            return token;
+            /* //TAKING OUT AND MOVING TO CONTROLLER
             if (token.Contains("There is no user record") || token == "")
             {
                 if (token != "")
@@ -40,19 +38,22 @@ namespace LetsGo.Model
             {
                 await DisplayAlert("Login Successful", "User has logged in", "OK");
             }
+            */
 
                
         }
 
-        private async void CreateAccount_Clicked(object sender, EventArgs e)
+        public async Task<string> createAccount(string email, string pass)
         {
 
-            string eMail = email.Text;
-            string pass = password.Text;
+            //string eMail = email.Text;
+            //string pass = password.Text;
 
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
 
-            string token = await auth.RegisterWithEmailPassword(eMail, pass);
+            string token = await auth.RegisterWithEmailPassword(email, pass);
+            return token;
+            /* TAKING OUT AND MOVING TO CONTROLLER
             if (token != "")
             {
                 await DisplayAlert("Success", "User account created.", "OK");
@@ -61,6 +62,7 @@ namespace LetsGo.Model
             {
                 await DisplayAlert("Failure", "User account could not be created", "OK");
             }
+            */
             
         }
     }

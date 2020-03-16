@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LetsGo.Authentication;
+using LetsGo.Model.Authentication;
 using Firebase.Auth;
 using LetsGo.iOS;
 using Foundation;

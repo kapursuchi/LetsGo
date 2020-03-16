@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace LetsGo.Authentication
+namespace LetsGo.Model.Authentication
 {
     public interface IFirebaseAuthenticator
     {

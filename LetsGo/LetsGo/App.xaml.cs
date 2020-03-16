@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using LetsGo.Model;
+using LetsGo.Controller;
 
 
 namespace LetsGo
@@ -11,7 +12,7 @@ namespace LetsGo
         public App()
         {
             InitializeComponent();
-            MainPage = new LoginPage(); //making login page as the main page
+            MainPage = new LoginController(); //making login page as the main page
         }
 
         protected override void OnStart()

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGo.Android", "LetsGo\Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGo.iOS", "LetsGo\LetsGo.iOS\LetsGo.iOS.csproj", "{9FCBE631-B779-4817-B979-D6B84ABF5C90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGo", "LetsGo\LetsGo\LetsGo.csproj", "{494DBAA9-188A-4EFC-814F-868A48FE01ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LetsGo", "LetsGo\LetsGo\LetsGo.csproj", "{494DBAA9-188A-4EFC-814F-868A48FE01ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,9 +37,9 @@ Global
 		{7385F821-7857-4B9B-BB8E-FCF86E474A2D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{7385F821-7857-4B9B-BB8E-FCF86E474A2D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{7385F821-7857-4B9B-BB8E-FCF86E474A2D}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
-		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
+		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.Build.0 = Debug|iPhone
+		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|Any CPU.Deploy.0 = Debug|iPhone
 		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|iPhone.Build.0 = Debug|iPhone
 		{9FCBE631-B779-4817-B979-D6B84ABF5C90}.Debug|iPhone.Deploy.0 = Debug|iPhone
