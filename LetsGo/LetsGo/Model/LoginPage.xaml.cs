@@ -9,9 +9,8 @@ using Xamarin.Forms.Xaml;
 using LetsGo.Authentication;
 using System.ComponentModel;
 
-namespace LetsGo
+namespace LetsGo.Model
 {
-    [DesignTimeVisible(true)]
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
@@ -47,6 +46,7 @@ namespace LetsGo
 
         private async void CreateAccount_Clicked(object sender, EventArgs e)
         {
+
             string eMail = email.Text;
             string pass = password.Text;
 
