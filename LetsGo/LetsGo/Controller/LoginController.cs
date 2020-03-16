@@ -11,6 +11,7 @@ namespace LetsGo.Controller
         {
             InitializeComponent();
         }
+
         private LoginPage loginPage = new LoginPage();
         public async void Login_Clicked(object sender, EventArgs e)
         {
@@ -18,7 +19,7 @@ namespace LetsGo.Controller
             string pass = password.Text;
 
 
-            string token = await loginPage.loginUser(emailAddress, pass);
+            string token = await loginPage.LoginUser(emailAddress, pass);
             if (token.Contains("There is no user record") || token == "")
             {
                 if (token != "")
@@ -39,7 +40,7 @@ namespace LetsGo.Controller
             string emailAddress = email.Text;
             string pass = password.Text;
 
-            string token = await loginPage.createAccount(emailAddress, pass);
+            string token = await loginPage.CreateAccount(emailAddress, pass);
             if (token != "")
             {
                 await DisplayAlert("Success", "User account created.", "OK");

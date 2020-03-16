@@ -16,7 +16,7 @@ namespace LetsGo.Model
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public async Task<string> loginUser(string email, string pass)
+        public async Task<string> LoginUser(string email, string pass)
         {
             //string eMail = email.Text;
             //string pass = password.Text;
@@ -43,7 +43,7 @@ namespace LetsGo.Model
                
         }
 
-        public async Task<string> createAccount(string email, string pass)
+        public async Task<string> CreateAccount(string email, string pass)
         {
 
             //string eMail = email.Text;
