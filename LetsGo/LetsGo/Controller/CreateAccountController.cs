@@ -36,7 +36,7 @@ namespace LetsGo.Controller
                 DateTime userdob = dobChosen;
 
                 string token = await createAcct.CreateUserAccount(emailAddress, pass, userName, userdob, userPublicAcct);
-                if (token != "")
+                if (token != null)
                 {
                     await DisplayAlert("Success", "User account created.", "OK");
                 }
