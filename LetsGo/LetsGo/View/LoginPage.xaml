@@ -6,17 +6,17 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.LoginController">
+    
 
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="CenterAndExpand">
-            <Image Source="LetsGoLogo.PNG" />
+        <StackLayout VerticalOptions="CenterAndExpand" >
+            <Image Source="LetsGoLogo.PNG" VerticalOptions="Start" HorizontalOptions="Center" Margin="40"/>
             <Label Text="Login" 
                    VerticalOptions="Center" 
                    HorizontalOptions="Center" 
                    TextColor="Black" 
                    FontSize="Title" 
-                   FontAttributes="Bold" 
             />
 
             <!--User Name Entry-->
@@ -26,11 +26,11 @@
             <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory"/>
 
             <!-- Login Button-->
-            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="DimGray" TextColor="White"/>
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="DimGray" TextColor="White" VerticalOptions="End" HorizontalOptions="Center"/>
 
             <!--Create Account Button (Needs to be updated later to redirect
             user to create account page) -->
-            <Button x:Name="register" Text="Create an Account" Clicked="CreateAccount_Clicked" BackgroundColor="DimGray" TextColor="White"/>
+            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
         </StackLayout>
 
     </ContentPage.Content>

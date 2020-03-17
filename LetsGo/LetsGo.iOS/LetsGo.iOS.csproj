@@ -95,6 +95,18 @@
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Logo Only3.PNG">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Media.xcassets\Images.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\Images.imageset\LetsGoLogo.PNG">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\Images.imageset\LetsGoLogo1.PNG">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\Images.imageset\LetsGoLogo2.PNG">
+      <Visible>false</Visible>
+    </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>

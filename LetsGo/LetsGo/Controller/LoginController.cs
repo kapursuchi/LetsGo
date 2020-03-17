@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LetsGo.Model;
+using Xamarin.Forms;
 
 namespace LetsGo.Controller
 {
@@ -10,6 +11,7 @@ namespace LetsGo.Controller
         public LoginController()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private LoginPage loginPage = new LoginPage();
@@ -35,20 +37,10 @@ namespace LetsGo.Controller
 
         }
 
-        public async void CreateAccount_Clicked(object sender, EventArgs e)
+        private async void Navigate_CreateAccount_Page(object sender, EventArgs e)
         {
-            string emailAddress = email.Text;
-            string pass = password.Text;
-
-            string token = await loginPage.CreateAccount(emailAddress, pass);
-            if (token != "")
-            {
-                await DisplayAlert("Success", "User account created.", "OK");
-            }
-            else
-            {
-                await DisplayAlert("Failure", "User account could not be created", "OK");
-            }
+            //Navigate to the Account Creation Page
+            await Navigation.PushAsync(new CreateAccountController());
 
         }
 

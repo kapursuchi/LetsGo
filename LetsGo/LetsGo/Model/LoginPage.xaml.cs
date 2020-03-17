@@ -18,52 +18,14 @@ namespace LetsGo.Model
     {
         public async Task<string> LoginUser(string email, string pass)
         {
-            //string eMail = email.Text;
-            //string pass = password.Text;
-
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
 
             string token = await auth.LoginWithEmailPassword(email, pass);
             return token;
-            /* //TAKING OUT AND MOVING TO CONTROLLER
-            if (token.Contains("There is no user record") || token == "")
-            {
-                if (token != "")
-                    await DisplayAlert("Login Unsuccessful", token, "OK");
-                else
-                    await DisplayAlert("Login Unsuccessful", "Invalid login credentials", "OK");
-
-            }
-            else
-            {
-                await DisplayAlert("Login Successful", "User has logged in", "OK");
-            }
-            */
-
                
         }
 
-        public async Task<string> CreateAccount(string email, string pass)
-        {
-
-            //string eMail = email.Text;
-            //string pass = password.Text;
-
-            var auth = DependencyService.Get<IFirebaseAuthenticator>();
-
-            string token = await auth.RegisterWithEmailPassword(email, pass);
-            return token;
-            /* TAKING OUT AND MOVING TO CONTROLLER
-            if (token != "")
-            {
-                await DisplayAlert("Success", "User account created.", "OK");
-            }
-            else
-            {
-                await DisplayAlert("Failure", "User account could not be created", "OK");
-            }
-            */
-            
-        }
+       
+ 
     }
 }

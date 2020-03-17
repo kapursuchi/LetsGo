@@ -7,6 +7,7 @@ using Firebase.Database.Query;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using LetsGo.Model;
 
 namespace LetsGo.Model
 {
@@ -14,13 +15,15 @@ namespace LetsGo.Model
     {
         FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
 
+
         //method that gets called once the user presses the "add" button
         //adds the user's name they've provided to the database
-        public async Task AddUser(string name, string pass)
+        public async Task InitializeUser(string uName, DateTime uDOB, string uEmail, bool publicAcct)
         {
+            UserProfile newUser = new UserProfile(uName, uDOB, uEmail, publicAcct);
             await firebase
-              .Child("Users")
-              .PostAsync(new User() { Name = name, Password = pass });
+              .Child("UserProfiles")
+              .PostAsync(newUser);
 
         }
 

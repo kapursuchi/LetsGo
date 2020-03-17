@@ -9,17 +9,23 @@ namespace LetsGo.Model
     {
         public string name { get; set; }
 
-        public string dateOfBirth { get; set; }
+        public DateTime dateOfBirth { get; set; }
 
         public string email { get; set; }
 
-        public string password { get; set; }
-        public UserProfile(string uName, string uDOB, string uEmail, string uPass)
+        //public string password { get; set; }
+
+        public bool publicAcct;
+
+        public List<string> interests;
+
+        public UserProfile(string uName, DateTime uDOB, string uEmail, bool publicAccount)
         {
             name = uName;
             dateOfBirth = uDOB;
             email = uEmail;
-            password = uPass;
+            publicAcct = publicAccount;
+            interests = new List<string>();
         }
     }
         

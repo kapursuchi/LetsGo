@@ -13,12 +13,8 @@
   <ItemGroup>
     <PackageReference Include="FirebaseDatabase.net" Version="4.0.4" />
     <PackageReference Include="Xamarin.Build.Download" Version="0.10.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controller\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Model\CreateAccount.xaml.cs">
+    <Compile Update="Model\CreateAccountPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="Model\LoginPage.xaml.cs">

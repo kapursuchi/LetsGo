@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.Controller.CreateAccountController">
+
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="Start">
+            <Image Source="LetsGoLogo.PNG" VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="35"/>
+            <Label Text="Create Account" 
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center" 
+                   TextColor="Black" 
+                   FontSize="Title"  
+            />
+
+            <Entry x:Name="name" Placeholder="Name" VerticalOptions="Start" BackgroundColor="Ivory" />
+
+            <Entry x:Name="email" Placeholder="Email" VerticalOptions="Start" BackgroundColor="Ivory"/>
+
+            <!--Password Entry-->
+            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" Placeholder="Password" BackgroundColor="Ivory"/>
+
+            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" VerticalOptions="Start" IsPassword="True" BackgroundColor="Ivory"/>
+
+            <Grid   x:Name="dateofbirth"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="dob"
+                            Text="Date of Birth"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <DatePicker MaximumDate="3/16/2008"
+                            BackgroundColor="Ivory"
+                            HorizontalOptions="CenterAndExpand"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            DateSelected="OnDateSelected"
+                            />
+            </Grid>
+
+            <!--Add switch for public/private account-->
+            
+            <Grid   x:Name="publicAccountSwitch"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="publicAcct"
+                            Text="Public Account"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <Switch     x:Name="publicAcctSwitch"
+                            OnColor="PowderBlue"
+                            ThumbColor="Black"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Toggled="On_Toggled"
+                            />
+            </Grid>
+                       
+            <Button x:Name="createAccount" Text="Create Account" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black"/>
+            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Gainsboro" TextColor="Black"/>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
