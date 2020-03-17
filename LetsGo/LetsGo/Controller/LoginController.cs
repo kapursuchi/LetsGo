@@ -22,9 +22,9 @@ namespace LetsGo.Controller
 
 
             string token = await loginPage.LoginUser(emailAddress, pass);
-            if (token.Contains("There is no user record") || token == "")
+            if (token.Contains("There is no user record") || token == null)
             {
-                if (token != "")
+                if (token != null)
                     await DisplayAlert("Login Unsuccessful", token, "OK");
                 else
                     await DisplayAlert("Login Unsuccessful", "Invalid login credentials", "OK");
