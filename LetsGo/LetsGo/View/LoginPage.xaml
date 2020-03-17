@@ -10,27 +10,28 @@
 
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="CenterAndExpand" >
+        <StackLayout VerticalOptions="Center" >
             <Image Source="LetsGoLogo.PNG" VerticalOptions="Start" HorizontalOptions="Center" Margin="40"/>
             <Label Text="Login" 
-                   VerticalOptions="Center" 
+                   VerticalOptions="Start" 
                    HorizontalOptions="Center" 
                    TextColor="Black" 
                    FontSize="Title" 
             />
 
             <!--User Name Entry-->
-            <Entry x:Name="email" Placeholder="Email" BackgroundColor="Ivory"/>
+            <Entry x:Name="email" Placeholder="Email" BackgroundColor="Ivory" VerticalOptions="CenterAndExpand" />
 
             <!--Password Entry-->
-            <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory"/>
+            <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory" VerticalOptions="CenterAndExpand" />
 
             <!-- Login Button-->
-            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="DimGray" TextColor="White" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
 
-            <!--Create Account Button (Needs to be updated later to redirect
-            user to create account page) -->
-            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="forgotpassword" Text="Forgot Password?" Clicked="Navigate_ForgotPasswordPage"
+                    BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center" />
+            <!--Create Account Button -->
+            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
         </StackLayout>
 
     </ContentPage.Content>

@@ -20,15 +20,22 @@ namespace LetsGo.Controller
             string emailAddress = email.Text;
             string pass = password.Text;
 
+            
 
             string token = await loginPage.LoginUser(emailAddress, pass);
-            if (token.Contains("There is no user record") || token == null)
+            if (token.Contains("There is no user record") || token == null || token == "")
             {
-                if (token != null)
-                    await DisplayAlert("Login Unsuccessful", token, "OK");
-                else
+                if (token == "" || token == null)
                     await DisplayAlert("Login Unsuccessful", "Invalid login credentials", "OK");
+                else
+                    await DisplayAlert("Login Unsuccessful", token, "OK");
+               
+                
 
+            }
+            else if (emailAddress == null || pass == null)
+            {
+                await DisplayAlert("Login Unsuccessful", "One or more fields was left empty.", "OK");
             }
             else
             {
@@ -42,6 +49,12 @@ namespace LetsGo.Controller
             //Navigate to the Account Creation Page
             await Navigation.PushAsync(new CreateAccountController());
 
+        }
+
+        private async void Navigate_ForgotPasswordPage(object sender, EventArgs e)
+        {
+            //Navigate to Forgot Password Page
+            await Navigation.PushAsync(new ForgotPasswordController());
         }
 
     }

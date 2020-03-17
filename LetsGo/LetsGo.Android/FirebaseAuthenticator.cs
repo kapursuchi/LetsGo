@@ -42,5 +42,13 @@ namespace LetsGo.Droid
                 return "";
             }
         }
+
+        public async void SendPasswordRecoveryEmail(string email)
+        {
+            await FirebaseAuth.Instance.SendPasswordResetEmailAsync(email);
+          
+        }
+
+        
     }
 }
