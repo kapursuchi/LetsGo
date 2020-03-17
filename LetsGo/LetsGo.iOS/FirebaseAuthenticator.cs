@@ -30,11 +30,12 @@ namespace LetsGo.iOS
 
         }
 
+       
         public async Task<string> RegisterWithEmailPassword(string email, string password)
         {
             try
             {
-                var user =  Auth.DefaultInstance.CreateUserAsync(email, password);
+                var user =  await Auth.DefaultInstance.CreateUserAsync(email, password);
                 return user.ToString();
             }
             catch (Exception err)
@@ -43,5 +44,9 @@ namespace LetsGo.iOS
             }
         }
 
+        public void SendPasswordRecoveryEmail(string email)
+        {
+            Auth.DefaultInstance.SendPasswordResetAsync(email);
+        }
     }
 }
