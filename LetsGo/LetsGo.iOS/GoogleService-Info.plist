@@ -3,22 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>967356054347-u1snjjtl1hib7h98bg4kn1jd53ct4c70.apps.googleusercontent.com</string>
+	<string>967356054347-662mtoi8hb5dsilsehvscb75lfej2hds.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.967356054347-u1snjjtl1hib7h98bg4kn1jd53ct4c70</string>
+	<string>com.googleusercontent.apps.967356054347-662mtoi8hb5dsilsehvscb75lfej2hds</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBESxDTXJsA3gsYaIZLJ7OH7-6U9bmZEmU</string>
 	<key>GCM_SENDER_ID</key>
 	<string>967356054347</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.companyname.LetsGo</string>
 	<key>PROJECT_ID</key>
 	<string>letsgo-f4d0d</string>
 	<key>STORAGE_BUCKET</key>
 	<string>letsgo-f4d0d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
-	<key>BUNDLE_ID</key>
-	<string>com.companyname.LetsGo</string>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:967356054347:ios:b56f49a954601e54b2c6ce</string>
+	<key>DATABASE_URL</key>
+	<string>https://letsgo-f4d0d.firebaseio.com</string>
 </dict>
 </plist>
