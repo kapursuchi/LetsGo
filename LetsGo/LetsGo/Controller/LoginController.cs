@@ -20,7 +20,20 @@ namespace LetsGo.Controller
 
 
             string token = await loginPage.LoginUser(emailAddress, pass);
+<<<<<<< Updated upstream
             if (token.Contains("There is no user record") || token == "")
+=======
+            if (token != string.Empty && !token.Contains("There is no user record"))
+            {
+                await Navigation.PushAsync(new NavigationBarController());
+            }
+            else
+            {
+                await DisplayAlert("Authentication Failed", "Email or password are incorrect. Please try again.", "OK");
+            }
+            /*
+            if (token.Contains("There is no user record") || token == null || token == "")
+>>>>>>> Stashed changes
             {
                 if (token != "")
                     await DisplayAlert("Login Unsuccessful", token, "OK");
@@ -32,6 +45,7 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Login Successful", "User has logged in", "OK");
             }
+            */
 
         }
 

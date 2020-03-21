@@ -48,5 +48,10 @@ namespace LetsGo.iOS
         {
             Auth.DefaultInstance.SendPasswordResetAsync(email);
         }
+
+        public void SignoutUser()
+        {
+            Auth.DefaultInstance.SignOut(out NSError error);
+        }
     }
 }

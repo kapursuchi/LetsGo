@@ -33,7 +33,7 @@
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
@@ -49,6 +49,10 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+<<<<<<< Updated upstream
+=======
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+>>>>>>> Stashed changes
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

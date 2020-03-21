@@ -11,5 +11,12 @@ namespace LetsGo.Model.Authentication
         Task<string> LoginWithEmailPassword(string email, string password);
 
         Task<string> RegisterWithEmailPassword(string email, string password);
+<<<<<<< Updated upstream
+=======
+
+        void SendPasswordRecoveryEmail(string email);
+
+        void SignoutUser();
+>>>>>>> Stashed changes
     }
 }
