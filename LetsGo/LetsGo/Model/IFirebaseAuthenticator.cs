@@ -14,5 +14,7 @@ namespace LetsGo.Model.Authentication
 
         void SendPasswordRecoveryEmail(string email);
 
+        void SignoutUser();
+
     }
 }

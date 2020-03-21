@@ -20,27 +20,18 @@ namespace LetsGo.Controller
             string emailAddress = email.Text;
             string pass = password.Text;
 
-            
+
 
             string token = await loginPage.LoginUser(emailAddress, pass);
-            if (token.Contains("There is no user record") || token == null || token == "")
+            if (token != string.Empty && !token.Contains("There is no user record"))
             {
-                if (token == "" || token == null)
-                    await DisplayAlert("Login Unsuccessful", "Invalid login credentials", "OK");
-                else
-                    await DisplayAlert("Login Unsuccessful", token, "OK");
-               
-                
-
-            }
-            else if (emailAddress == null || pass == null)
-            {
-                await DisplayAlert("Login Unsuccessful", "One or more fields was left empty.", "OK");
+                await Navigation.PushAsync(new NavigationBarController());
             }
             else
             {
-                await DisplayAlert("Login Successful", "User has logged in", "OK");
+                await DisplayAlert("Authentication Failed", "Email or password are incorrect. Please try again.", "OK");
             }
+
 
         }
 
