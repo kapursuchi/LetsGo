@@ -16,42 +16,17 @@ namespace LetsGo.iOS
 {
     public class FirebaseAuthenticator : IFirebaseAuthenticator
     {
-        public async Task<string> LoginWithEmailPassword(string email, string password)
-        {
-            try
-            {
-                var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
-                return await user.User.GetIdTokenAsync();
-            }
-            catch (Exception err)
-            {
-                return "";
-            }
+        private string CurrentUser;
+  
 
+        public void SetCurrentUser(string email)
+        {
+            CurrentUser = email;
         }
 
-       
-        public async Task<string> RegisterWithEmailPassword(string email, string password)
+        public string GetCurrentUser()
         {
-            try
-            {
-                var user =  await Auth.DefaultInstance.CreateUserAsync(email, password);
-                return user.ToString();
-            }
-            catch (Exception err)
-            {
-                return "";
-            }
-        }
-
-        public void SendPasswordRecoveryEmail(string email)
-        {
-            Auth.DefaultInstance.SendPasswordResetAsync(email);
-        }
-
-        public void SignoutUser()
-        {
-            Auth.DefaultInstance.SignOut(out NSError error);
+            return CurrentUser;
         }
     }
 }

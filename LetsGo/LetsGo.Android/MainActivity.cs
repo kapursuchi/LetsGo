@@ -20,8 +20,8 @@ namespace LetsGo.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
+            
 
             //var options = new FirebaseOptions.Builder()
             //.SetApplicationId("1:967356054347:android:df2a4d986cc6d14ab2c6ce")

@@ -19,7 +19,7 @@ namespace LetsGo.Controller
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        private CreateAccountPage createAcct = new CreateAccountPage();
+        readonly private CreateAccountPage createAcct = new CreateAccountPage();
         
         
         public async void CreateAccount_Clicked(object sender, EventArgs e)
@@ -35,14 +35,14 @@ namespace LetsGo.Controller
                 string userName = name.Text;
                 DateTime userdob = dobChosen;
 
-                string token = await createAcct.CreateUserAccount(emailAddress, pass, userName, userdob, userPublicAcct);
-                if (token != null)
+                bool token = await createAcct.CreateUserAccount(emailAddress, pass, userName, userdob, userPublicAcct);
+                if (token == true)
                 {
                     await DisplayAlert("Success", "User account created.", "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Failure", "User account could not be created", "OK");
+                    await DisplayAlert("Failed to Create Account", "A user with this email address already exists.", "OK");
                 }
             }
 

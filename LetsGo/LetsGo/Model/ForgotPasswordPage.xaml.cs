@@ -13,11 +13,11 @@ namespace LetsGo.Model
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ForgotPasswordPage : ContentPage
     {
-        public  void emailPasswordRecovery(string email)
+        private FirebaseDB fb = new FirebaseDB();
+        public async Task<bool> emailPasswordRecovery(string email)
         {
-            var auth = DependencyService.Get<IFirebaseAuthenticator>();
-
-            auth.SendPasswordRecoveryEmail(email);
+            bool sent = await fb.SendPasswordRecoverEmail(email);
+            return sent;
             
         }
     }

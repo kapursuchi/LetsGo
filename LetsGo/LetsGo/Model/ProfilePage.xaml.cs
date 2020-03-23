@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LetsGo.Model.Authentication;
-
+using Firebase.Database;
+using Firebase.Database.Query;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,10 +14,24 @@ namespace LetsGo.Model
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        public void logoutUser()
+        public ProfilePage()
         {
-            var auth = DependencyService.Get<IFirebaseAuthenticator>();
-            auth.SignoutUser();
+
+        }
+        readonly FirebaseDB fb = new FirebaseDB();
+        public void LogoutUser()
+        {
+            fb.SignOutUser();
+        }
+
+        
+
+        public async Task<bool> UpdateProfile(string userName,  string userLocation, bool isPublic, List<string> interests)
+        {
+            
+            bool updated = await fb.UpdateUserProfile(userName, userLocation, isPublic, interests);
+            return updated;
+            
         }
     }
 }

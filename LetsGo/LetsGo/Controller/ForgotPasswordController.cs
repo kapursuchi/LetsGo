@@ -15,14 +15,14 @@ namespace LetsGo.Controller
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        private ForgotPasswordPage forgotPassword = new ForgotPasswordPage();
+        private ForgotPasswordPage ForgotPassword = new ForgotPasswordPage();
         public async void Forgot_Password_Clicked(object sender, EventArgs e)
         {
             string emailAddress = email.Text;
 
-            forgotPassword.emailPasswordRecovery(emailAddress);
-
-            await Navigation.PushAsync(new LoginController());
+            bool sent = await ForgotPassword.emailPasswordRecovery(emailAddress);
+            if (sent)
+                await Navigation.PushAsync(new LoginController());
             
 
         }

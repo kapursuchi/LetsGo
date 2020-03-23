@@ -15,11 +15,17 @@ namespace LetsGo.Controller
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        public ProfilePage profile = new ProfilePage();
+        private ProfilePage profile = new ProfilePage();
+        private FirebaseDB fb = new FirebaseDB();
         public async void Logout_Clicked(object sender, EventArgs e)
         {
-            profile.logoutUser();
+            fb.SignOutUser();
             await Navigation.PushAsync(new LoginController());
+        }
+
+        public async void UpdateProfile_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UpdateProfileController());
         }
     }
 }

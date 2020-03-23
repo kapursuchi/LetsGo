@@ -13,6 +13,7 @@ namespace LetsGo
         {
             InitializeComponent();
             MainPage = new NavigationPage(new LoginController()); //making login page as the main page
+            
         }
 
         protected override void OnStart()

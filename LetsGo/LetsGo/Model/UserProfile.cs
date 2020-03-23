@@ -7,26 +7,36 @@ namespace LetsGo.Model
     //User that will be stored in database
     public class UserProfile
     {
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public DateTime dateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
-        public string email { get; set; }
+        public string Email { get; set; }
+        
+        public string Location { get; set; }
 
-        //public string password { get; set; }
+        public string Password { get; set; }
 
-        public bool publicAcct;
+        public bool PublicAcct { get; set; }
 
-        public List<string> interests;
+        public List<string> Interests { get; set; }
 
-        public UserProfile(string uName, DateTime uDOB, string uEmail, bool publicAccount)
+        public UserProfile(string uName, DateTime uDOB, string uEmail, string uPass, bool publicAccount)
         {
-            name = uName;
-            dateOfBirth = uDOB;
-            email = uEmail;
-            publicAcct = publicAccount;
-            interests = new List<string>();
+            Name = uName;
+            DateOfBirth = uDOB;
+            Email = uEmail;
+            Password = uPass;
+            PublicAcct = publicAccount;
+            Interests = new List<string>();
         }
+
+        public UserProfile()
+        {
+
+        }
+
+
     }
         
 }

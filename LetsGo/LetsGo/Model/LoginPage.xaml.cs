@@ -13,14 +13,14 @@ using System.ComponentModel;
 
 namespace LetsGo.Model
 {
+    //[DesignTimeVisible(true)]
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public async Task<string> LoginUser(string email, string pass)
+        private FirebaseDB fb = new FirebaseDB();
+        public async Task<bool> LoginUserWithEmailPass(string email, string pass)
         {
-            var auth = DependencyService.Get<IFirebaseAuthenticator>();
-
-            string token = await auth.LoginWithEmailPassword(email, pass);
+            bool token = await fb.LoginUser(email, pass);
             return token;
                
         }

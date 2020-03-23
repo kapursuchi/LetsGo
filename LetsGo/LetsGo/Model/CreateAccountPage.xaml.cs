@@ -14,15 +14,12 @@ namespace LetsGo.Model
 
     public partial class CreateAccountPage : ContentPage
     {
-        FirebaseDB fb = new FirebaseDB();
-        public async Task<string> CreateUserAccount(string email, string pass, string name, DateTime dob, bool publicAcct)
+        readonly FirebaseDB fb = new FirebaseDB();
+        public async Task<bool> CreateUserAccount(string email, string pass, string name, DateTime dob, bool publicAcct)
         {
-            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            bool created = await fb.InitializeUser(name, dob, email, pass, publicAcct);
 
-            string token = await auth.RegisterWithEmailPassword(email, pass);
-            await fb.InitializeUser(name, dob, email, publicAcct);
-            return token;
-        
+            return created;
         }
     }
 }

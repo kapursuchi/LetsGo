@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LetsGo.Model;
+using LetsGo.Model.Authentication;
 using Xamarin.Forms;
 
 namespace LetsGo.Controller
@@ -15,23 +16,23 @@ namespace LetsGo.Controller
         }
 
         private LoginPage loginPage = new LoginPage();
+
         public async void Login_Clicked(object sender, EventArgs e)
         {
             string emailAddress = email.Text;
             string pass = password.Text;
 
-
-
-            string token = await loginPage.LoginUser(emailAddress, pass);
-            if (token != string.Empty && !token.Contains("There is no user record"))
+            bool LoggedIn = await loginPage.LoginUserWithEmailPass(emailAddress, pass);
+            if (LoggedIn)
             {
+                var auth = DependencyService.Get<IFirebaseAuthenticator>();
+                auth.SetCurrentUser(emailAddress);
                 await Navigation.PushAsync(new NavigationBarController());
             }
             else
             {
                 await DisplayAlert("Authentication Failed", "Email or password are incorrect. Please try again.", "OK");
             }
-
 
         }
 

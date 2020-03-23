@@ -12,9 +12,13 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"/>
-
+            
+            <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            
             <Button x:Name="logout" Text="Logout"  Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
