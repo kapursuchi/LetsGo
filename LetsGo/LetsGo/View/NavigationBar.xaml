@@ -14,8 +14,8 @@
     
     <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
-        <local:FeedController Title="Feed"/>
-        <local:SocialController Title="Social"/>
-        <local:ProfileController Title="Profile"/>
+        <local:FeedController Icon="homeicon.png" Title="Feed"/>
+        <local:SocialController Icon="socialicon.png" Title="Social"/>
+        <local:ProfileController Icon="profileicon.png" Title="Profile"/>
     </TabbedPage.Children>
 </TabbedPage>
