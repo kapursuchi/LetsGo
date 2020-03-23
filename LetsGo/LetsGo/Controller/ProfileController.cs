@@ -19,8 +19,9 @@ namespace LetsGo.Controller
         private FirebaseDB fb = new FirebaseDB();
         public async void Logout_Clicked(object sender, EventArgs e)
         {
-            fb.SignOutUser();
-            await Navigation.PushAsync(new LoginController());
+            bool done = profile.LogoutUser();
+            if (done)
+                await Navigation.PushAsync(new LoginController());
         }
 
         public async void UpdateProfile_Clicked(object sender, EventArgs e)

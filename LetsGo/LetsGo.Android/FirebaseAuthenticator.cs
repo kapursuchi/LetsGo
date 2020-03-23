@@ -1,10 +1,6 @@
-﻿using Firebase.Auth;
-using LetsGo.Model.Authentication;
+﻿using LetsGo.Model.Authentication;
 using Xamarin.Forms;
-using System.Threading.Tasks;
-using System;
 using LetsGo.Droid;
-using Firebase;
 
 [assembly: Dependency(typeof(FirebaseAuthenticator))]
 namespace LetsGo.Droid

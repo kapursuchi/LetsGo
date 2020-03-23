@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Text;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System.Linq;
-using Newtonsoft.Json;
-using LetsGo.Model;
-using Xamarin.Essentials;
 using LetsGo.Model.Authentication;
 using System.Net.Mail;
 
@@ -17,7 +13,6 @@ namespace LetsGo.Model
     public class FirebaseDB
     {
         private FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
-        
 
         public async Task<bool> LoginUser(string email, string password)
         {
@@ -29,10 +24,6 @@ namespace LetsGo.Model
             }
             else if (email == CurrentUser.Email && password == CurrentUser.Password)
             {
-                string LoggedInUser = email;
-                await firebase
-                  .Child("loggedin")
-                  .PostAsync(CurrentUser);
                 return true;
             }
             else
@@ -42,17 +33,10 @@ namespace LetsGo.Model
         }
 
         
-        public async void SignOutUser()
+        public bool SignOutUser()
         {
-            string CurrentUserEmail = GetCurrentUser();
-            var userToSignOut = (await firebase
-                .Child("loggedin")
-                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == CurrentUserEmail).FirstOrDefault();
-            await firebase.Child("loggedin").Child(userToSignOut.Key).DeleteAsync();
+            return true;
         }
-
-        
-
 
         public async Task<bool> InitializeUser(string uName, DateTime uDOB, string uEmail, string password, bool publicAcct)
         {
@@ -64,7 +48,7 @@ namespace LetsGo.Model
                 return false;
             }
             string encodedPass = password;
-            UserProfile newUser = new UserProfile(uName.ToLower(), uDOB, uEmail.ToLower(), encodedPass.ToLower(), publicAcct);
+            UserProfile newUser = new UserProfile(uName.ToLower(), uDOB, uEmail.ToLower(), encodedPass, publicAcct);
             await firebase
               .Child("userprofiles")
               .PostAsync(newUser);
@@ -145,21 +129,34 @@ namespace LetsGo.Model
             var CurrentUser = users.Where(a => a.Email == CurrentUserEmail).FirstOrDefault();
             DateTime date = CurrentUser.DateOfBirth;
             string email = CurrentUser.Email;
+            List<string> interests;
 
             if (CurrentUser.Email != email)
                 return false;
 
-
-            List<string> interests = CurrentUser.Interests;
-            for (int i = 0; i < interestList.Count; i++)
+            if (CurrentUser.Interests != null)
             {
-                interests.Add(interestList.ElementAt(i));
+                interests = CurrentUser.Interests;
+                for (int i = 0; i < interestList.Count; i++)
+                {
+                    if (!interests.Contains(interestList.ElementAt(i)))
+                        interests.Add(interestList.ElementAt(i).ToLower());
+                }
             }
+            else
+            {
+                interests = new List<string>();
+                for (int i = 0; i < interestList.Count; i++)
+                {
+                    interests.Add(interestList.ElementAt(i).ToLower());
+                }
+            }
+
 
             await firebase
             .Child("userprofiles")
             .Child(userToUpdate.Key)
-            .PutAsync(new UserProfile() { Name = uName, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location, Interests = interests, PublicAcct = publicAccount });
+            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, PublicAcct = publicAccount });
             return true;
         }
 

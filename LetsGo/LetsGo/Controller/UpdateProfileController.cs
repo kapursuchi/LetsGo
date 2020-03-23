@@ -42,7 +42,12 @@ namespace LetsGo.Controller
             }
             string uName = name.Text;
             string city = location.Text;
-            List<string> interestList = interests.Text.Split(',').ToList();
+            List<string> interestSplit = interests.Text.Split(',').ToList();
+            List<string> interestList = new List<string>();
+            for (int i = 0; i < interestSplit.Count; i++)
+            {
+                interestList.Add(interestSplit.ElementAt(i).Trim());
+            }
             bool updated = await profile.UpdateProfile(uName, city, isPublic, interestList);
             if (!updated)
             {

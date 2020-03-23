@@ -19,12 +19,11 @@ namespace LetsGo.Model
 
         }
         readonly FirebaseDB fb = new FirebaseDB();
-        public void LogoutUser()
+        public bool LogoutUser()
         {
-            fb.SignOutUser();
+            bool SignedOut = fb.SignOutUser();
+            return SignedOut;
         }
-
-        
 
         public async Task<bool> UpdateProfile(string userName,  string userLocation, bool isPublic, List<string> interests)
         {
