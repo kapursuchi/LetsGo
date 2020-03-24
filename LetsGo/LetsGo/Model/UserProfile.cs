@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Xamarin.Forms;
 
 namespace LetsGo.Model
 {
@@ -9,6 +9,7 @@ namespace LetsGo.Model
     {
         public string Name { get; set; }
 
+        public ImageSource ProfilePicture { get; set; }
         public DateTime DateOfBirth { get; set; }
 
         public string Email { get; set; }
@@ -29,6 +30,7 @@ namespace LetsGo.Model
             Password = uPass;
             PublicAcct = publicAccount;
             Interests = new List<string>();
+            //ProfilePicture = ImageSource.FromFile("defaultProfilePic.jpg");
         }
 
         public UserProfile()

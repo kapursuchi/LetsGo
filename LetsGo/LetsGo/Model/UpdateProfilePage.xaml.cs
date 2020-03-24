@@ -12,6 +12,8 @@ namespace LetsGo.Model
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UpdateProfilePage : ContentPage
     {
+
+
     }
        
 }

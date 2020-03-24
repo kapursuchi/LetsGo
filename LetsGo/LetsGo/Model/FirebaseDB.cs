@@ -135,23 +135,13 @@ namespace LetsGo.Model
             if (CurrentUser.Email != email)
                 return false;
 
-            if (CurrentUser.Interests != null)
+            interests = new List<string>();
+            for (int i = 0; i < interestList.Count; i++)
             {
-                interests = CurrentUser.Interests;
-                for (int i = 0; i < interestList.Count; i++)
-                {
-                    if (!interests.Contains(interestList.ElementAt(i)))
-                        interests.Add(interestList.ElementAt(i).ToLower());
-                }
-            }
-            else
-            {
-                interests = new List<string>();
-                for (int i = 0; i < interestList.Count; i++)
-                {
+                if (!interests.Contains(interestList.ElementAt(i).ToLower()))
                     interests.Add(interestList.ElementAt(i).ToLower());
-                }
             }
+
 
 
             await firebase
@@ -214,6 +204,17 @@ namespace LetsGo.Model
 
             return current.Interests;
 
+        }
+
+        public async Task<bool> DeleteUserAccount()
+        {
+            string current = GetCurrentUser();
+            var userToDelete = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
+
+            await firebase.Child("userprofiles").Child(userToDelete.Key).DeleteAsync();
+            return true;
         }
 
         private string EncryptDecrypt(string szPlainText, int szEncryptionKey)

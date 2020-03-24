@@ -32,5 +32,11 @@ namespace LetsGo.Model
             return updated;
             
         }
+
+        public async Task<bool> DeleteUser()
+        {
+            bool deleted = await fb.DeleteUserAccount();
+            return deleted;
+        }
     }
 }

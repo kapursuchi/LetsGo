@@ -6,31 +6,111 @@ using Xamarin.Forms;
 using LetsGo.Model.Authentication;
 using System.Linq;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace LetsGo.Controller
 {
-    public partial class UpdateProfileController : INotifyPropertyChanged
+    public partial class UpdateProfileController : ContentPage, INotifyPropertyChanged
     {
-        
-        public UpdateProfileController()
-        {
-            InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = this;
-            
-        }
-        
-
         private ProfilePage profile = new ProfilePage();
         readonly FirebaseDB fb = new FirebaseDB();
         private bool isPublic;
         private bool toggled = false;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _name;
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private string _location;
+
+        public string Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+
+
+        private string _interests;
+
+        public string Interests
+        {
+            get
+            {
+                return _interests;
+            }
+            set
+            {
+                _interests = value;
+                OnPropertyChanged(nameof(Interests));
+            }
+        }
+
+        public UpdateProfileController()
+        {
+            
+            InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+            SetValues();
+            name.BindingContext = this;
+            interests.BindingContext = this;
+            location.BindingContext = this;
+            
+
+        }
+
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
         private async void SetValues()
         {
-            name.Text = await fb.GetUsersName();
-            location.Text = await fb.GetUsersLocation();
-            interests.Text =  fb.GetUsersInterests().ToString();
+            Name= await fb.GetUsersName();
+            Name = textInfo.ToTitleCase(Name);
+            Location = await fb.GetUsersLocation();
+            if (Location != null)
+                Location = textInfo.ToTitleCase(Location);
+            else
+            {
+                Location = "Location";
+            }
+            List<string> interestList = await fb.GetUsersInterests();
+            if (interestList != null)
+            { 
+                for (int i = 0; i < interestList.Count; i++)
+                {
+                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + ", ";
+                }
+                Interests = Interests.Substring(0, Interests.Length-2);
+            }
+            else
+            {
+                Interests = "List your interests here, comma separated.";
+                
+            }
         }
 
         public async void Save_Update_Clicked(object sender, EventArgs e)
@@ -52,6 +132,7 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Update Unsuccessful", "Your profile update was unsuccessful.", "OK");
             }
+            await Navigation.PushAsync(new ProfileController());
             
         }
 
@@ -62,8 +143,19 @@ namespace LetsGo.Controller
             isPublic = e.Value;
         }
 
-        public void Delete_Clicked(object sender, EventArgs e)
+        public async void Delete_Clicked(object sender, EventArgs e)
         {
+            bool deleted = await profile.DeleteUser();
+            if (deleted)
+            {
+                await DisplayAlert("Success", "Your account has been deleted", "OK");
+                await Navigation.PushAsync(new LoginController());
+            }    
+        }
+        
+        public void Change_Picture_Clicked(object sender, EventArgs e)
+        {
+
         }
 
 

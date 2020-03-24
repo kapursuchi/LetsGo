@@ -9,15 +9,21 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Edit Profile"
-                VerticalOptions="StartAndExpand" 
-                HorizontalOptions="CenterAndExpand" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Center" 
                    FontSize="Medium"
-                   TextColor="Black"/>
+                   TextColor="Black"
+                   Margin="30"/>
 
-            <Entry x:Name="name" Placeholder="Name"  BackgroundColor="Ivory" VerticalOptions="Start" />
 
-            <Entry x:Name="location" Placeholder="Location" BackgroundColor="Ivory" VerticalOptions="Start" />
-            <Entry x:Name="interests" Placeholder="Interests" VerticalOptions="Start"  BackgroundColor="Ivory"/>
+            
+            <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="30" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+
+            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Change_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff" Margin="20" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory" />
+
+            <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
+            <Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>
             <Grid   x:Name="publicAccountSwitch"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
@@ -30,6 +36,7 @@
                 </Grid.ColumnDefinitions>
                 <Label      x:Name="publicAcct"
                             Text="Public Account"
+                            Margin="10"
                             TextColor="Black"
                             FontSize="Body"
                             HorizontalOptions="Center"
@@ -38,6 +45,7 @@
                 <Switch     x:Name="publicAcctSwitch"
                             OnColor="PowderBlue"
                             ThumbColor="Black"
+                            Margin="10"
                             HorizontalOptions="Center"
                             Grid.Row="0"
                             Grid.Column="1"
@@ -47,7 +55,7 @@
 
 
             <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
-            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Red" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Transparent" TextColor="#ff4a4a" VerticalOptions="End" HorizontalOptions="Center"/>
 
         </StackLayout>
     </ContentPage.Content>

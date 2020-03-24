@@ -38,7 +38,8 @@ namespace LetsGo.Controller
                 bool token = await createAcct.CreateUserAccount(emailAddress, pass, userName, userdob, userPublicAcct);
                 if (token == true)
                 {
-                    await DisplayAlert("Success", "User account created.", "OK");
+                    await DisplayAlert("Success", "User account created. You will be redirected to the login screen now, and may update your profile once logged in.", "OK");
+                    await Navigation.PushAsync(new LoginController());
                 }
                 else
                 {
