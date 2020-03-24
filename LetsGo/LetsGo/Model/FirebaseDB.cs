@@ -7,6 +7,7 @@ using Firebase.Database.Query;
 using System.Linq;
 using LetsGo.Model.Authentication;
 using System.Net.Mail;
+using System.Text;
 
 namespace LetsGo.Model
 {
@@ -22,7 +23,7 @@ namespace LetsGo.Model
             {
                 return false;
             }
-            else if (email == CurrentUser.Email && password == CurrentUser.Password)
+            else if (email == CurrentUser.Email && EncryptDecrypt(password,5) == CurrentUser.Password)
             {
                 return true;
             }
@@ -47,7 +48,7 @@ namespace LetsGo.Model
             {
                 return false;
             }
-            string encodedPass = password;
+            string encodedPass = EncryptDecrypt(password, 5);
             UserProfile newUser = new UserProfile(uName.ToLower(), uDOB, uEmail.ToLower(), encodedPass, publicAcct);
             await firebase
               .Child("userprofiles")
@@ -87,7 +88,7 @@ namespace LetsGo.Model
                     .OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
 
                 await firebase.Child("userprofiles").Child(userToUpdate.Key)
-                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = "LetsGoResetPassword441", Location = CurrentUser.Location, Interests = CurrentUser.Interests, PublicAcct = CurrentUser.PublicAcct });
+                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, PublicAcct = CurrentUser.PublicAcct });
             }
             catch (Exception)
             {
@@ -172,11 +173,6 @@ namespace LetsGo.Model
             return auth.GetCurrentUser();
         }
 
-        
-
-
-
-
 
         private async Task<UserProfile> User()
         {
@@ -218,6 +214,20 @@ namespace LetsGo.Model
 
             return current.Interests;
 
+        }
+
+        private string EncryptDecrypt(string szPlainText, int szEncryptionKey)
+        {
+            StringBuilder szInputStringBuild = new StringBuilder(szPlainText);
+            StringBuilder szOutStringBuild = new StringBuilder(szPlainText.Length);
+            char Textch;
+            for (int iCount = 0; iCount < szPlainText.Length; iCount++)
+            {
+                Textch = szInputStringBuild[iCount];
+                Textch = (char)(Textch ^ szEncryptionKey);
+                szOutStringBuild.Append(Textch);
+            }
+            return szOutStringBuild.ToString();
         }
 
     }

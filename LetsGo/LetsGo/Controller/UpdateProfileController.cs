@@ -14,7 +14,6 @@ namespace LetsGo.Controller
         
         public UpdateProfileController()
         {
-           // SetValues();
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = this;
