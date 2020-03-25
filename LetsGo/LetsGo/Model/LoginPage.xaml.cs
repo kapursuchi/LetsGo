@@ -17,7 +17,7 @@ namespace LetsGo.Model
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private FirebaseDB fb = new FirebaseDB();
+        private readonly FirebaseDB fb = new FirebaseDB();
         public async Task<bool> LoginUserWithEmailPass(string email, string pass)
         {
             bool token = await fb.LoginUser(email, pass);

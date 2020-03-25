@@ -13,7 +13,7 @@ namespace LetsGo.Model
 {
     public class FirebaseDB
     {
-        private FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
+        private readonly FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
 
         public async Task<bool> LoginUser(string email, string password)
         {
@@ -53,6 +53,15 @@ namespace LetsGo.Model
             await firebase
               .Child("userprofiles")
               .PostAsync(newUser);
+            return true;
+        }
+
+        public async Task<bool> InitializeEvent(string eName, string edetails, DateTime eDate, TimeSpan eStart, TimeSpan eEnd, string eMail , bool publicAcct)
+        {
+            EventProfile newEvent = new EventProfile(eName.ToLower(), edetails.ToLower(), eDate, eStart, eEnd, eMail, publicAcct);
+            await firebase
+              .Child("Events")
+              .PostAsync(newEvent);
             return true;
         }
 
