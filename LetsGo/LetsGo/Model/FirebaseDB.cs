@@ -226,6 +226,26 @@ namespace LetsGo.Model
             return true;
         }
 
+        public async Task<bool> ChangePassword(string oldPassword, string NewPassword)
+        {
+            List<UserProfile> users = await GetAllUsers();
+            string CurrentUserEmail = GetCurrentUser();
+            var CurrentUser = users.Where(a => a.Email == CurrentUserEmail).FirstOrDefault();
+
+            if (oldPassword != EncryptDecrypt(CurrentUser.Password, 5))
+                return false;
+            var userToUpdate = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == CurrentUserEmail).FirstOrDefault();
+
+            await firebase
+                        .Child("userprofiles")
+                        .Child(userToUpdate.Key)
+                        .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, 
+                            Password = EncryptDecrypt(NewPassword, 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, PublicAcct = CurrentUser.PublicAcct });
+            return true;
+        }
+
         private string EncryptDecrypt(string szPlainText, int szEncryptionKey)
         {
             StringBuilder szInputStringBuild = new StringBuilder(szPlainText);

@@ -70,7 +70,9 @@
             </Grid>
             <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
                     HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
-            
+
+            <Button x:Name="resetPass" Text="Change Password" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
+
             <Button x:Name="logout" Text="Logout"  Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
                     HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
 
