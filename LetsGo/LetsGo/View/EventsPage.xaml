@@ -8,10 +8,119 @@
              x:Class="LetsGo.Controller.EventsPageController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the events page. Here you will see the list of the user's events."
+            <Label Text="You are able to create your own event here!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"/>
+            <Entry x:Name="Ename" Placeholder="Event Name" VerticalOptions="Start" BackgroundColor="Ivory" />
+            
+            <Entry x:Name="Edetails" Placeholder="Event Details" VerticalOptions="Start" BackgroundColor="Ivory"/>
+
+            
+
+            <Grid   x:Name="dateofEvent"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="DoE"
+                            Text="Date of Event"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <DatePicker 
+                            BackgroundColor="Ivory"
+                            HorizontalOptions="CenterAndExpand"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            MinimumDate="3/25/2020"
+                            DateSelected="OnDateSelected"
+                            />
+            </Grid>
+            <Grid   x:Name="startOfEvent"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="_startOfEvent"
+                            Text="Start Time of Event"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <TimePicker 
+                            BackgroundColor="Ivory"
+                            HorizontalOptions="CenterAndExpand"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Time ="{Binding SelectedTime}"
+                            />
+            </Grid>
+            <Grid   x:Name="endOfEvent"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="_endOfEvent"
+                            Text="End Time of Event"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <TimePicker 
+                            BackgroundColor="Ivory"
+                            HorizontalOptions="CenterAndExpand"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Time = "{Binding SelectedTime}"
+                            />
+            </Grid>
+            <Grid   x:Name="publicAccountSwitch"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label      x:Name="publicEvt"
+                            Text="Public Event?"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                <Switch     x:Name="publicAcctSwitch"
+                            OnColor="PowderBlue"
+                            ThumbColor="Black"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Toggled="On_Toggled"
+                            />
+            </Grid>
+            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,7 @@ namespace LetsGo.Controller
 {
     public partial class UpdateProfileController : ContentPage, INotifyPropertyChanged
     {
-        private ProfilePage profile = new ProfilePage();
+        private readonly ProfilePage profile = new ProfilePage();
         readonly FirebaseDB fb = new FirebaseDB();
         private bool isPublic;
         private bool toggled = false;
@@ -84,7 +84,7 @@ namespace LetsGo.Controller
 
         }
 
-        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
         private async void SetValues()
         {

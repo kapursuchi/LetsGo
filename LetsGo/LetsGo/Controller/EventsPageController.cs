@@ -8,10 +8,54 @@ namespace LetsGo.Controller
 {
     public partial class EventsPageController
     {
+        private bool eventPublic;
+        DateTime dobChosen;
+        TimeSpan Start;
+        TimeSpan End;
+        readonly FirebaseDB fb = new FirebaseDB();
+
         public EventsPageController()
         {
             InitializeComponent();
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
         }
+        readonly private EventsPage _createEvent = new EventsPage();
+        public async void CreateEvent_Clicked(object sender, EventArgs e)
+        {
+            
+                string eventDetails = Edetails.Text;
+                string EventName = Ename.Text;
+                string eMail = fb.GetCurrentUser();
+            DateTime EventDate = dobChosen;
+                TimeSpan eStart = Start;
+                TimeSpan eEnd = End;
+            bool token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, eMail, eventPublic);
+                if (token == true)
+                {
+                    await DisplayAlert("Success", "Event has been created.", "OK");
+                    //await Navigation.PushAsync(new LoginController());
+                }
+                else
+                {
+                    await DisplayAlert("Failed to Create Event", "?", "OK");
+                }
+        }
+        public void On_Toggled(object sender, ToggledEventArgs e)
+        {
+            eventPublic = e.Value;
+        }
+        public void OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            dobChosen = e.NewDate;
+        }
+        /*Start and end assigned to are here
+        public void OnStartTimeSelected(object sender, TimeEventArgs e)
+        {
+            Start = e.;
+        }
+        public void OnEndTimeSelected(object sender, DateChangedEventArgs e)
+        {
+            End = e.NewTime;
+        }*/
     }
 }
