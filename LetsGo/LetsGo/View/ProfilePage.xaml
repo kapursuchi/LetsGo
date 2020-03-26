@@ -31,10 +31,10 @@
                        Grid.Column="0"/>
                 <Label x:Name="name" Text="{Binding Name}" TextColor="Black" 
                        VerticalOptions="Center" 
-                       HorizontalOptions="End"
+                       HorizontalOptions="Start"
                        FontSize="Large"
                        Grid.Row="0"
-                       Grid.Column="0"/>
+                       Grid.Column="1"/>
                 <Image      Source="socialicon.png"
                             HeightRequest="20"
                             HorizontalOptions="CenterAndExpand"
@@ -52,7 +52,7 @@
                 <Label      x:Name="interestslabel"
                             Text="Interests: "
                             TextColor="Black"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="End"
                             FontSize="Body"
                             Grid.Row="2"
                             Grid.Column="0"
@@ -61,10 +61,10 @@
                 <Label      x:Name="interests"
                             Text="{Binding Interests}"
                             TextColor="Black"
-                            HorizontalOptions="End"
+                            HorizontalOptions="Start"
                             FontSize="Body"
                             Grid.Row="2"
-                            Grid.Column="0"
+                            Grid.Column="1"
                             Margin="10"
                             />
             </Grid>

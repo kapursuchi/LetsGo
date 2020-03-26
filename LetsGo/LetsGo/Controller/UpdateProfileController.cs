@@ -16,6 +16,19 @@ namespace LetsGo.Controller
         readonly FirebaseDB fb = new FirebaseDB();
         private bool isPublic;
         private bool toggled = false;
+        private bool _istoggled;
+        public bool istoggled
+        {
+            get
+            {
+                return _istoggled;
+            }
+            set
+            {
+                _istoggled = value;
+                OnPropertyChanged(nameof(istoggled));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -80,14 +93,15 @@ namespace LetsGo.Controller
             name.BindingContext = this;
             interests.BindingContext = this;
             location.BindingContext = this;
+            publicAccountSwitch.BindingContext = this;
             
-
         }
 
         readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
         private async void SetValues()
         {
+            istoggled = await fb.HasPublicAccount();
             Name= await fb.GetUsersName();
             Name = textInfo.ToTitleCase(Name);
             Location = await fb.GetUsersLocation();
@@ -132,7 +146,7 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Update Unsuccessful", "Your profile update was unsuccessful.", "OK");
             }
-            await Navigation.PushAsync(new ProfileController());
+            await Navigation.PushAsync(new NavigationBarController());
             
         }
 

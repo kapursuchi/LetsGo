@@ -49,6 +49,8 @@
                             HorizontalOptions="Center"
                             Grid.Row="0"
                             Grid.Column="1"
+                            
+                            IsToggled="{Binding istoggled}"
                             Toggled="On_Toggled"
                             />
             </Grid>

@@ -41,8 +41,6 @@ namespace LetsGo.Controller
             }
         }
 
-        
-
         public string Location
         {
             get
@@ -74,27 +72,27 @@ namespace LetsGo.Controller
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
         private async void SetValues()
         {
-            _name = await fb.GetUsersName();
-            _name = textInfo.ToTitleCase(_name);
-            _location = await fb.GetUsersLocation();
-            if (_location != null)
-                _location = textInfo.ToTitleCase(_location);
+            Name = await fb.GetUsersName();
+            Name = textInfo.ToTitleCase(Name);
+            Location = await fb.GetUsersLocation();
+            if (Location != null)
+                Location = textInfo.ToTitleCase(Location);
             else
             {
-                _location = "No Location Yet...";
+                Location = "No Location Yet...";
             }
             List<string> interestList = await fb.GetUsersInterests();
             if (interestList != null)
             {
                 for (int i = 0; i < interestList.Count; i++)
                 {
-                    _interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + ", ";
+                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + ", ";
                 }
-                _interests = _interests.Substring(0, _interests.Length - 2);
+                Interests = Interests.Substring(0, Interests.Length - 2);
             }
             else
             {
-                _interests = "No Interests Yet...";
+                Interests = "No Interests Yet...";
 
             }
         }
