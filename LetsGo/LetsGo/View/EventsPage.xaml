@@ -8,15 +8,18 @@
              x:Class="LetsGo.Controller.EventsPageController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="You are able to create your own event here!"
-                VerticalOptions="CenterAndExpand" 
+            <Label Text="Create an Event!"
+                VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"/>
+                   FontSize="Medium"
+                   TextColor="Black"
+                   Margin="20"/>
             <Entry x:Name="Ename" Placeholder="Event Name" VerticalOptions="Start" BackgroundColor="Ivory" />
             
             <Entry x:Name="Edetails" Placeholder="Event Details" VerticalOptions="Start" BackgroundColor="Ivory"/>
 
-            
+            <Entry x:Name="city" Placeholder="Location of Event"  VerticalOptions="Start" BackgroundColor="Ivory"/>
+            <Entry x:Name="interests" Placeholder="Interest Tags for Event (Comma Separated)" VerticalOptions="Start" BackgroundColor="Ivory"/>
 
             <Grid   x:Name="dateofEvent"
                     VerticalOptions="Center"
@@ -69,6 +72,7 @@
                             Time ="{Binding SelectedTime}"
                             />
             </Grid>
+
             <Grid   x:Name="endOfEvent"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
@@ -105,7 +109,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label      x:Name="publicEvt"
-                            Text="Public Event?"
+                            Text="Public Event"
                             TextColor="Black"
                             FontSize="Body"
                             HorizontalOptions="Center"

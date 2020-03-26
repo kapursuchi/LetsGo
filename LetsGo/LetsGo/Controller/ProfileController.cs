@@ -12,21 +12,39 @@ namespace LetsGo.Controller
 {
     public partial class ProfileController : ContentPage, INotifyPropertyChanged
     {
+        private ProfilePage profile = new ProfilePage();
+
+        private FirebaseDB fb = new FirebaseDB();
+        private string _name { get; set; }
+        private string _location { get; set; }
+        private string _interests { get; set; }
+
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
         public ProfileController()
         {
+
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             SetValues();
             name.BindingContext = this;
             location.BindingContext = this;
             interests.BindingContext = this;
+
         }
 
-        private ProfilePage profile = new ProfilePage();
-        private FirebaseDB fb = new FirebaseDB();
-        private string _name { get; set; }
-        private string _location { get; set; }
-        private string _interests { get; set; }
+        public string Interests
+        {
+            get
+            {
+                return _interests;
+            }
+            set
+            {
+                _interests = value;
+                OnPropertyChanged(nameof(Interests));
+            }
+        }
 
         public string Name
         {
@@ -55,21 +73,6 @@ namespace LetsGo.Controller
         }
 
         
-
-        public string Interests
-        {
-            get
-            {
-                return _interests;
-            }
-            set
-            {
-                _interests = value;
-                OnPropertyChanged(nameof(Interests));
-            }
-        }
-        
-        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
         private async void SetValues()
         {
             Name = await fb.GetUsersName();
@@ -82,19 +85,22 @@ namespace LetsGo.Controller
                 Location = "No Location Yet...";
             }
             List<string> interestList = await fb.GetUsersInterests();
+            
             if (interestList != null)
             {
                 for (int i = 0; i < interestList.Count; i++)
                 {
-                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + ", ";
+                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + "\n" ;
                 }
-                Interests = Interests.Substring(0, Interests.Length - 2);
+                Interests.Substring(0, Interests.Length - 2);
+                
             }
             else
             {
                 Interests = "No Interests Yet...";
 
             }
+            
         }
 
         public async void Logout_Clicked(object sender, EventArgs e)

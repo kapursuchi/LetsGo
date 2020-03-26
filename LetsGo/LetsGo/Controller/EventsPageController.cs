@@ -22,23 +22,25 @@ namespace LetsGo.Controller
         readonly private EventsPage _createEvent = new EventsPage();
         public async void CreateEvent_Clicked(object sender, EventArgs e)
         {
-            
-                string eventDetails = Edetails.Text;
-                string EventName = Ename.Text;
-                string eMail = fb.GetCurrentUser();
+
+            string eventDetails = Edetails.Text;
+            string EventName = Ename.Text;
+            string eMail = fb.GetCurrentUser();
+            string location = city.Text;
+            string likes = interests.Text;
             DateTime EventDate = dobChosen;
-                TimeSpan eStart = Start;
-                TimeSpan eEnd = End;
-            bool token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, eMail, eventPublic);
-                if (token == true)
-                {
-                    await DisplayAlert("Success", "Event has been created.", "OK");
-                    //await Navigation.PushAsync(new LoginController());
-                }
-                else
-                {
-                    await DisplayAlert("Failed to Create Event", "?", "OK");
-                }
+            string eStart = Start.ToString();
+            string eEnd = End.ToString();
+            bool token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, location, eMail, likes, eventPublic);
+            if (token == true)
+            {
+                await DisplayAlert("Success", "Event has been created.", "OK");
+                //await Navigation.PushAsync(new LoginController());
+            }
+            else
+            {
+                await DisplayAlert("Failed to Create Event", "?", "OK");
+            }
         }
         public void On_Toggled(object sender, ToggledEventArgs e)
         {

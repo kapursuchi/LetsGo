@@ -8,13 +8,17 @@ using System.Linq;
 using LetsGo.Model.Authentication;
 using System.Net.Mail;
 using System.Text;
+using Firebase.Storage;
+using System.IO;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace LetsGo.Model
 {
     public class FirebaseDB
     {
         private readonly FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
-
+        private FirebaseStorage firebaseStorage = new FirebaseStorage("xamarinfirebase-letsgo-f4d0d.appspot.com");
         public async Task<bool> LoginUser(string email, string password)
         {
             List<UserProfile> users = await GetAllUsers();
@@ -23,7 +27,7 @@ namespace LetsGo.Model
             {
                 return false;
             }
-            else if (email == CurrentUser.Email && EncryptDecrypt(password,5) == CurrentUser.Password)
+            else if (email == CurrentUser.Email && EncryptDecrypt(password, 5) == CurrentUser.Password)
             {
                 return true;
             }
@@ -33,7 +37,7 @@ namespace LetsGo.Model
             }
         }
 
-        
+
         public bool SignOutUser()
         {
             return true;
@@ -56,9 +60,9 @@ namespace LetsGo.Model
             return true;
         }
 
-        public async Task<bool> InitializeEvent(string eName, string edetails, DateTime eDate, TimeSpan eStart, TimeSpan eEnd, string eMail , bool publicAcct)
+        public async Task<bool> InitializeEvent(string eName, string edetails, DateTime eDate, string eStart, string eEnd, string location, string eMail, string interests, bool publicAcct)
         {
-            EventProfile newEvent = new EventProfile(eName.ToLower(), edetails.ToLower(), eDate, eStart, eEnd, eMail, publicAcct);
+            EventProfile newEvent = new EventProfile(eName.ToLower(), edetails.ToLower(), eDate, eStart, eEnd, location.ToLower(), eMail, interests.ToLower(), publicAcct);
             await firebase
               .Child("Events")
               .PostAsync(newEvent);
@@ -85,7 +89,7 @@ namespace LetsGo.Model
                 SmtpServer.Host = "smtp.gmail.com";
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("letsgo.noreply441@gmail.com" , "LetsGo123");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("letsgo.noreply441@gmail.com", "LetsGo123");
 
                 SmtpServer.Send(mail);
 
@@ -241,8 +245,16 @@ namespace LetsGo.Model
             await firebase
                         .Child("userprofiles")
                         .Child(userToUpdate.Key)
-                        .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, 
-                            Password = EncryptDecrypt(NewPassword, 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, PublicAcct = CurrentUser.PublicAcct });
+                        .PutAsync(new UserProfile()
+                        {
+                            Name = CurrentUser.Name,
+                            Email = CurrentUser.Email,
+                            DateOfBirth = CurrentUser.DateOfBirth,
+                            Password = EncryptDecrypt(NewPassword, 5),
+                            Location = CurrentUser.Location,
+                            Interests = CurrentUser.Interests,
+                            PublicAcct = CurrentUser.PublicAcct
+                        });
             return true;
         }
 
@@ -258,6 +270,16 @@ namespace LetsGo.Model
                 szOutStringBuild.Append(Textch);
             }
             return szOutStringBuild.ToString();
+        }
+
+
+        public async Task<string> UploadFile(Stream fileStream, string userEventOrComm, string fileName)
+        {
+            var imageUrl = await firebaseStorage
+                .Child(userEventOrComm)
+                .Child(fileName)
+                .PutAsync(fileStream);
+            return imageUrl;
         }
 
     }

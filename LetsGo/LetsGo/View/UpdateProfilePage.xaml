@@ -18,8 +18,8 @@
 
             
             <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="30" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-
-            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Change_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff" Margin="20" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+            <!--<Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+            --><Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff" Margin="20" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
             <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory" />
 
             <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />

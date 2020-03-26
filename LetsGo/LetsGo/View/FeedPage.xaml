@@ -7,10 +7,11 @@
              x:Class="LetsGo.Controller.FeedController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the user's feed"
-                VerticalOptions="CenterAndExpand" 
+            <Label Text="Feed"
+                VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"/>
+                   FontSize="Medium"
+                   TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

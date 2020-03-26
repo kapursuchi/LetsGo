@@ -7,75 +7,78 @@
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ProfileController">
     <ContentPage.Content>
-        <StackLayout>
-            <Image Source="LogoBanner.PNG" HeightRequest="80" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+        <ScrollView>
+            <StackLayout>
+                <Image Source="LogoBanner.PNG" HeightRequest="80" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
 
-            <Grid   x:Name="profilegrid"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Image Source="defaultProfilePic.jpg" 
-                       Aspect="AspectFit" 
-                       HeightRequest="85" 
-                       WidthRequest="85" 
-                       Margin="15" 
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center"
-                       Grid.Row="0"
-                       Grid.Column="0"/>
-                <Label x:Name="name" Text="{Binding Name}" TextColor="Black" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"
-                       FontSize="Large"
-                       Grid.Row="0"
-                       Grid.Column="1"/>
-                <Image      Source="socialicon.png"
-                            HeightRequest="20"
-                            HorizontalOptions="CenterAndExpand"
-                            Grid.Row="1"
-                            Grid.Column="0" />
-                <Label      x:Name="location"
-                            Text="{Binding Location}"
-                            TextColor="Black"
-                            HorizontalOptions="End"
-                            FontSize="Body"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Margin="10"
-                            />
-                <Label      x:Name="interestslabel"
-                            Text="Interests: "
-                            TextColor="Black"
-                            HorizontalOptions="End"
-                            FontSize="Body"
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Margin="10"
-                            />
-                <Label      x:Name="interests"
-                            Text="{Binding Interests}"
-                            TextColor="Black"
-                            HorizontalOptions="Start"
-                            FontSize="Body"
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="10"
-                            />
-            </Grid>
-            <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                <Grid   x:Name="profilegrid"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="defaultProfilePic.jpg" 
+                           Aspect="AspectFit" 
+                           HeightRequest="85" 
+                           WidthRequest="85" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center"
+                           Grid.Row="0"
+                           Grid.Column="0"/>
+                    <Label x:Name="name" Text="{Binding Name}" TextColor="Black" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"
+                           FontSize="Large"
+                           Grid.Row="0"
+                           Grid.Column="1"/>
+                    <Image      Source="socialicon.png"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="10"/>
+                    <Label      x:Name="location"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                FontSize="Body"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="10"
+                                />
+                    <Label      x:Name="interestslabel"
+                                Text="Interests:"
+                                FontAttributes="Bold"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                FontSize="Medium"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                />
+                    <Label      x:Name="interests"
+                                Text="{Binding Interests}"
+                                TextColor="Black"
+                                HorizontalOptions="Start"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                            
+                                />
+                </Grid>
+                <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
 
-            <Button x:Name="resetPass" Text="Change Password" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
+                <Button x:Name="resetPass" Text="Change Password" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
 
-            <Button x:Name="logout" Text="Logout"  Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                <Button x:Name="logout" Text="Logout"  Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
+                        HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
 
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

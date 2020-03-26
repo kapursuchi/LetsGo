@@ -7,6 +7,10 @@ using LetsGo.Model.Authentication;
 using System.Linq;
 using System.ComponentModel;
 using System.Globalization;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace LetsGo.Controller
 {
@@ -17,6 +21,8 @@ namespace LetsGo.Controller
         private bool isPublic;
         private bool toggled = false;
         private bool _istoggled;
+
+        
         public bool istoggled
         {
             get
@@ -83,6 +89,22 @@ namespace LetsGo.Controller
                 OnPropertyChanged(nameof(Interests));
             }
         }
+
+        private Image _img;
+        public Image ProfileImage
+        {
+            get
+            {
+                return _img;
+            }
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ProfileImage));
+            }
+        }
+
+
 
         public UpdateProfileController()
         {
@@ -166,12 +188,38 @@ namespace LetsGo.Controller
                 await Navigation.PushAsync(new LoginController());
             }    
         }
-        
-        public void Change_Picture_Clicked(object sender, EventArgs e)
-        {
 
+        public async void Upload_Picture_Clicked(object sender, EventArgs e)
+        {/*
+            await CrossMedia.Current.Initialize();
+            try
+            {
+                MediaFile file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+                if (file != null)
+                {
+                    ProfileImage.Source = ImageSource.FromStream(() =>
+                    {
+                        var imageStram = file.GetStream();
+                        //string file = await fb.UploadFile(file.GetStream(), "userprofiles", Path.GetFileName(file.Path));
+                        return imageStram;
+
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Failed", ex.Message, "OK");
+            }
+            */
         }
-
+        
 
     }
+
+
 }
+
