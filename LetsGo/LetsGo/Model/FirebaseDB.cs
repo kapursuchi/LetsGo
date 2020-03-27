@@ -12,13 +12,20 @@ using Firebase.Storage;
 using System.IO;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System.Globalization;
 
 namespace LetsGo.Model
 {
     public class FirebaseDB
     {
-        private readonly FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
+        public readonly FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
         private FirebaseStorage firebaseStorage = new FirebaseStorage("xamarinfirebase-letsgo-f4d0d.appspot.com");
+        readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+        public FirebaseClient getDB()
+        {
+            return firebase;
+        }
         public async Task<bool> LoginUser(string email, string password)
         {
             List<UserProfile> users = await GetAllUsers();
@@ -280,6 +287,30 @@ namespace LetsGo.Model
                 .Child(fileName)
                 .PutAsync(fileStream);
             return imageUrl;
+        }
+
+        public async Task<List<EventProfile>> GetFeed()
+        {
+            string currentEmail = GetCurrentUser();
+            string location = await GetUsersLocation();
+
+            var events = (await firebase
+                        .Child("Events")
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.Location == location && a.Object.PublicEvent == true).ToList();
+
+            var feedEvents = events.ToList();
+
+            List<EventProfile> feed = new List<EventProfile>();
+            for (int i = 0; i < feedEvents.Count; i++)
+            {
+                feed.Add(new EventProfile() { Name = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Name), DateOfEvent = feedEvents.ElementAt(i).Object.DateOfEvent,
+                                             Location = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Location), Description = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Description),
+                                             EventOwner = feedEvents.ElementAt(i).Object.EventOwner, StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
+                                             EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent, Interests = feedEvents.ElementAt(i).Object.Interests,
+                                             PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent});
+            }
+            
+            return feed;
         }
 
     }

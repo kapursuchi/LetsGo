@@ -12,6 +12,26 @@
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"
                    TextColor="Black"/>
+
+            <ListView x:Name="FeedView" ItemsSource="{Binding FeedEvents}" BackgroundColor="Transparent" SelectionMode="None" >
+                <ListView.ItemTemplate>
+                   
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnAdd" CommandParameter="{Binding .}" Text="Add" />
+                                <MenuItem Clicked="OnView" CommandParameter="{Binding .}" Text="View" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Padding="15,0">
+                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Description}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+                
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
