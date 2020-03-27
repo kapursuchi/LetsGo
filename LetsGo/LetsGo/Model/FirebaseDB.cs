@@ -222,7 +222,12 @@ namespace LetsGo.Model
         {
             UserProfile current = await User();
 
-            return current.Interests;
+            List<string> interests = new List<string>();
+            for (int i = 0; i < current.Interests.Count; i++)
+            {
+                interests.Add(textInfo.ToTitleCase(current.Interests.ElementAt(i)));
+            }
+            return interests;
 
         }
 

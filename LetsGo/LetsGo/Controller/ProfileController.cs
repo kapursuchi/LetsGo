@@ -17,7 +17,7 @@ namespace LetsGo.Controller
         private FirebaseDB fb = new FirebaseDB();
         private string _name { get; set; }
         private string _location { get; set; }
-        private string _interests { get; set; }
+        private List<string> _interests { get; set; }
 
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
@@ -29,22 +29,10 @@ namespace LetsGo.Controller
             SetValues();
             name.BindingContext = this;
             location.BindingContext = this;
-            interests.BindingContext = this;
-
+            
         }
 
-        public string Interests
-        {
-            get
-            {
-                return _interests;
-            }
-            set
-            {
-                _interests = value;
-                OnPropertyChanged(nameof(Interests));
-            }
-        }
+        public List<string> Interests { get; set; }
 
         public string Name
         {
@@ -84,22 +72,15 @@ namespace LetsGo.Controller
             {
                 Location = "No Location Yet...";
             }
-            List<string> interestList = await fb.GetUsersInterests();
+            Interests =  await fb.GetUsersInterests();
             
-            if (interestList != null)
+            if (Interests == null)
             {
-                for (int i = 0; i < interestList.Count; i++)
-                {
-                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + "\n" ;
-                }
-                Interests.Substring(0, Interests.Length - 2);
                 
-            }
-            else
-            {
-                Interests = "No Interests Yet...";
+                Interests.Add("No interests listed yet...");
 
             }
+            interests.ItemsSource = Interests;
             
         }
 

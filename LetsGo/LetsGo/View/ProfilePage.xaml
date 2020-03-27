@@ -7,10 +7,10 @@
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ProfileController">
     <ContentPage.Content>
-        <ScrollView>
+        
             <StackLayout>
                 <Image Source="LogoBanner.PNG" HeightRequest="80" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
-
+            <ScrollView>
                 <Grid   x:Name="profilegrid"
                         VerticalOptions="Center"
                         HorizontalOptions="Center">
@@ -41,7 +41,7 @@
                                 VerticalOptions="Start"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Margin="10"/>
+                                Margin="20"/>
                     <Label      x:Name="location"
                                 Text="{Binding Location}"
                                 TextColor="Black"
@@ -50,35 +50,34 @@
                                 FontSize="Body"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Margin="10"
-                                />
-                    <Label      x:Name="interestslabel"
-                                Text="Interests:"
-                                FontAttributes="Bold"
-                                TextColor="Black"
-                                HorizontalOptions="Center"
-                                FontSize="Medium"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                />
-                    <Label      x:Name="interests"
-                                Text="{Binding Interests}"
-                                TextColor="Black"
-                                HorizontalOptions="Start"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                            
+                                Margin="20"
                                 />
                 </Grid>
+        </ScrollView>
+        <Label      x:Name="interestslabel"
+                                Text="    Interests"
+                                FontAttributes="Bold"
+                                TextColor="Black"
+                                HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                                FontSize="Medium"
+                                />
+                <ListView      x:Name="interests"
+                                ItemsSource="{Binding Interests}"
+                                HorizontalOptions="Center"
+                               
+                            
+                                />
+
                 <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                        HorizontalOptions="CenterAndExpand" />
 
                 <Button x:Name="resetPass" Text="Change Password" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
 
                 <Button x:Name="logout" Text="Logout"  Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                        HorizontalOptions="CenterAndExpand" />
 
             </StackLayout>
-        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>
