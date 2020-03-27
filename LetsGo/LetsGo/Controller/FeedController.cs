@@ -18,13 +18,8 @@ namespace LetsGo.Controller
     {
         readonly private FirebaseDB fb = new FirebaseDB();
 
-        private List<EventProfile> _events { get; set; }
-
-
         public FeedController()
-        {
-            //FeedEvents = new List<EventProfile>() { new EventProfile("Event 1", "Description 1",  Convert.ToDateTime("3/12/2020"), "4:30", "5:30", "Oceanside", "kapursuchi@gmail.com", "Running,health", true),
-            //                                        new EventProfile("Event 2", "Description 2",  Convert.ToDateTime("3/12/2020"), "4:30", "5:30", "Oceanside", "kapursuchi@gmail.com", "Running,health", true)};
+        {   
             FeedEvents = new List<EventProfile>();
             
             SetFeed();

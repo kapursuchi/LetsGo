@@ -13,6 +13,7 @@ using System.IO;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Globalization;
+using System.Collections;
 
 namespace LetsGo.Model
 {
@@ -132,7 +133,16 @@ namespace LetsGo.Model
                         PublicAcct = item.Object.PublicAcct
                     }).ToList();
 
-            return users;
+            List<UserProfile> AllUsers = new List<UserProfile>();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                AllUsers.Add(new UserProfile() { Name = textInfo.ToTitleCase(users.ElementAt(i).Name), DateOfBirth = users.ElementAt(i).DateOfBirth,
+                    Email = users.ElementAt(i).Email, Interests = users.ElementAt(i).Interests, Location = textInfo.ToTitleCase(users.ElementAt(i).Location),
+                                                 PublicAcct = users.ElementAt(i).PublicAcct, Password = users.ElementAt(i).Password});
+            }
+
+            return AllUsers;
         }
 
         public async Task<bool> UpdateUserProfile(string uName, string location, bool publicAccount, List<string> interestList)
@@ -316,6 +326,131 @@ namespace LetsGo.Model
             }
             
             return feed;
+        }
+
+        public async Task<ArrayList> Search(string InterestTag)
+        {
+            string currentEmail = GetCurrentUser();
+            ArrayList searchResults = new ArrayList();
+            List<EventProfile> publicEvents = await GetPublicEvents(InterestTag);
+            List<CommunityProfile> publicCommunities = await GetPublicCommunities(InterestTag);
+            List<UserProfile> publicUsers = await GetPublicUsers(InterestTag);
+
+            for (int i = 0; i < publicEvents.Count; i++)
+            {
+                searchResults.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(publicEvents.ElementAt(i).Name),
+                    DateOfEvent = publicEvents.ElementAt(i).DateOfEvent,
+                    Location = textInfo.ToTitleCase(publicEvents.ElementAt(i).Location),
+                    Description = textInfo.ToTitleCase(publicEvents.ElementAt(i).Description),
+                    EventOwner = publicEvents.ElementAt(i).EventOwner,
+                    StartOfEvent = publicEvents.ElementAt(i).StartOfEvent,
+                    EndOfEvent = publicEvents.ElementAt(i).EndOfEvent,
+                    Interests = publicEvents.ElementAt(i).Interests,
+                    PublicEvent = publicEvents.ElementAt(i).PublicEvent
+                });
+            }
+
+            for (int i = 0; i < publicUsers.Count; i++)
+            {
+                searchResults.Add(new UserProfile()
+                {
+                    Name = textInfo.ToTitleCase(publicUsers.ElementAt(i).Name),
+                    DateOfBirth = publicUsers.ElementAt(i).DateOfBirth,
+                    Email = publicUsers.ElementAt(i).Email,
+                    Interests = publicUsers.ElementAt(i).Interests,
+                    Location = textInfo.ToTitleCase(publicUsers.ElementAt(i).Location),
+                    PublicAcct = publicUsers.ElementAt(i).PublicAcct
+                });
+            }
+
+            for (int i = 0; i < publicCommunities.Count; i++)
+            {
+                searchResults.Add(new CommunityProfile()
+                {
+                    Name = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Name),
+                    Identity = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Identity),
+                    CommunityLeader = publicCommunities.ElementAt(i).CommunityLeader,
+                    Interests = publicCommunities.ElementAt(i).Interests,
+                    PublicCommunity = publicCommunities.ElementAt(i).PublicCommunity
+                });
+            }
+
+
+            return searchResults;
+
+        }
+
+        public async Task<List<UserProfile>> GetPublicUsers(string InterestTag)
+        {
+            var users = (await firebase
+                        .Child("userprofiles")
+                        .OnceAsync<UserProfile>()).Where(a => a.Object.PublicAcct == true && a.Object.Interests.Contains(InterestTag)).ToList();
+            List<UserProfile> publicUsers = new List<UserProfile>();
+            for (int i = 0; i < users.Count; i++)
+            {
+                publicUsers.Add(new UserProfile()
+                {
+                    Name = textInfo.ToTitleCase(users.ElementAt(i).Object.Name),
+                    DateOfBirth = users.ElementAt(i).Object.DateOfBirth,
+                    Email = users.ElementAt(i).Object.Email,
+                    Interests = users.ElementAt(i).Object.Interests,
+                    Location = textInfo.ToTitleCase(users.ElementAt(i).Object.Location),
+                    PublicAcct = users.ElementAt(i).Object.PublicAcct
+                });
+            }
+            return publicUsers;
+        }
+        public async Task<List<CommunityProfile>> GetPublicCommunities(string InterestTag)
+        {
+            var communities = (await firebase
+                .Child("Communities")
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.PublicCommunity == true && a.Object.Interests.Contains(InterestTag)).ToList();
+            List<CommunityProfile> publicCommunities = new List<CommunityProfile>();
+
+            var commList = communities.ToList();
+            for (int i = 0; i < commList.Count; i++)
+            {
+                publicCommunities.Add(new CommunityProfile()
+                {
+                    Name = textInfo.ToTitleCase(commList.ElementAt(i).Object.Name),
+                    Identity = textInfo.ToTitleCase(commList.ElementAt(i).Object.Identity),
+                    CommunityLeader = commList.ElementAt(i).Object.CommunityLeader,
+                    Interests = commList.ElementAt(i).Object.Interests,
+                    PublicCommunity = commList.ElementAt(i).Object.PublicCommunity
+                });
+            }
+
+            return publicCommunities;
+        }
+
+        public async Task<List<EventProfile>> GetPublicEvents(string InterestTag)
+        {
+            var events = (await firebase
+            .Child("Events")
+            .OnceAsync<EventProfile>()).Where(a => a.Object.PublicEvent == true && a.Object.Interests.Contains(InterestTag)).ToList();
+
+            var eventsList = events.ToList();
+
+            List<EventProfile> publicEvents = new List<EventProfile>();
+
+            for (int i = 0; i < eventsList.Count; i++)
+            {
+                publicEvents.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Name),
+                    DateOfEvent = eventsList.ElementAt(i).Object.DateOfEvent,
+                    Location = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Location),
+                    Description = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Description),
+                    EventOwner = eventsList.ElementAt(i).Object.EventOwner,
+                    StartOfEvent = eventsList.ElementAt(i).Object.StartOfEvent,
+                    EndOfEvent = eventsList.ElementAt(i).Object.EndOfEvent,
+                    Interests = eventsList.ElementAt(i).Object.Interests,
+                    PublicEvent = eventsList.ElementAt(i).Object.PublicEvent
+                });
+            }
+            return publicEvents;
         }
 
     }

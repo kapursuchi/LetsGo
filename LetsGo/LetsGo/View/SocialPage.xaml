@@ -8,16 +8,35 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Social aspects here: Community, Events, Friends"
-                VerticalOptions="StartAndExpand" 
+                VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"/>
+                   FontSize="Medium"
+                   Margin="10"/>
 
+            <ScrollView>
+                <SearchBar Placeholder="Search by Interest Tag"  PlaceholderColor="Black" VerticalOptions="StartAndExpand" TextColor="Black" TextChanged="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>
+            </ScrollView>
+            <ListView x:Name="search" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnAdd" CommandParameter="{Binding .}" Text="Add" />
+                                <MenuItem Clicked="OnView" CommandParameter="{Binding .}" Text="View" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Padding="15,0">
+                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button x:Name="manageCommunities" Text="Manage Communities" Clicked="Communities_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" />
             <Button x:Name="manageEvents" Text="Manage Events" Clicked="Events_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand"/>
             <Button x:Name="manageFriends" Text="Manage Friends" Clicked="Friends_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
