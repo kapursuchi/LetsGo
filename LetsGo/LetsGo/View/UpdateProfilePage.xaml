@@ -6,24 +6,80 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.UpdateProfileController">
+    
     <ContentPage.Content>
-        <StackLayout>
+        
+            <StackLayout>
+
             <Label Text="Edit Profile"
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" 
                    FontSize="Medium"
                    TextColor="Black"
-                   Margin="30"/>
+                   Margin="10"/>
 
 
-            
-            <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="30" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+
+            <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="10" VerticalOptions="Start" HorizontalOptions="Center"/>
             <!--<Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-            --><Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff" Margin="20" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory" />
+            -->
+            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff"  VerticalOptions="Start" HorizontalOptions="Center"/>
 
+            <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory" />
+            <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
             <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
-            <Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>
+            <Label x:Name="interstLbl" Text="    Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+            
+            <ListView x:Name="interests"  HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Grid   x:Name="interestList"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center"
+                                            BackgroundColor="Ivory">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label      x:Name="interest"
+                                                    Text="{Binding .}"
+                                                    TextColor="Black"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    Grid.Row="0"
+                                                    Grid.Column="0" />
+                                    <Button    x:Name="remove"
+                                                    Text="Remove"
+                                                    HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                    BackgroundColor="Transparent"
+                                               CommandParameter="{Binding .}"
+                                                    TextColor="Crimson"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Clicked="OnRemove"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                    
+                </ListView>
+
+            <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+            <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="Ivory"/>
+
+            <!--<Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>-->
             <Grid   x:Name="publicAccountSwitch"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
@@ -56,9 +112,12 @@
             </Grid>
 
 
-            <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
-            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Transparent" TextColor="#ff4a4a" VerticalOptions="End" HorizontalOptions="Center"/>
+
+            <Button x:Name="update" Text="Save Changes" Clicked="Save_Update_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center"/>
+            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
         </StackLayout>
+    
     </ContentPage.Content>
+    
 </ContentPage>

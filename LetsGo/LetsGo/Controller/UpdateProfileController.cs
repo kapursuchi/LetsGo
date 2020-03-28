@@ -11,6 +11,7 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace LetsGo.Controller
 {
@@ -21,6 +22,7 @@ namespace LetsGo.Controller
         private bool isPublic;
         private bool toggled = false;
         private bool _istoggled;
+
 
         
         public bool istoggled
@@ -75,9 +77,9 @@ namespace LetsGo.Controller
         }
 
 
-        private string _interests;
+        private ObservableCollection<string> _interests;
 
-        public string Interests
+        public ObservableCollection<string> InterestList
         {
             get
             {
@@ -86,7 +88,7 @@ namespace LetsGo.Controller
             set
             {
                 _interests = value;
-                OnPropertyChanged(nameof(Interests));
+                OnPropertyChanged(nameof(InterestList));
             }
         }
 
@@ -134,19 +136,16 @@ namespace LetsGo.Controller
                 Location = "Location";
             }
             List<string> interestList = await fb.GetUsersInterests();
-            if (interestList != null)
-            { 
-                for (int i = 0; i < interestList.Count; i++)
-                {
-                    Interests += textInfo.ToTitleCase(interestList.ElementAt(i)) + ", ";
-                }
-                Interests = Interests.Substring(0, Interests.Length-2);
-            }
-            else
+            InterestList = new ObservableCollection<string>(interestList);
+
+            if (InterestList == null)
             {
-                Interests = "List your interests here, comma separated.";
-                
+
+                InterestList.Add("No interests listed yet...");
+
             }
+            interests.ItemsSource = InterestList;
+            
         }
 
         public async void Save_Update_Clicked(object sender, EventArgs e)
@@ -157,11 +156,20 @@ namespace LetsGo.Controller
             }
             string uName = name.Text;
             string city = location.Text;
-            List<string> interestSplit = interests.Text.Split(',').ToList();
-            List<string> interestList = new List<string>();
-            for (int i = 0; i < interestSplit.Count; i++)
+            List<string> interestList;
+            if (intToAdd.Text != null)
+            { 
+                List<string> interestSplit = intToAdd.Text.Split(',').ToList();
+                interestList= InterestList.ToList();
+
+                for (int i = 0; i < interestSplit.Count; i++)
+                {
+                    interestList.Add(interestSplit.ElementAt(i).Trim());
+                }
+            }
+            else
             {
-                interestList.Add(interestSplit.ElementAt(i).Trim());
+                interestList = InterestList.ToList();
             }
             bool updated = await profile.UpdateProfile(uName, city, isPublic, interestList);
             if (!updated)
@@ -215,6 +223,16 @@ namespace LetsGo.Controller
                 await DisplayAlert("Failed", ex.Message, "OK");
             }
             */
+        }
+
+        public void OnRemove(object sender, EventArgs e)
+        {
+            var item = (Xamarin.Forms.Button)sender;
+            string listitem = (from itm in InterestList
+                             where itm == item.CommandParameter.ToString()
+                             select itm)
+                            .FirstOrDefault<string>();
+            InterestList.Remove(listitem);
         }
         
 

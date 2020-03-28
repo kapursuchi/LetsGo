@@ -7,11 +7,8 @@
              x:Class="LetsGo.Controller.SocialController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Social aspects here: Community, Events, Friends"
-                VerticalOptions="Start" 
-                HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"
-                   Margin="10"/>
+            <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+
 
             <ScrollView>
                 <SearchBar Placeholder="Search by Interest Tag"  PlaceholderColor="Black" VerticalOptions="StartAndExpand" TextColor="Black" TextChanged="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>

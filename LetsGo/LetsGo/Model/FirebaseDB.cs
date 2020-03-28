@@ -311,7 +311,7 @@ namespace LetsGo.Model
 
             var events = (await firebase
                         .Child("Events")
-                        .OnceAsync<EventProfile>()).Where(a => a.Object.Location == location && a.Object.PublicEvent == true).ToList();
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.Location == location.ToLower() && a.Object.PublicEvent == true).ToList();
 
             var feedEvents = events.ToList();
 

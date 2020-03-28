@@ -7,6 +7,8 @@
              x:Class="LetsGo.Controller.FeedController">
     <ContentPage.Content>
         <StackLayout>
+            <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+
             <Label Text="Feed"
                 VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" 
