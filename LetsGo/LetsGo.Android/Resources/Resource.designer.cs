@@ -8708,6 +8708,9 @@ namespace LetsGo.Droid
 			// aapt resource value: 0x7F070076
 			public const int navigation_empty_icon = 2131165302;
 			
+			// aapt resource value: 0x7F070082
+			public const int notificationicon = 2131165314;
+			
 			// aapt resource value: 0x7F070077
 			public const int notification_action_background = 2131165303;
 			
@@ -8741,20 +8744,20 @@ namespace LetsGo.Droid
 			// aapt resource value: 0x7F070081
 			public const int notification_tile_bg = 2131165313;
 			
-			// aapt resource value: 0x7F070082
-			public const int notify_panel_notification_icon_bg = 2131165314;
-			
 			// aapt resource value: 0x7F070083
-			public const int profileicon = 2131165315;
+			public const int notify_panel_notification_icon_bg = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int socialicon = 2131165316;
+			public const int profileicon = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int tooltip_frame_dark = 2131165317;
+			public const int socialicon = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int tooltip_frame_light = 2131165318;
+			public const int tooltip_frame_dark = 2131165318;
+			
+			// aapt resource value: 0x7F070087
+			public const int tooltip_frame_light = 2131165319;
 			
 			static Drawable()
 			{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -23,6 +24,8 @@ namespace LetsGo.Model
         public List<string> Friends { get; set; }
         public List<string> Interests { get; set; }
 
+        public List<string> FriendRequests { get; set; }
+
         public UserProfile(string uName, DateTime uDOB, string uEmail, string uPass, bool publicAccount)
         {
             Name = uName;
@@ -33,6 +36,7 @@ namespace LetsGo.Model
             PublicAcct = publicAccount;
             Interests = new List<string>();
             Friends = new List<string>();
+            FriendRequests = new List<string>();
             //ProfilePicture = ImageSource.FromFile("defaultProfilePic.jpg");
         }
 

@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
-             x:Class="LetsGo.Controller.FriendsPageController">
+             x:Class="LetsGo.Controller.NotificationController">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="" Margin="15">
@@ -18,20 +18,19 @@
             </Label>
             <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
 
-            <Label Text="My Friends"
+            <Label Text="Notifications"
                 VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"
                    TextColor="Black"/>
-
-            <ListView x:Name="friends" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="notifications" SeparatorVisibility="None" ItemsSource="{Binding FriendRequestNotifications}" IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnView" CommandParameter="{Binding .}" Text="View" />
-                                <MenuItem Clicked="OnRemove" CommandParameter="{Binding .}" Text="Remove" />
+                                <MenuItem Clicked="OnAccept" CommandParameter="{Binding .}" Text="Accept" />
+                                <MenuItem Clicked="OnDecline" CommandParameter="{Binding .}" Text="Decline" />
                             </ViewCell.ContextActions>
                             <StackLayout Padding="15,0">
                                 <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>

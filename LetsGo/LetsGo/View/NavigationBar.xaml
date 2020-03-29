@@ -16,6 +16,7 @@
     <TabbedPage.Children>
         <local:FeedController Icon="homeicon.png" HeightRequest="20" WidthRequest="20" Title="Feed"/>
         <local:SocialController Icon="socialicon.png" HeightRequest="20" WidthRequest="20"  Title="Social"/>
+        <local:NotificationController Icon="notificationicon.png" HeightRequest="20" WidthRequest="20" Title="Notifications"/>
         <local:ProfileController Icon="profileicon.png" HeightRequest="20" WidthRequest="20" Title="Profile"/>
     </TabbedPage.Children>
 </TabbedPage>

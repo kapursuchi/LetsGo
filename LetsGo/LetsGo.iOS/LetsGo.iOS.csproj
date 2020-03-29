@@ -222,4 +222,7 @@
       <Name>LetsGo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\notificationicon.png" />
+  </ItemGroup>
 </Project>

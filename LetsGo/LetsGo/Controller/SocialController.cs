@@ -42,9 +42,10 @@ namespace LetsGo.Controller
         }
         public async void OnAdd(object sender, EventArgs e)
         {
-           // var type = sender.GetType();
-           // await DisplayAlert("add", type.ToString(), "OK");
-           //fb.AddFriend("khali009@cougars.csusm.edu");
+            var type = (MenuItem)sender;
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            string email = profile.Email;
+            fb.AddFriend(email);
         }
 
         public void OnView(object sender, EventArgs e)
