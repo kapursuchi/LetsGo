@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using LetsGo.Model;
 using LetsGo.Model.Authentication;
-using UIKit;
 using Xamarin.Forms;
 
 namespace LetsGo.Controller

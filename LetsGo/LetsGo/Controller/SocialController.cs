@@ -36,13 +36,15 @@ namespace LetsGo.Controller
         {
             await Navigation.PushAsync(new EventsPageController());
         }
-        public async void  Friends_Clicked(object sender, EventArgs e)
+        public async void Friends_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FriendsPageController());
         }
-        public void OnAdd(object sender, EventArgs e)
+        public async void OnAdd(object sender, EventArgs e)
         {
-
+           // var type = sender.GetType();
+           // await DisplayAlert("add", type.ToString(), "OK");
+           //fb.AddFriend("khali009@cougars.csusm.edu");
         }
 
         public void OnView(object sender, EventArgs e)

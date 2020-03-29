@@ -36,7 +36,18 @@ namespace LetsGo.Controller
         public async void SetFeed()
         {
             FeedEvents = await fb.GetFeed();
+            if (FeedEvents.Count == 0)
+            {
+                FeedEvents = new List<EventProfile>();
+
+                FeedEvents.Add(new EventProfile("There are no public events in your location!", "No description available", DateTime.Today,
+                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true ));
+                
+                
+            }
             FeedView.ItemsSource = FeedEvents;
+            
+            
         }
         
         public void OnAdd(object sender, EventArgs e)

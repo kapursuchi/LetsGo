@@ -72,9 +72,10 @@ namespace LetsGo.Controller
             {
                 Location = "No Location Yet...";
             }
+            Interests = new List<string>();
             Interests =  await fb.GetUsersInterests();
             
-            if (Interests == null)
+            if (Interests.Count == 0)
             {
                 
                 Interests.Add("No interests listed yet...");

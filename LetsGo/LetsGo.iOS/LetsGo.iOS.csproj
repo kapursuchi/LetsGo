@@ -83,8 +83,10 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </BundleResource>
     <BundleResource Include="Resources\homeicon.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </BundleResource>
     <BundleResource Include="Resources\LogoBanner.PNG">
       <SubType>Designer</SubType>
@@ -92,12 +94,16 @@
     </BundleResource>
     <BundleResource Include="Resources\LogoOnly.PNG" />
     <BundleResource Include="Resources\profileicon.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </BundleResource>
     <BundleResource Include="Resources\socialicon.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </BundleResource>
     <BundleResource Include="Resources\defaultProfilePic.jpg">
       <SubType>Designer</SubType>
@@ -187,7 +193,9 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

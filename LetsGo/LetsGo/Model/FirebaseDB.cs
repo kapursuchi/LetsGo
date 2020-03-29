@@ -23,10 +23,6 @@ namespace LetsGo.Model
         private FirebaseStorage firebaseStorage = new FirebaseStorage("xamarinfirebase-letsgo-f4d0d.appspot.com");
         readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
-        public FirebaseClient getDB()
-        {
-            return firebase;
-        }
         public async Task<bool> LoginUser(string email, string password)
         {
             List<UserProfile> users = await GetAllUsers();
@@ -109,7 +105,7 @@ namespace LetsGo.Model
                     .OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
 
                 await firebase.Child("userprofiles").Child(userToUpdate.Key)
-                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, PublicAcct = CurrentUser.PublicAcct });
+                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, Friends = CurrentUser.Friends, PublicAcct = CurrentUser.PublicAcct });
             }
             catch (Exception)
             {
@@ -130,17 +126,34 @@ namespace LetsGo.Model
                         Password = item.Object.Password,
                         Location = item.Object.Location,
                         Interests = item.Object.Interests,
+                        Friends = item.Object.Friends,
                         PublicAcct = item.Object.PublicAcct
                     }).ToList();
 
+            List<UserProfile> AllUsers = users.ToList();
+            /*
             List<UserProfile> AllUsers = new List<UserProfile>();
 
             for (int i = 0; i < users.Count; i++)
             {
-                AllUsers.Add(new UserProfile() { Name = textInfo.ToTitleCase(users.ElementAt(i).Name), DateOfBirth = users.ElementAt(i).DateOfBirth,
-                    Email = users.ElementAt(i).Email, Interests = users.ElementAt(i).Interests, Location = textInfo.ToTitleCase(users.ElementAt(i).Location),
-                                                 PublicAcct = users.ElementAt(i).PublicAcct, Password = users.ElementAt(i).Password});
-            }
+                List<string> friends;
+                if (users.ElementAt(i).Friends == null)
+                {
+                    friends = new List<string>();
+                }
+                else
+                {
+                    friends = users.ElementAt(i).Friends;
+                }
+                AllUsers.Add(new UserProfile() { Name = textInfo.ToTitleCase(users.ElementAt(i).Name), 
+                                                DateOfBirth = users.ElementAt(i).DateOfBirth,
+                                                Email = users.ElementAt(i).Email, 
+                                                Interests = users.ElementAt(i).Interests, 
+                                                Friends = friends,
+                                                Location = textInfo.ToTitleCase(users.ElementAt(i).Location),
+                                                PublicAcct = users.ElementAt(i).PublicAcct, 
+                                                Password = users.ElementAt(i).Password});
+            }*/
 
             return AllUsers;
         }
@@ -177,7 +190,7 @@ namespace LetsGo.Model
             await firebase
             .Child("userprofiles")
             .Child(userToUpdate.Key)
-            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, PublicAcct = publicAccount });
+            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
             return true;
         }
 
@@ -217,7 +230,8 @@ namespace LetsGo.Model
         public async Task<string> GetUsersLocation()
         {
             UserProfile current = await User();
-
+            if (current.Location == null)
+                return null;
             return current.Location;
         }
 
@@ -232,7 +246,10 @@ namespace LetsGo.Model
         {
             UserProfile current = await User();
 
+            
             List<string> interests = new List<string>();
+            if (current.Interests == null)
+                return interests;
             for (int i = 0; i < current.Interests.Count; i++)
             {
                 interests.Add(textInfo.ToTitleCase(current.Interests.ElementAt(i)));
@@ -275,8 +292,9 @@ namespace LetsGo.Model
                             Password = EncryptDecrypt(NewPassword, 5),
                             Location = CurrentUser.Location,
                             Interests = CurrentUser.Interests,
+                            Friends = CurrentUser.Friends,
                             PublicAcct = CurrentUser.PublicAcct
-                        });
+                        }) ;
             return true;
         }
 
@@ -306,8 +324,12 @@ namespace LetsGo.Model
 
         public async Task<List<EventProfile>> GetFeed()
         {
+            List<EventProfile> feed = new List<EventProfile>();
             string currentEmail = GetCurrentUser();
+            
             string location = await GetUsersLocation();
+            if (location == null)
+                return feed;
 
             var events = (await firebase
                         .Child("Events")
@@ -315,7 +337,7 @@ namespace LetsGo.Model
 
             var feedEvents = events.ToList();
 
-            List<EventProfile> feed = new List<EventProfile>();
+            
             for (int i = 0; i < feedEvents.Count; i++)
             {
                 feed.Add(new EventProfile() { Name = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Name), DateOfEvent = feedEvents.ElementAt(i).Object.DateOfEvent,
@@ -324,7 +346,6 @@ namespace LetsGo.Model
                                              EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent, Interests = feedEvents.ElementAt(i).Object.Interests,
                                              PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent});
             }
-            
             return feed;
         }
 
@@ -360,9 +381,10 @@ namespace LetsGo.Model
                     DateOfBirth = publicUsers.ElementAt(i).DateOfBirth,
                     Email = publicUsers.ElementAt(i).Email,
                     Interests = publicUsers.ElementAt(i).Interests,
+                    Friends = publicUsers.ElementAt(i).Friends,
                     Location = textInfo.ToTitleCase(publicUsers.ElementAt(i).Location),
                     PublicAcct = publicUsers.ElementAt(i).PublicAcct
-                });
+                }) ;
             }
 
             for (int i = 0; i < publicCommunities.Count; i++)
@@ -386,7 +408,7 @@ namespace LetsGo.Model
         {
             var users = (await firebase
                         .Child("userprofiles")
-                        .OnceAsync<UserProfile>()).Where(a => a.Object.PublicAcct == true && a.Object.Interests.Contains(InterestTag)).ToList();
+                        .OnceAsync<UserProfile>()).Where(a => /*a.Object.PublicAcct == true &&*/ a.Object.Interests.Contains(InterestTag)).ToList();
             List<UserProfile> publicUsers = new List<UserProfile>();
             for (int i = 0; i < users.Count; i++)
             {
@@ -397,6 +419,7 @@ namespace LetsGo.Model
                     Email = users.ElementAt(i).Object.Email,
                     Interests = users.ElementAt(i).Object.Interests,
                     Location = textInfo.ToTitleCase(users.ElementAt(i).Object.Location),
+                    Friends = users.ElementAt(i).Object.Friends,
                     PublicAcct = users.ElementAt(i).Object.PublicAcct
                 });
             }
@@ -453,5 +476,88 @@ namespace LetsGo.Model
             return publicEvents;
         }
 
+        public async void AddFriend(string friendEmail)
+        {
+            string CurrentUserEmail = GetCurrentUser();
+            var friendToAdd = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == friendEmail).FirstOrDefault();
+            if (friendToAdd.Object.PublicAcct)
+            {
+                bool added = await AddPublicUserAsFriend(CurrentUserEmail, friendEmail);
+            }
+            else
+            {
+                bool requestSent = await SendFriendRequest(CurrentUserEmail, friendEmail);
+            }
+        }
+
+        private async Task<bool> AddPublicUserAsFriend(string currentUser, string friendToAdd)
+        {
+            var current = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == currentUser).FirstOrDefault();
+            var friend = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == friendToAdd).FirstOrDefault();
+            List<UserProfile> users = await GetAllUsers();
+            var CurrentUser = users.Where(a => a.Email == currentUser).FirstOrDefault();
+            var FriendUser = users.Where(a => a.Email == friendToAdd).FirstOrDefault();
+            List<string> CurrentFriendsList = await GetAllFriends(currentUser);
+            CurrentFriendsList.Add(friendToAdd);
+            await firebase
+                .Child("userprofiles")
+                .Child(current.Key)
+                .PutAsync(new UserProfile()
+                {
+                    Name = CurrentUser.Name.ToLower(),
+                    Email = CurrentUser.Email,
+                    DateOfBirth = CurrentUser.DateOfBirth,
+                    Password = CurrentUser.Password,
+                    Location = CurrentUser.Location.ToLower(),
+                    Interests = CurrentUser.Interests,
+                    Friends = CurrentFriendsList,
+                    PublicAcct = CurrentUser.PublicAcct
+                });
+
+            List<string> FriendsList = await GetAllFriends(friendToAdd);
+            FriendsList.Add(CurrentUser.Email);
+            await firebase
+                .Child("userprofiles")
+                .Child(friend.Key)
+                .PutAsync(new UserProfile()
+                {
+                    Name = FriendUser.Name.ToLower(),
+                    Email = FriendUser.Email,
+                    DateOfBirth = FriendUser.DateOfBirth,
+                    Password = FriendUser.Password,
+                    Location = FriendUser.Location.ToLower(),
+                    Interests = FriendUser.Interests,
+                    Friends = FriendsList,
+                    PublicAcct = FriendUser.PublicAcct
+                });
+
+            return true;
+        }
+
+        private async Task<bool> SendFriendRequest(string currentUser, string friendToRequest)
+        {
+            return true;
+        }
+
+        public async Task<List<string>> GetAllFriends(string userEmail)
+        {
+
+            List<UserProfile> users = await GetAllUsers();
+            var user = users.Where(a => a.Email == userEmail).FirstOrDefault();
+
+            List<string> friends = new List<string>();
+            for (int i = 0; i < user.Friends.Count; i++)
+            {
+                friends.Add(user.Friends.ElementAt(i));
+            }
+            return friends;
+
+        }
     }
 }
