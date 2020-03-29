@@ -4,9 +4,18 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.FeedController">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
             <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
 
             <Label Text="Feed"
@@ -15,9 +24,9 @@
                    FontSize="Medium"
                    TextColor="Black"/>
 
-            <ListView x:Name="FeedView" ItemsSource="{Binding FeedEvents}" BackgroundColor="Transparent" SelectionMode="None" >
+            <ListView x:Name="FeedView" SeparatorVisibility="None" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
-                   
+
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
@@ -30,9 +39,9 @@
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
-                    
+
                 </ListView.ItemTemplate>
-                
+
             </ListView>
         </StackLayout>
     </ContentPage.Content>

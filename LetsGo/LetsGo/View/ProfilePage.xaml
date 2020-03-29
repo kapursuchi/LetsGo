@@ -6,10 +6,18 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ProfileController">
+
     <ContentPage.Content>
-        
+
         <StackLayout Orientation="Vertical">
-            
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS> true </OnPlatform.iOS>
+                        <OnPlatform.Android> false </OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
             <Image Source="defaultProfilePic.jpg" 
                            Aspect="AspectFit" 
                            HeightRequest="70" 
@@ -60,7 +68,7 @@
                         VerticalOptions="Center"
                        
                                         />
-            <ListView x:Name="interests"  SelectionMode="None" >
+            <ListView x:Name="interests"  SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
 
                 <ListView.ItemTemplate>
 

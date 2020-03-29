@@ -30,12 +30,12 @@ namespace LetsGo.Model
         public async Task<bool> LoginUser(string email, string password)
         {
             List<UserProfile> users = await GetAllUsers();
-            var CurrentUser = users.Where(a => a.Email == email).FirstOrDefault();
+            var CurrentUser = users.Where(a => a.Email.ToLower() == email.ToLower()).FirstOrDefault();
             if (CurrentUser == null)
             {
                 return false;
             }
-            else if (email == CurrentUser.Email && EncryptDecrypt(password, 5) == CurrentUser.Password)
+            else if (email.ToLower() == CurrentUser.Email && EncryptDecrypt(password, 5) == CurrentUser.Password)
             {
                 return true;
             }
@@ -55,7 +55,7 @@ namespace LetsGo.Model
         {
             List<UserProfile> users = await GetAllUsers();
 
-            var found = users.Where(a => a.Email == uEmail).FirstOrDefault();
+            var found = users.Where(a => a.Email.ToLower() == uEmail.ToLower()).FirstOrDefault();
             if (found != null)
             {
                 return false;
@@ -332,9 +332,9 @@ namespace LetsGo.Model
         {
             string currentEmail = GetCurrentUser();
             ArrayList searchResults = new ArrayList();
-            List<EventProfile> publicEvents = await GetPublicEvents(InterestTag);
-            List<CommunityProfile> publicCommunities = await GetPublicCommunities(InterestTag);
-            List<UserProfile> publicUsers = await GetPublicUsers(InterestTag);
+            List<EventProfile> publicEvents = await GetPublicEvents(InterestTag.ToLower());
+            List<CommunityProfile> publicCommunities = await GetPublicCommunities(InterestTag.ToLower());
+            List<UserProfile> publicUsers = await GetPublicUsers(InterestTag.ToLower());
 
             for (int i = 0; i < publicEvents.Count; i++)
             {

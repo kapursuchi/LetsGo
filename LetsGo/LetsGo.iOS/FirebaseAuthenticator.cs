@@ -12,7 +12,7 @@ namespace LetsGo.iOS
 
         public void SetCurrentUser(string email)
         {
-            CurrentUser = email;
+            CurrentUser = email.ToLower();
         }
 
         public string GetCurrentUser()

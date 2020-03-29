@@ -6,11 +6,18 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.UpdateProfileController">
-    
-    <ContentPage.Content>
-        
-            <StackLayout>
 
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Label Text=" " Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
             <Label Text="Edit Profile"
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" 
@@ -30,8 +37,8 @@
             <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
             <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
             <Label x:Name="interstLbl" Text="    Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-            
-            <ListView x:Name="interests"  HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
+
+            <ListView x:Name="interests" SeparatorVisibility="None" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
 
                 <ListView.ItemTemplate>
 
@@ -72,8 +79,8 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                    
-                </ListView>
+
+            </ListView>
 
             <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
 
@@ -117,7 +124,7 @@
             <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
         </StackLayout>
-    
+
     </ContentPage.Content>
-    
+
 </ContentPage>
