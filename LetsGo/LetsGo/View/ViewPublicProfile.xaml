@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.Controller.PublicProfileController">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+
+            <Image Source="defaultProfilePic.jpg" 
+                           Aspect="AspectFit" 
+                           HeightRequest="70" 
+                           WidthRequest="70" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Start"
+                   Margin="10"
+                   />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

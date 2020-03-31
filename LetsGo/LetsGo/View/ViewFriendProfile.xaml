@@ -5,19 +5,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
-             x:Class="LetsGo.Controller.ProfileController">
-
+             x:Class="LetsGo.Controller.FriendProfileController">
     <ContentPage.Content>
-
-        <StackLayout Orientation="Vertical">
+        <StackLayout>
             <Label Text="" Margin="15">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean">
-                        <OnPlatform.iOS> true </OnPlatform.iOS>
-                        <OnPlatform.Android> false </OnPlatform.Android>
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
                     </OnPlatform>
                 </Label.IsVisible>
             </Label>
+
             <Image Source="defaultProfilePic.jpg" 
                            Aspect="AspectFit" 
                            HeightRequest="70" 
@@ -32,7 +31,7 @@
                            HorizontalOptions="Center"
                    FontAttributes="Bold"
                            FontSize="Medium" Margin="0"/>
-            
+
             <Grid   x:Name="profilegrid" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -58,8 +57,6 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 />
-
-
             </Grid>
             <Label Text=""/>
             <Label      x:Name="interestslabel"
@@ -70,8 +67,8 @@
                         VerticalOptions="Center"
                        
                                         />
-            <ListView x:Name="interests"  SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
 
+            <ListView x:Name="interests" SeparatorVisibility="None"  IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
@@ -82,24 +79,17 @@
                                                     TextColor="Black"
                                                     FontSize="Body"
                                                     HorizontalOptions="Start"
-                                                    VerticalOptions="CenterAndExpand" />
-                               
+                                                    VerticalOptions="Center" />
+
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
+
                 </ListView.ItemTemplate>
             </ListView>
-        
-        <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="Center" HeightRequest="40"/>
 
-            <Button x:Name="resetPass" Text="Change Password" HeightRequest="40" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
+           
 
-            <Button x:Name="logout" Text="Logout" HeightRequest="40" Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="CenterAndExpand" />
-            
         </StackLayout>
-        
     </ContentPage.Content>
-    
 </ContentPage>

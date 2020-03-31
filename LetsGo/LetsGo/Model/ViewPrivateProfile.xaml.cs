@@ -10,8 +10,8 @@ using Xamarin.Forms.Xaml;
 namespace LetsGo.Model
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NotificationPage : ContentPage
+    public partial class ViewPrivateProfile : ContentPage
     {
-        
+
     }
 }

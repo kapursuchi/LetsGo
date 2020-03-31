@@ -43,9 +43,13 @@ namespace LetsGo.Controller
         public async void OnAdd(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
-            UserProfile profile = (UserProfile)type.CommandParameter;
-            string email = profile.Email;
-            fb.AddFriend(email);
+            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
+            {
+                UserProfile profile = (UserProfile)type.CommandParameter;
+                string email = profile.Email;
+                fb.AddFriend(email);
+            }
+
         }
 
         public void OnView(object sender, EventArgs e)

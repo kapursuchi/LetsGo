@@ -47,14 +47,22 @@ namespace LetsGo.Controller
             friends.ItemsSource = FriendsList;
         }
 
-        public void OnView(object sender, EventArgs e)
+        public async void OnView(object sender, EventArgs e)
         {
-
+            var type = (MenuItem)sender;
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            string email = profile.Email;
+            await Navigation.PushAsync(new FriendProfileController(profile));
         }
 
         public void OnRemove(object sender, EventArgs e)
         {
-
+            var type = (MenuItem)sender;
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            string email = profile.Email;
+            fb.DeleteFriend(email);
+            FriendsList.Remove(profile);
+            friends.ItemsSource = FriendsList;
         }
     }
 }
