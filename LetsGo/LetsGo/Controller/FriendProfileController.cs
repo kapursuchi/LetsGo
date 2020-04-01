@@ -16,7 +16,7 @@ namespace LetsGo.Controller
         private string _name { get; set; }
         private string _location { get; set; }
 
-       
+        
 
         public string Name
         {
@@ -54,6 +54,8 @@ namespace LetsGo.Controller
             name.BindingContext = this;
             location.BindingContext = this;
         }
+
+
 
         public async void SetValues(UserProfile friend)
         {

@@ -33,7 +33,7 @@
                                 <MenuItem Clicked="OnDecline" CommandParameter="{Binding .}" Text="Decline" />
                             </ViewCell.ContextActions>
                             <StackLayout Padding="15,0">
-                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"  VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

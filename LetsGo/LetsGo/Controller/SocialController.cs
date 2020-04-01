@@ -52,9 +52,27 @@ namespace LetsGo.Controller
 
         }
 
-        public void OnView(object sender, EventArgs e)
+        public async void OnView(object sender, EventArgs e)
         {
-
+            var type = (MenuItem)sender;
+            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
+            {
+                UserProfile profile = (UserProfile)type.CommandParameter;
+                bool friend = await fb.isFriend(profile.Email);
+                if (friend)
+                {
+                    await Navigation.PushAsync(new FriendProfileController(profile));
+                }
+                else if (profile.PublicAcct)
+                {
+                    await Navigation.PushAsync(new PublicProfileController(profile));
+                }
+                else if (!profile.PublicAcct)
+                {
+                    await Navigation.PushAsync(new PrivateProfileController(profile));
+                }
+                
+            }
         }
     }
 }

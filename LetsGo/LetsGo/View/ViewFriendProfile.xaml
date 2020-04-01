@@ -68,7 +68,7 @@
                        
                                         />
 
-            <ListView x:Name="interests" SeparatorVisibility="None"  IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>

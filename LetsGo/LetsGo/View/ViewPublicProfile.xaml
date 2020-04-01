@@ -25,6 +25,69 @@
                            VerticalOptions="Start"
                    Margin="10"
                    />
+
+            <Label x:Name="name" Text="{Binding Name}" TextColor="Black" 
+                           VerticalOptions="Start" 
+                           HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                           FontSize="Medium" Margin="0"/>
+
+            <Grid   x:Name="profilegrid" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Image      Source="socialicon.png"
+                            HeightRequest="20"
+                                HorizontalOptions="End"
+                            VerticalOptions="Start"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                />
+                <Label      x:Name="location"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="Medium"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                />
+            </Grid>
+            <Button x:Name="addFriend" Clicked="OnAdd" BackgroundColor="LightSteelBlue" Text="Add Friend" TextColor="Black" HorizontalOptions="Center" HeightRequest="40"/>
+            <Label Text=""/>
+            <Label      x:Name="interestslabel"
+                                Text="   Interests"
+                                TextColor="Black"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                       
+                                        />
+
+            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label      x:Name="interest"
+                                                    Text="{Binding .}"
+                                                    TextColor="Black"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Center" />
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

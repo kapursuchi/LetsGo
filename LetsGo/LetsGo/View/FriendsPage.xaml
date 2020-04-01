@@ -24,7 +24,7 @@
                    FontSize="Medium"
                    TextColor="Black"/>
 
-            <ListView x:Name="friends" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="friends" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>

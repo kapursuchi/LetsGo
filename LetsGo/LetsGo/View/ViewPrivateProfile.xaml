@@ -4,12 +4,39 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.PrivateProfileController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+
+            <Image Source="defaultProfilePic.jpg" 
+                           Aspect="AspectFit" 
+                           HeightRequest="70" 
+                           WidthRequest="70" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Start"
+                   Margin="10"
+                   />
+
+            <Label x:Name="name" Text="{Binding Name}" TextColor="Black" 
+                           VerticalOptions="Start" 
+                           HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                           FontSize="Medium" Margin="0"/>
+
+            <Label x:Name="privateUser" Text="This user is private. Request to add them as a friend to view their profile!" TextColor="Black" FontSize="Medium"
+                   HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="15"/>
+
+            <Button x:Name="request" Clicked="Request_Clicked" Text="Request to Add as Friend" BackgroundColor="LightSteelBlue" HeightRequest="40" Margin="15" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End"/>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

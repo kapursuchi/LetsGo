@@ -406,7 +406,7 @@ namespace LetsGo.Model
         {
             var users = (await firebase
                         .Child("userprofiles")
-                        .OnceAsync<UserProfile>()).Where(a => a.Object.PublicAcct == true && a.Object.Interests.Contains(InterestTag) && a.Object.Email != GetCurrentUser()).ToList();
+                        .OnceAsync<UserProfile>()).Where(a => /*a.Object.PublicAcct == true &&*/ a.Object.Interests.Contains(InterestTag) && a.Object.Email != GetCurrentUser()).ToList();
             List<UserProfile> publicUsers = new List<UserProfile>();
             for (int i = 0; i < users.Count; i++)
             {
@@ -539,6 +539,20 @@ namespace LetsGo.Model
                 });
 
             return true;
+        }
+
+        public async Task<bool> isFriend(string userIsFriend)
+        {
+            string current = GetCurrentUser();
+            List<string> FriendsList = await GetAllFriends(current);
+            if (FriendsList.Contains(userIsFriend))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private async void SendFriendRequest(string currentUser, string friendToRequest)
@@ -739,7 +753,8 @@ namespace LetsGo.Model
             {
                 for (int i = 0; i < user.Friends.Count; i++)
                 {
-                    friends.Add(user.Friends.ElementAt(i));
+                    if (user.Friends.ElementAt(i) != null)
+                        friends.Add(user.Friends.ElementAt(i));
                 }
                 
             }

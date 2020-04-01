@@ -13,7 +13,7 @@ namespace LetsGo.Controller
     {
 
         private ObservableCollection<UserProfile> _requests { get; set; }
-        public new ObservableCollection<UserProfile> FriendRequestNotifications 
+        public ObservableCollection<UserProfile> FriendRequestNotifications 
         {
             get
             {
@@ -80,6 +80,7 @@ namespace LetsGo.Controller
             FriendRequestNotifications.Remove(listitem);
 
         }
+
     }
 
 }
