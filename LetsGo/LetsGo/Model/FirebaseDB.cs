@@ -73,6 +73,15 @@ namespace LetsGo.Model
             return true;
         }
 
+        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly)
+        {
+            CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly);
+            await firebase
+                .Child("Communities")
+                .PostAsync(newCommunity);
+            return true;
+        }
+
         public async Task<bool> SendPasswordRecoverEmail(string email)
         {
 
@@ -390,8 +399,9 @@ namespace LetsGo.Model
                 searchResults.Add(new CommunityProfile()
                 {
                     Name = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Name),
-                    Identity = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Identity),
-                    CommunityLeader = publicCommunities.ElementAt(i).CommunityLeader,
+                    Description = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Description),
+                    Location = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Location),
+                    Leader = publicCommunities.ElementAt(i).Leader,
                     Interests = publicCommunities.ElementAt(i).Interests,
                     PublicCommunity = publicCommunities.ElementAt(i).PublicCommunity
                 });
@@ -437,8 +447,9 @@ namespace LetsGo.Model
                 publicCommunities.Add(new CommunityProfile()
                 {
                     Name = textInfo.ToTitleCase(commList.ElementAt(i).Object.Name),
-                    Identity = textInfo.ToTitleCase(commList.ElementAt(i).Object.Identity),
-                    CommunityLeader = commList.ElementAt(i).Object.CommunityLeader,
+                    Description = textInfo.ToTitleCase(commList.ElementAt(i).Object.Description),
+                    Location = textInfo.ToTitleCase(commList.ElementAt(i).Object.Location),
+                    Leader = commList.ElementAt(i).Object.Leader,
                     Interests = commList.ElementAt(i).Object.Interests,
                     PublicCommunity = commList.ElementAt(i).Object.PublicCommunity
                 });

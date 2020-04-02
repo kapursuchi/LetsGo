@@ -45,6 +45,9 @@
     <Compile Update="Model\ViewPublicProfile.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Model\CreateCommunity.xaml.cs">
+      <DependentUpon>CreateCommunity.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
