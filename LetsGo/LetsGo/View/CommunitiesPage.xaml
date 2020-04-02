@@ -12,6 +12,8 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"/>
+            <Button x:Name="startCommunity" Text="Start a Community" Clicked="StartCommunity_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
