@@ -17,7 +17,7 @@
                 </Label.IsVisible>
             </Label>
 
-            <Image Source="defaultProfilePic.jpg" 
+            <Image x:Name="profilePicture" Source="{Binding ProfilePicture}"
                            Aspect="AspectFit" 
                            HeightRequest="70" 
                            WidthRequest="70" 
@@ -58,7 +58,7 @@
                                 Grid.Column="1"
                                 />
             </Grid>
-            <Button x:Name="addFriend" Clicked="OnAdd" BackgroundColor="LightSteelBlue" Text="Add Friend" TextColor="Black" HorizontalOptions="Center" HeightRequest="40"/>
+            <Button x:Name="addFriend" Clicked="OnAdd" BackgroundColor="LightSteelBlue" Text="Add Friend" WidthRequest="150" TextColor="Black" HorizontalOptions="Center" HeightRequest="40"/>
             <Label Text=""/>
             <Label      x:Name="interestslabel"
                                 Text="   Interests"

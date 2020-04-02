@@ -19,6 +19,9 @@ namespace LetsGo.Controller
         private string _location { get; set; }
         private List<string> _interests { get; set; }
 
+        private Image _img { get; set; }
+
+
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
         public ProfileController()
@@ -44,6 +47,19 @@ namespace LetsGo.Controller
             {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public Image ProfilePicture
+        {
+            get
+            {
+                return _img;
+            }
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ProfilePicture));
             }
         }
 
@@ -82,7 +98,19 @@ namespace LetsGo.Controller
 
             }
             interests.ItemsSource = Interests;
-            
+
+            string profilePictureStr = await fb.GetProfilePicture();
+            if (profilePictureStr != null)
+            { 
+                profilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
+            }
+            else
+            {
+                profilePicture.Source = ImageSource.FromFile("defaultProfilePic.jpg");
+            }
+            ProfilePicture = profilePicture;
+            //ProfilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
+
         }
 
         public async void Logout_Clicked(object sender, EventArgs e)

@@ -26,12 +26,12 @@
             <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory" VerticalOptions="CenterAndExpand" />
 
             <!-- Login Button-->
-            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center"  />
 
             <Button x:Name="forgotpassword" Text="Forgot Password?" Clicked="Navigate_ForgotPasswordPage"
-                    BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center" />
+                    BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End"  WidthRequest="200" HorizontalOptions="Center" />
             <!--Create Account Button -->
-            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" WidthRequest="600" BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
         </StackLayout>
 
     </ContentPage.Content>

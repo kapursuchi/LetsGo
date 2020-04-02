@@ -38,11 +38,11 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button x:Name="manageCommunities" Text="Manage Communities" Clicked="Communities_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" />
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" WidthRequest="200" HeightRequest="40"/>
             <Button x:Name="manageEvents" Text="Manage Events" Clicked="Events_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand"/>
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40"/>
             <Button x:Name="manageFriends" Text="Manage Friends" Clicked="Friends_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" />
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

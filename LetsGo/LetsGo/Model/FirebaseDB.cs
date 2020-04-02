@@ -14,13 +14,14 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Globalization;
 using System.Collections;
+using System.Threading;
 
 namespace LetsGo.Model
 {
     public class FirebaseDB
     {
         public readonly FirebaseClient firebase = new FirebaseClient("https://letsgo-f4d0d.firebaseio.com/");
-        private FirebaseStorage firebaseStorage = new FirebaseStorage("xamarinfirebase-letsgo-f4d0d.appspot.com");
+        private FirebaseStorage firebaseStorage = new FirebaseStorage("letsgo - f4d0d.appspot.com");
         readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
         public async Task<bool> LoginUser(string email, string password)
@@ -61,6 +62,8 @@ namespace LetsGo.Model
             await firebase
               .Child("userprofiles")
               .PostAsync(newUser);
+
+
             return true;
         }
 
@@ -319,13 +322,80 @@ namespace LetsGo.Model
         }
 
 
-        public async Task<string> UploadFile(Stream fileStream, string userEventOrComm, string fileName)
+
+
+        public async Task<string> UploadProfilePhoto(Stream filestream)
         {
-            var imageUrl = await firebaseStorage
-                .Child(userEventOrComm)
+            string user = GetCurrentUser();
+            string photo = await UploadFile(filestream, "userprofiles", user, "profilepicture.jpg");
+            return photo;
+        }
+
+        public async Task<string> UploadEventPhoto(Stream filestream, string eventName)
+        {
+            string photo = await UploadFile(filestream, "events", eventName, "eventimage.jpg");
+            return photo;
+        }
+
+        public async Task<string> UploadCommunityPhoto(Stream filestream, string communityName)
+        {
+            string photo = await UploadFile(filestream, "communities", communityName, "communityimage.jpg");
+            return photo;
+        }
+
+        private async Task<string> UploadFile(Stream fileStream, string root, string child, string fileName)
+        {
+            var imageUrl = await new FirebaseStorage("letsgo-f4d0d.appspot.com")
+                .Child(root)
+                .Child(child)
                 .Child(fileName)
                 .PutAsync(fileStream);
             return imageUrl;
+        }
+
+        public async Task<string> GetProfilePicture()
+        {
+            string currentUser = GetCurrentUser();
+            string picture = await GetProfilePicture(currentUser);
+            return picture;
+        }
+
+        public async Task<string> GetProfilePicture(string user)
+        {
+            string picture = await GetPicture("userprofiles", user, "profilepicture.jpg");
+            return picture;
+        }
+
+        public async Task<string> GetEventPicture(string eventName)
+        {
+            string picture = await GetPicture("events", eventName, "eventimage.jpg");
+            return picture;
+        }
+
+        public async Task<string> GetCommunityPicture(string communityName)
+        {
+            string picture = await GetPicture("communities", communityName, "communityimage.jpg");
+            return picture;
+        }
+        private async Task<string> GetPicture(string root, string child, string pictureType)
+        {
+            string img;
+            try
+            { 
+                var imageurl = await new FirebaseStorage("letsgo-f4d0d.appspot.com")
+                .Child(root)
+                .Child(child)
+                .Child(pictureType)
+                .GetDownloadUrlAsync();
+                img = imageurl;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+           
+
+            return img;
         }
 
         public async Task<List<EventProfile>> GetFeed()
