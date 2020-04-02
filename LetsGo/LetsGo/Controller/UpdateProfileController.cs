@@ -122,7 +122,7 @@ namespace LetsGo.Controller
         }
 
         readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-
+        MediaFile file;
         private async void SetValues()
         {
             istoggled = await fb.HasPublicAccount();
@@ -198,31 +198,30 @@ namespace LetsGo.Controller
         }
 
         public async void Upload_Picture_Clicked(object sender, EventArgs e)
-        {/*
+        {
             await CrossMedia.Current.Initialize();
             try
             {
-                MediaFile file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
                 {
                     PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
                 });
-                if (file != null)
+                if (file == null)
+                    return;
+                imgChosen.Source = ImageSource.FromStream(() =>
                 {
-                    ProfileImage.Source = ImageSource.FromStream(() =>
-                    {
-                        var imageStram = file.GetStream();
-                        //string file = await fb.UploadFile(file.GetStream(), "userprofiles", Path.GetFileName(file.Path));
-                        return imageStram;
-
-                    });
-                }
-
+                    var imageStram = file.GetStream();
+                    return imageStram;
+                });
+                string photo = await fb.UploadProfilePhoto(file.GetStream());
+                ProfileImage = imgChosen;
+               
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Failed", ex.Message, "OK");
             }
-            */
+            
         }
 
         public void OnRemove(object sender, EventArgs e)

@@ -28,15 +28,15 @@
 
 
             <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="10" VerticalOptions="Start" HorizontalOptions="Center"/>
-            <!--<Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-            -->
-            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff"  VerticalOptions="Start" HorizontalOptions="Center"/>
+            <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
+
+            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff"   WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"/>
 
             <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory" />
+            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="Ivory" />
             <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
             <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
-            <Label x:Name="interstLbl" Text="    Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+            <Label x:Name="interstLbl" Text="    Interests" TextColor="Black"  HorizontalOptions="Start" VerticalOptions="Center"/>
 
             <ListView x:Name="interests" SeparatorVisibility="None" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
 
@@ -60,6 +60,7 @@
                                                     Text="{Binding .}"
                                                     TextColor="Black"
                                                     FontSize="Body"
+                                                FontAttributes="Bold"
                                                     HorizontalOptions="Center"
                                                     VerticalOptions="Center"
                                                     Grid.Row="0"
@@ -120,8 +121,8 @@
 
 
 
-            <Button x:Name="update" Text="Save Changes" Clicked="Save_Update_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center"/>
-            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
+            <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center"/>
+            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
         </StackLayout>
 

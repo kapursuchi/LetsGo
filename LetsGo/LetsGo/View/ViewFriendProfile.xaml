@@ -17,7 +17,7 @@
                 </Label.IsVisible>
             </Label>
 
-            <Image Source="defaultProfilePic.jpg" 
+            <Image x:Name="profilePicture" Source="{Binding ProfilePicture}"
                            Aspect="AspectFit" 
                            HeightRequest="70" 
                            WidthRequest="70" 

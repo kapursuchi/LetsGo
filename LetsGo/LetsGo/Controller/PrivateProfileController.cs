@@ -11,6 +11,19 @@ namespace LetsGo.Controller
         readonly FirebaseDB fb = new FirebaseDB();
         private string _name { get; set; }
         private UserProfile profile { get; set; }
+        private Image _img { get; set; }
+        public Image ProfilePicture
+        {
+            get
+            {
+                return _img;
+            }
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
 
         public string Name
         {
@@ -36,6 +49,15 @@ namespace LetsGo.Controller
         public async void SetValues(UserProfile user)
         {
             Name = user.Name;
+            string profilePictureStr = await fb.GetProfilePicture(user.Email);
+            if (profilePictureStr != null)
+            {
+                profilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
+            }
+            else
+            {
+                profilePicture.Source = ImageSource.FromFile("defaultProfilePic.jpg");
+            }
 
         }
 

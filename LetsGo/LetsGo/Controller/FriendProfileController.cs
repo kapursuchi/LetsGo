@@ -15,8 +15,20 @@ namespace LetsGo.Controller
         public List<string> Interests { get; set; }
         private string _name { get; set; }
         private string _location { get; set; }
+        private Image _img { get; set; }
+        public Image ProfilePicture
+        {
+            get
+            {
+                return _img;
+            }
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
 
-        
 
         public string Name
         {
@@ -77,6 +89,16 @@ namespace LetsGo.Controller
 
             }
             interests.ItemsSource = Interests;
+
+            string profilePictureStr = await fb.GetProfilePicture(friend.Email);
+            if (profilePictureStr != null)
+            {
+                profilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
+            }
+            else
+            {
+                profilePicture.Source = ImageSource.FromFile("defaultProfilePic.jpg");
+            }
         }
 
 

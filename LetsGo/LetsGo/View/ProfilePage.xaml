@@ -18,7 +18,7 @@
                     </OnPlatform>
                 </Label.IsVisible>
             </Label>
-            <Image Source="defaultProfilePic.jpg" 
+            <Image x:Name="profilePicture" Source="{Binding ProfilePicture}"
                            Aspect="AspectFit" 
                            HeightRequest="70" 
                            WidthRequest="70" 
@@ -91,11 +91,11 @@
             </ListView>
         
         <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="Center" HeightRequest="40"/>
+                        HorizontalOptions="Center" HeightRequest="40" WidthRequest="175"/>
 
-            <Button x:Name="resetPass" Text="Change Password" HeightRequest="40" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
+            <Button x:Name="resetPass" Text="Change Password" WidthRequest="175" HeightRequest="40" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black"/>
 
-            <Button x:Name="logout" Text="Logout" HeightRequest="40" Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
+            <Button x:Name="logout" Text="Logout" HeightRequest="40" WidthRequest="175" Clicked="Logout_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
                         HorizontalOptions="CenterAndExpand" />
             
         </StackLayout>

@@ -40,6 +40,20 @@ namespace LetsGo.Controller
             }
         }
 
+        private Image _img { get; set; }
+        public Image ProfilePicture
+        {
+            get
+            {
+                return _img;
+            }
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
+
 
         public PublicProfileController(UserProfile user)
         {
@@ -71,6 +85,16 @@ namespace LetsGo.Controller
 
             }
             interests.ItemsSource = Interests;
+
+            string profilePictureStr = await fb.GetProfilePicture(user.Email);
+            if (profilePictureStr != null)
+            {
+                profilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
+            }
+            else
+            {
+                profilePicture.Source = ImageSource.FromFile("defaultProfilePic.jpg");
+            }
         }
 
         public async void OnAdd(object sender, EventArgs e)
