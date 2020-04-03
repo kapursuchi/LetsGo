@@ -49,7 +49,7 @@ namespace LetsGo.Controller
             if (FriendRequestNotifications.Count == 0)
             {
 
-                FriendRequestNotifications.Add(new UserProfile() { Name = "No notifications to display, you're caught up!" });
+                FriendRequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
 
             }
 

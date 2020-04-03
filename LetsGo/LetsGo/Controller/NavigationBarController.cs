@@ -14,6 +14,7 @@ namespace LetsGo.Controller
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             On<Android>().SetToolbarPlacement(value: ToolbarPlacement.Bottom);
+            UpdateChildrenLayout();
         }
     }
 }
