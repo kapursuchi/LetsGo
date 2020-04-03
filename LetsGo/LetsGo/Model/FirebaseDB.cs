@@ -108,7 +108,7 @@ namespace LetsGo.Model
                     .OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
 
                 await firebase.Child("userprofiles").Child(userToUpdate.Key)
-                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, Friends = CurrentUser.Friends, PublicAcct = CurrentUser.PublicAcct });
+                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, Friends = CurrentUser.Friends, PublicAcct = CurrentUser.PublicAcct });
             }
             catch (Exception)
             {
@@ -130,7 +130,8 @@ namespace LetsGo.Model
                         Location = item.Object.Location,
                         Interests = item.Object.Interests,
                         Friends = item.Object.Friends,
-                        PublicAcct = item.Object.PublicAcct
+                        PublicAcct = item.Object.PublicAcct,
+                        ProfileImage = item.Object.ProfileImage
                     }).ToList();
 
             List<UserProfile> AllUsers = users.ToList();
@@ -171,7 +172,7 @@ namespace LetsGo.Model
             await firebase
             .Child("userprofiles")
             .Child(userToUpdate.Key)
-            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
+            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
             return true;
         }
 
@@ -293,7 +294,8 @@ namespace LetsGo.Model
                             Interests = CurrentUser.Interests,
                             FriendRequests = CurrentUser.FriendRequests,
                             Friends = CurrentUser.Friends,
-                            PublicAcct = CurrentUser.PublicAcct
+                            PublicAcct = CurrentUser.PublicAcct,
+                            ProfileImage = CurrentUser.ProfileImage
                         }) ;
             return true;
         }
@@ -317,8 +319,30 @@ namespace LetsGo.Model
 
         public async Task<string> UploadProfilePhoto(Stream filestream)
         {
-            string user = GetCurrentUser();
-            string photo = await UploadFile(filestream, "userprofiles", user, "profilepicture.jpg");
+            List<UserProfile> users = await GetAllUsers();
+            string CurrentUserEmail = GetCurrentUser();
+            var CurrentUser = users.Where(a => a.Email == CurrentUserEmail).FirstOrDefault();
+            var userToUpdate = (await firebase
+                    .Child("userprofiles")
+                    .OnceAsync<UserProfile>()).Where(a => a.Object.Email == CurrentUserEmail).FirstOrDefault();
+
+            string photo = await UploadFile(filestream, "userprofiles", CurrentUserEmail, "profilepicture.jpg");
+            await firebase
+                    .Child("userprofiles")
+                    .Child(userToUpdate.Key)
+                    .PutAsync(new UserProfile()
+                    {
+                        Name = CurrentUser.Name,
+                        Email = CurrentUser.Email,
+                        DateOfBirth = CurrentUser.DateOfBirth,
+                        Password = CurrentUser.Password,
+                        Location = CurrentUser.Location,
+                        Interests = CurrentUser.Interests,
+                        FriendRequests = CurrentUser.FriendRequests,
+                        Friends = CurrentUser.Friends,
+                        PublicAcct = CurrentUser.PublicAcct,
+                        ProfileImage = photo
+                    });
             return photo;
         }
 
@@ -451,7 +475,8 @@ namespace LetsGo.Model
                     Friends = publicUsers.ElementAt(i).Friends,
                     Location = textInfo.ToTitleCase(publicUsers.ElementAt(i).Location),
                     FriendRequests = publicUsers.ElementAt(i).FriendRequests,
-                    PublicAcct = publicUsers.ElementAt(i).PublicAcct
+                    PublicAcct = publicUsers.ElementAt(i).PublicAcct,
+                    ProfileImage = publicUsers.ElementAt(i).ProfileImage
                 }) ;
             }
 
@@ -489,7 +514,8 @@ namespace LetsGo.Model
                     Location = textInfo.ToTitleCase(users.ElementAt(i).Object.Location),
                     Friends = users.ElementAt(i).Object.Friends,
                     FriendRequests = users.ElementAt(i).Object.FriendRequests,
-                    PublicAcct = users.ElementAt(i).Object.PublicAcct
+                    PublicAcct = users.ElementAt(i).Object.PublicAcct,
+                    ProfileImage = users.ElementAt(i).Object.ProfileImage
                 });
             }
             return publicUsers;
@@ -587,7 +613,8 @@ namespace LetsGo.Model
                     Interests = CurrentUser.Interests,
                     Friends = CurrentFriendsList,
                     FriendRequests = CurrentUser.FriendRequests,
-                    PublicAcct = CurrentUser.PublicAcct
+                    PublicAcct = CurrentUser.PublicAcct,
+                    ProfileImage = CurrentUser.ProfileImage
                 });
 
             List<string> FriendsList = await GetAllFriends(friendToAdd);
@@ -605,7 +632,8 @@ namespace LetsGo.Model
                     Interests = FriendUser.Interests,
                     Friends = FriendsList,
                     FriendRequests = FriendUser.FriendRequests,
-                    PublicAcct = FriendUser.PublicAcct
+                    PublicAcct = FriendUser.PublicAcct,
+                    ProfileImage = FriendUser.ProfileImage
                 });
 
             return true;
@@ -658,7 +686,8 @@ namespace LetsGo.Model
                     Interests = FriendUser.Interests,
                     Friends = FriendsList,
                     FriendRequests = notification,
-                    PublicAcct = FriendUser.PublicAcct
+                    PublicAcct = FriendUser.PublicAcct,
+                    ProfileImage = FriendUser.ProfileImage
                 });
 
         }
@@ -690,7 +719,8 @@ namespace LetsGo.Model
                     Interests = userToAdd.Interests,
                     Friends = userToAdd.Friends,
                     FriendRequests = userToAdd.FriendRequests,
-                    PublicAcct = userToAdd.PublicAcct
+                    PublicAcct = userToAdd.PublicAcct,
+                    ProfileImage = userToAdd.ProfileImage
                 });
             }
             return friendRequests;
@@ -724,7 +754,8 @@ namespace LetsGo.Model
                     Interests = currentUser.Object.Interests,
                     Friends = currentUser.Object.Friends,
                     FriendRequests = updated,
-                    PublicAcct = currentUser.Object.PublicAcct
+                    PublicAcct = currentUser.Object.PublicAcct,
+                    ProfileImage = currentUser.Object.ProfileImage
                 });
 
         }
@@ -764,7 +795,8 @@ namespace LetsGo.Model
                     Interests = currentUser.Object.Interests,
                     Friends = updated,
                     FriendRequests = currentUser.Object.FriendRequests,
-                    PublicAcct = currentUser.Object.PublicAcct
+                    PublicAcct = currentUser.Object.PublicAcct,
+                    ProfileImage = currentUser.Object.ProfileImage
                 });
 
             var friendUser = (await firebase
@@ -792,7 +824,8 @@ namespace LetsGo.Model
                     Interests = friendUser.Object.Interests,
                     Friends = friendUpdated,
                     FriendRequests = friendUser.Object.FriendRequests,
-                    PublicAcct = friendUser.Object.PublicAcct
+                    PublicAcct = friendUser.Object.PublicAcct,
+                    ProfileImage = friendUser.Object.ProfileImage
                 });
 
 
@@ -855,7 +888,8 @@ namespace LetsGo.Model
                         Interests = friend.Interests,
                         Friends = friend.Friends,
                         FriendRequests = friend.FriendRequests,
-                        PublicAcct = friend.PublicAcct
+                        PublicAcct = friend.PublicAcct,
+                        ProfileImage = friend.ProfileImage
                 });
             }
 

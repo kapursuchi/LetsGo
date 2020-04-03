@@ -9,6 +9,7 @@ namespace LetsGo.Controller
 {
     public partial class FriendsPageController
     {
+        
         private ObservableCollection<UserProfile> _friends { get; set; }
         public new ObservableCollection<UserProfile> FriendsList
         {

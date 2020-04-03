@@ -109,7 +109,6 @@ namespace LetsGo.Controller
                 profilePicture.Source = ImageSource.FromFile("defaultProfilePic.jpg");
             }
             ProfilePicture = profilePicture;
-            //ProfilePicture.Source = ImageSource.FromUri(new Uri(profilePictureStr));
 
         }
 
