@@ -35,7 +35,7 @@ namespace LetsGo.Controller
             if (token == true)
             {
                 await DisplayAlert("Success", "Event has been created.", "OK");
-                await Navigation.PushAsync(new ManageEvents());
+                //await Navigation.PushAsync(new LoginController());
             }
             else
             {
