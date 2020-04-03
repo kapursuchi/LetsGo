@@ -33,7 +33,52 @@
                                 <MenuItem Clicked="OnDecline" CommandParameter="{Binding .}" Text="Decline" />
                             </ViewCell.ContextActions>
                             <StackLayout Padding="15,0">
-                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"  VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Grid   x:Name="friendGrid" VerticalOptions="Center" HorizontalOptions="Start" Margin="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image      Source="{Binding ProfileImage}"
+                                                HeightRequest="30"
+                                                    HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    />
+                                    <Label     
+                                                Text="{Binding Name}"
+                                                TextColor="Black"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center"
+                                                FontAttributes="Bold"
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                />
+                                    <Label     
+                                                Text=" "
+                                                TextColor="Black"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Center"
+                                                FontAttributes="Bold"
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                />
+                                    <Label     
+                                                Text=" "
+                                                TextColor="Black"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Center"
+                                                FontAttributes="Bold"
+                                                Grid.Row="1"
+                                                Grid.Column="3"
+                                                />
+
+
+                                </Grid>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

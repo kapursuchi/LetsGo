@@ -10,7 +10,7 @@ namespace LetsGo.Model
     {
         public string Name { get; set; }
 
-        public ImageSource ProfilePicture { get; set; }
+        public string ProfileImage { get; set; }
         public DateTime DateOfBirth { get; set; }
 
         public string Email { get; set; }
@@ -37,7 +37,7 @@ namespace LetsGo.Model
             Interests = new List<string>();
             Friends = new List<string>();
             FriendRequests = new List<string>();
-            //ProfilePicture = ImageSource.FromFile("defaultProfilePic.jpg");
+            ProfileImage = "defaultProfilePic.jpg";
         }
 
         public UserProfile()

@@ -34,7 +34,7 @@ namespace LetsGo.Controller
         }
         public async void Events_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EventsPageController());
+            await Navigation.PushAsync(new ManageEvents());
         }
         public async void Friends_Clicked(object sender, EventArgs e)
         {
