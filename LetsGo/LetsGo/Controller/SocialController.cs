@@ -73,6 +73,10 @@ namespace LetsGo.Controller
                 }
                 
             }
+            /*else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+            {
+                CommunityProfile community = (CommunityProfile)type.CommandParamater;
+            }*/
         }
     }
 }

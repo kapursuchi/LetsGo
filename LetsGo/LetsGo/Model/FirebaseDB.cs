@@ -76,9 +76,9 @@ namespace LetsGo.Model
             return true;
         }
 
-        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly)
+        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List <string> mems, Guid id)
         {
-            CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly);
+            CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly, mems, id);
             await firebase
                 .Child("Communities")
                 .PostAsync(newCommunity);
@@ -149,6 +149,27 @@ namespace LetsGo.Model
             return AllUsers;
         }
 
+        public async Task<List<CommunityProfile>> GetAllCommunities()
+        {
+            var communities = (await firebase
+                    .Child("Communities")
+                    .OnceAsync<CommunityProfile>()).Select(item => new CommunityProfile
+                    {
+                        Leader = item.Object.Leader,
+                        Description = item.Object.Description,
+                        Location = item.Object.Location,
+                        Interests = item.Object.Interests,
+                        Name = item.Object.Name,
+                        PublicCommunity = item.Object.PublicCommunity,
+                        InviteOnly = item.Object.InviteOnly,
+                        Members = item.Object.Members
+                    }).ToList();
+
+            List<CommunityProfile> AllCommunities = communities.ToList();
+
+            return AllCommunities;
+        }
+
         public async Task<bool> UpdateUserProfile(string uName, string location, bool publicAccount, List<string> interestList)
         {
 
@@ -196,7 +217,6 @@ namespace LetsGo.Model
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
             return auth.GetCurrentUser();
         }
-
 
         private async Task<UserProfile> User()
         {
@@ -360,10 +380,32 @@ namespace LetsGo.Model
             string photo = await UploadFile(filestream, "events", eventName, "eventimage.jpg");
             return photo;
         }
-
-        public async Task<string> UploadCommunityPhoto(Stream filestream, string communityName)
+        
+        public async Task<string> UploadCommunityPhoto(Stream filestream, string communityID)
         {
-            string photo = await UploadFile(filestream, "communities", communityName, "communityimage.jpg");
+            List<CommunityProfile> communities = await GetAllCommunities();
+            var CurrentCommunity = communities.Where(a => a.CommunityID.ToString() == communityID).FirstOrDefault();
+            var commToUpdate = (await firebase
+                        .Child("Communities")
+                        .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID.ToString() == communityID).FirstOrDefault();
+
+            string photo = await UploadFile(filestream, "Communities", communityID, "communityimage.jpg");
+            await firebase
+                    .Child("Communities")
+                    .Child(commToUpdate.Key)
+                    .PutAsync(new CommunityProfile()
+                    {
+                        Leader = CurrentCommunity.Leader,
+                        Description = CurrentCommunity.Description,
+                        Location = CurrentCommunity.Location,
+                        Name = CurrentCommunity.Name,
+                        PublicCommunity = CurrentCommunity.PublicCommunity,
+                        Interests = CurrentCommunity.Interests,
+                        Members = CurrentCommunity.Members,
+                        InviteOnly = CurrentCommunity.InviteOnly,
+                        CommunityID = CurrentCommunity.CommunityID,
+                        CommunityImage = photo
+                    });
             return photo;
         }
 
@@ -498,13 +540,41 @@ namespace LetsGo.Model
                     Location = textInfo.ToTitleCase(publicCommunities.ElementAt(i).Location),
                     Leader = publicCommunities.ElementAt(i).Leader,
                     Interests = publicCommunities.ElementAt(i).Interests,
-                    PublicCommunity = publicCommunities.ElementAt(i).PublicCommunity
+                    PublicCommunity = publicCommunities.ElementAt(i).PublicCommunity,
+                    CommunityImage = publicCommunities.ElementAt(i).CommunityImage,
+                    InviteOnly = publicCommunities.ElementAt(i).InviteOnly,
+                    Members = publicCommunities.ElementAt(i).Members
                 });
             }
 
 
             return searchResults;
 
+        }
+
+        public async Task<List<CommunityProfile>> GetMyCommunities()
+        {
+            string userEmail = GetCurrentUser();
+            List<CommunityProfile> results = new List<CommunityProfile>();
+            var communities = (await firebase
+                              .Child("Communities")
+                              .OnceAsync<CommunityProfile>()).Where(a => a.Object.Members.Contains(userEmail)).ToList();
+            for (int i = 0; i < communities.Count; i++)
+            {
+                results.Add(new CommunityProfile()
+                {
+                    Name = textInfo.ToTitleCase(communities.ElementAt(i).Object.Name),
+                    Description = textInfo.ToTitleCase(communities.ElementAt(i).Object.Description),
+                    Location = textInfo.ToTitleCase(communities.ElementAt(i).Object.Location),
+                    Leader = communities.ElementAt(i).Object.Leader,
+                    Interests = communities.ElementAt(i).Object.Interests,
+                    PublicCommunity = communities.ElementAt(i).Object.PublicCommunity,
+                    CommunityImage = communities.ElementAt(i).Object.CommunityImage,
+                    InviteOnly = communities.ElementAt(i).Object.InviteOnly,
+                    Members = communities.ElementAt(i).Object.Members
+                });
+            }
+            return results;
         }
 
         public async Task<List<UserProfile>> GetPublicUsers(string InterestTag)
@@ -547,7 +617,11 @@ namespace LetsGo.Model
                     Location = textInfo.ToTitleCase(commList.ElementAt(i).Object.Location),
                     Leader = commList.ElementAt(i).Object.Leader,
                     Interests = commList.ElementAt(i).Object.Interests,
-                    PublicCommunity = commList.ElementAt(i).Object.PublicCommunity
+                    PublicCommunity = commList.ElementAt(i).Object.PublicCommunity,
+                    InviteOnly = commList.ElementAt(i).Object.InviteOnly,
+                    Members = commList.ElementAt(i).Object.Members,
+                    CommunityID = commList.ElementAt(i).Object.CommunityID,
+                    CommunityImage = commList.ElementAt(i).Object.CommunityImage
                 });
             }
 
