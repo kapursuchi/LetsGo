@@ -20,6 +20,49 @@
                 
                 <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" WidthRequest="1000" FontSize="Body" BackgroundColor="Transparent" TextColor="#564aff"  VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
                 <Label x:Name="YourEvents" Text="Your Events" TextColor="Black" FontSize="Title" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" BackgroundColor="Ivory"/>
+                <!--<Button x:Name="Update_EventList" Text="Refresh Events" Clicked="UpdateEventList" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" BackgroundColor="Ivory"/>-->
+                <Label x:Name="EventName" Text="{Binding Name}" TextColor="Black" 
+                           VerticalOptions="Start" 
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold"
+                           FontSize="Medium" Margin="0"/>
+                <Label      x:Name="EventDescription"
+                                Text="{Binding Description}"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                FontSize="Medium"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                />
+                <Grid   x:Name="eventgrid" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Image      Source="socialicon.png"
+                            HeightRequest="20"
+                                HorizontalOptions="End"
+                            VerticalOptions="Start"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                />
+                    <Label      x:Name="EventLocation"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                FontSize="Medium"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                />
+
+
+                </Grid>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
