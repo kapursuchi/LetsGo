@@ -14,7 +14,7 @@
                    FontSize="Medium"
                    TextColor="Black"
                    Margin="20"/>
-            <ListView x:Name="viewComms" ItemsSource="{Binding CommunityList}" ItemTapped="Community_Tapped" SeparatorVisibility="Default" SeparatorColor="LightSteelBlue"  SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="viewComms" SeparatorColor="Transparent" ItemsSource="{Binding CommunityList}" ItemTapped="Community_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
