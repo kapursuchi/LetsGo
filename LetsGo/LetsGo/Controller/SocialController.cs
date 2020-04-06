@@ -52,13 +52,12 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnView(object sender, EventArgs e)
+        public async void OnView(object sender, ItemTappedEventArgs e)
         {
-            var type = (MenuItem)sender;
-            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
+            var type = e.ItemIndex;
+            if (SearchResults[type].ToString() == "LetsGo.Model.UserProfile")
             {
-                UserProfile profile = (UserProfile)type.CommandParameter;
-                System.Diagnostics.Debug.WriteLine(profile.Name);
+                UserProfile profile = (UserProfile)SearchResults[type];
                 bool friend = await fb.isFriend(profile.Email);
                 if (friend)
                 {
@@ -72,12 +71,19 @@ namespace LetsGo.Controller
                 {
                     await Navigation.PushAsync(new PrivateProfileController(profile));
                 }
-                
+
             }
-            /*else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+            else if (SearchResults[type].ToString() == "LetsGo.Model.CommunityProfile")
             {
-                CommunityProfile community = (CommunityProfile)type.CommandParamater;
+                CommunityProfile community = (CommunityProfile)SearchResults[type];
+                await Navigation.PushAsync(new ViewCommunityAsMember());
+            }/*
+            else if (SearchResults[type].ToString() == "LetsGo.Model.EventProfile")
+            {
+                EventProfile event = (EventProfile)SearchResults[type];
             }*/
+            this.ClearValue(ListView.SelectedItemProperty);
+
         }
     }
 }

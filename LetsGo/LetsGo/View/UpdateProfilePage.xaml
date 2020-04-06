@@ -26,8 +26,6 @@
                    Margin="10"/>
 
 
-
-            <Label Text="Profile Picture goes here..." FontSize="Medium" TextColor="Black" Margin="10" VerticalOptions="Start" HorizontalOptions="Center"/>
             <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
 
             <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff"   WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"/>

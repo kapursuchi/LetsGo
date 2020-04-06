@@ -22,21 +22,15 @@
             <ScrollView>
                 <SearchBar Placeholder="Search by Interest Tag"  PlaceholderColor="Gray" VerticalOptions="StartAndExpand" TextColor="Black" TextChanged="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>
             </ScrollView>
-            <ListView x:Name="search" SeparatorVisibility="None" SeparatorColor="Transparent"  SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="search" SeparatorVisibility="None" ItemTapped="OnView"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="LightGoldenrodYellow">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnAdd" CommandParameter="{Binding .}" Text="Add" />
-                                <MenuItem Clicked="OnView" CommandParameter="{Binding .}" Text="View" />
-                            </ViewCell.ContextActions>
-                            <StackLayout Padding="15,0">
-                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
-                            </StackLayout>
-                        </ViewCell>
+                        <ImageCell Text="{Binding Name}" TextColor="Black"  CommandParameter="{Binding .}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+
             <Button x:Name="manageCommunities" Text="Manage Communities" Clicked="Communities_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
                     HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" WidthRequest="200" HeightRequest="40" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
             <Button x:Name="manageEvents" Text="Manage Events" Clicked="Events_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
