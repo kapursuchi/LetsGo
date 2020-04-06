@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -119,7 +119,7 @@
 
 
 
-            <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center"/>
+            <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
             <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
         </StackLayout>
