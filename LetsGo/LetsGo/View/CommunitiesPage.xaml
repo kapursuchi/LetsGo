@@ -18,7 +18,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="10">
+                            <Grid Padding="15">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
@@ -30,15 +30,13 @@
                                 <Image Grid.RowSpan="2"
                                     Source="{Binding CommunityImage}"
                                     Aspect="AspectFill"
-                                    HeightRequest="60"
-                                    WidthRequest="60" />
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"/>
                                 <Label  Grid.Column="1"
                                         Text="{Binding Name}"
                                         FontAttributes="Bold" />
-                                <Label  Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="{Binding Description}"
-                                        VerticalOptions="End" />
                                 </Grid>
                         </ViewCell>
                     </DataTemplate>
@@ -46,7 +44,7 @@
             </ListView>
 
             <Button x:Name="startCommunity" Text="Start a Community" Clicked="StartCommunity_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="10" />
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" WidthRequest="175" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -58,6 +58,7 @@ namespace LetsGo.Controller
             if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
             {
                 UserProfile profile = (UserProfile)type.CommandParameter;
+                System.Diagnostics.Debug.WriteLine(profile.Name);
                 bool friend = await fb.isFriend(profile.Email);
                 if (friend)
                 {

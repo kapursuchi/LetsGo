@@ -8,12 +8,100 @@
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Community as Leader"
-                VerticalOptions="Start" 
-                HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"
-                   TextColor="Black"
-                   Margin="20"/>
+            <Image  x:Name="imgChosen"
+                            Source="{Binding CommunityImage}"
+                            Aspect="AspectFill"
+                            HeightRequest="100"
+                            WidthRequest="100"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Margin="15"
+                            />
+            <Label  x:Name="name"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Text="{Binding Name}"
+                            FontAttributes="Bold"
+                            FontSize="Title"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Center" />
+            <Label      x:Name="location"
+                            Text="{Binding Location}"
+                            TextColor="Gray"
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                            FontAttributes="Italic" />
+             <Grid>
+                  <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Label Text="Community Leader: "
+                         HorizontalOptions="End"
+                         Grid.Column="0"
+                         Grid.Row="1"
+                         Padding="5" />
+                  <Button x:Name="leader"
+                        Text="{Binding LeaderName}"
+                        TextColor="Blue"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        FontSize="Medium"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Start"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Margin="-8"
+                        BorderWidth="0"
+                        Clicked="OnLeaderName_Clicked"/>
+            </Grid>
+            <Grid ColumnSpacing="0">
+                  <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Label Text="Community Description: "
+                         HorizontalOptions="End"
+                         Grid.Column="0"
+                         Padding="5"/>
+                  <Label x:Name="description"
+                        Text="{Binding Description}"
+                        FontSize="Medium"
+                        TextColor="Black"
+                        HorizontalOptions="StartAndExpand"
+                        Grid.Column="1"
+                        Padding="5"/>
+            </Grid>
+            <Grid VerticalOptions="End" HorizontalOptions="Center">
+                 <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                 </Grid.RowDefinitions>
+                 <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                 </Grid.ColumnDefinitions>
+                 <Button x:Name="changePicture"
+                        Text="Choose Image"
+                        BackgroundColor="LightSteelBlue"
+                        FontSize="Micro"
+                        HeightRequest="50"
+                        Clicked="Upload_Picture_Clicked"
+                        Grid.Column="0"
+                        Margin="5"
+                        />  
+            </Grid>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

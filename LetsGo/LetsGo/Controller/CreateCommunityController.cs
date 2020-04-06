@@ -14,23 +14,8 @@ namespace LetsGo.Controller
     {
         private bool isPublic;
         private bool isInviteOnly;
-        // move image stuff to other page
-        private Image _img { get; set; }
+
         readonly private FirebaseDB fb = new FirebaseDB();
-
-        public Image CommunityImage
-        {
-            get
-            {
-                return _img;
-            }
-            set
-            {
-                _img = value;
-                OnPropertyChanged(nameof(CommunityImage));
-            }
-        }
-
      
         public CreateCommunityController()
         {
@@ -70,34 +55,7 @@ namespace LetsGo.Controller
             isInviteOnly = e.Value;
         }
 
-        // move this stuff into ViewCommunity page
-        MediaFile file;
-        public async void Upload_Picture_Clicked(object sender, EventArgs e)
-        {
-            await CrossMedia.Current.Initialize();
-            try
-            {
-                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
-                {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
-                });
-                if (file == null)
-                    return;
-                imgChosen.Source = ImageSource.FromStream(() =>
-                {
-                    var imageStram = file.GetStream();
-                    return imageStram;
-                });
-                //string photo = await fb.UploadProfilePhoto(file.GetStream());
-                CommunityImage = imgChosen;
 
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Upload Failed", ex.Message, "OK");
-            }
-
-        }
 
     }
 }

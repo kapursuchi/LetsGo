@@ -109,6 +109,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </BundleResource>
+    <BundleResource Include="Resources\communityimage.jpg">
+      <IncludeInPackage>false</IncludeInPackage>
+      <LogicalName>communityimage.jpg</LogicalName>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json">

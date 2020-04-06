@@ -76,7 +76,7 @@ namespace LetsGo.Model
             return true;
         }
 
-        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List <string> mems, Guid id)
+        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List<string> mems, Guid id)
         {
             CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly, mems, id);
             await firebase
@@ -253,7 +253,33 @@ namespace LetsGo.Model
             return current.Name;
         }
 
-        
+        public async Task<UserProfile> GetUserObject(string email)
+        {
+            List<UserProfile> users = await GetAllUsers();
+            var selectedUser = users.Where(a => a.Email == email).FirstOrDefault();
+            return selectedUser;
+        }
+
+        public async Task<string> GetUsersName(string email)
+        {
+            List<UserProfile> users = await GetAllUsers();
+            var selectedUser = users.Where(a => a.Email == email).FirstOrDefault();
+            return selectedUser.Name;
+        }
+
+        public async Task<bool> IsPublicUser(string email)
+        {
+            List<UserProfile> users = await GetAllUsers();
+            var selectedUser = users.Where(a => a.Email == email).FirstOrDefault();
+            if (selectedUser.PublicAcct)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public async Task<List<string>> GetUsersInterests()
         {
@@ -269,6 +295,20 @@ namespace LetsGo.Model
             }
             return interests;
 
+        }
+
+        public async Task<List<string>> GetCommunityInterests(string id)
+        {
+            List<CommunityProfile> communities = await GetAllCommunities();
+            var CurrentCommunity = communities.Where(a => a.CommunityID.ToString() == id).FirstOrDefault();
+            List<string> interests = new List<string>();
+            if (CurrentCommunity.Interests == null)
+                return interests;
+            for (int i = 0; i < CurrentCommunity.Interests.Count; i++)
+            {
+                interests.Add(textInfo.ToTitleCase(CurrentCommunity.Interests.ElementAt(i)));
+            }
+            return interests;
         }
 
         public async Task<List<string>> GetUsersInterests(string email)
@@ -438,9 +478,9 @@ namespace LetsGo.Model
             return picture;
         }
 
-        public async Task<string> GetCommunityPicture(string communityName)
+        public async Task<string> GetCommunityPicture(string communityID)
         {
-            string picture = await GetPicture("communities", communityName, "communityimage.jpg");
+            string picture = await GetPicture("Communities", communityID, "communityimage.jpg");
             return picture;
         }
         private async Task<string> GetPicture(string root, string child, string pictureType)
@@ -662,12 +702,13 @@ namespace LetsGo.Model
             var friendToAdd = (await firebase
                 .Child("userprofiles")
                 .OnceAsync<UserProfile>()).Where(a => a.Object.Email == friendEmail).FirstOrDefault();
-            if (friendToAdd.Object.PublicAcct)
+            if (friendToAdd.Object.PublicAcct && friendToAdd.Object.Email != CurrentUserEmail)
             {
                 bool added = await AddUserAsFriend(CurrentUserEmail, friendEmail);
             }
             else
             {
+                if (friendToAdd.Object.Email != CurrentUserEmail)
                 SendFriendRequest(CurrentUserEmail, friendEmail);
             }
         }

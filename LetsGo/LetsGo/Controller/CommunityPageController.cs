@@ -15,8 +15,8 @@ namespace LetsGo.Controller
         public CommunityPageController()
         {
             CommunityList = new List<CommunityProfile>();
+            GrabCommunities();
             InitializeComponent();
-            DisplayCommunities();
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
         }
         public async void StartCommunity_Clicked(object sender, EventArgs e)
@@ -24,7 +24,7 @@ namespace LetsGo.Controller
             await Navigation.PushAsync(new CreateCommunityController());
         }
 
-        public async void DisplayCommunities()
+        public async void GrabCommunities()
         {
             CommunityList = await fb.GetMyCommunities();
             viewComms.ItemsSource = CommunityList;
@@ -46,10 +46,6 @@ namespace LetsGo.Controller
             }
 
         }
-        /*
-        public async void ViewCommunity_Clicked(object sender, EventArgs e)
-        {
 
-        } */
     }
 }

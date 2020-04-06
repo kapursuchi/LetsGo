@@ -10863,6 +10863,12 @@ namespace LetsGo.Droid
 			// aapt resource value: 0x7F0E00C8
 			public const int MainTheme_Base = 2131624136;
 			
+			// aapt resource value: 0x7F0E01FD
+			public const int mybutton = 2131624445;
+			
+			// aapt resource value: 0x7F0E01FE
+			public const int mybutton_text = 2131624446;
+			
 			// aapt resource value: 0x7F0E00C9
 			public const int NestedScrollBarStyle = 2131624137;
 			
