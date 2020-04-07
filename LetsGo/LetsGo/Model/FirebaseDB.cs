@@ -386,7 +386,7 @@ namespace LetsGo.Model
             List<CommunityProfile> comms = communities.ToList();
             for (int i = 0; i < comms.Count; i++)
             {
-                var community = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == comms.ElementAt(i).Leader && a.Object.Name == comms.ElementAt(i).Name).FirstOrDefault();
+                var community = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == comms.ElementAt(i).Leader && a.Object.Name == comms.ElementAt(i).Name.ToLower()).FirstOrDefault();
                 if (comms.ElementAt(i).Leader == current)
                 {
                     await firebase.Child("Communities").Child(community.Key).DeleteAsync();
@@ -721,6 +721,19 @@ namespace LetsGo.Model
             }
             return publicUsers;
         }
+
+        public async Task<bool> isCommunityMember(CommunityProfile community)
+        {
+            string current = GetCurrentUser();
+            var comm = (await firebase
+                .Child("Communities")
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
+
+            if (comm.Object.Members.Contains(current))
+                return true;
+
+            return false;
+        }
         public async Task<List<CommunityProfile>> GetPublicCommunities(string InterestTag)
         {
             var communities = (await firebase
@@ -783,7 +796,7 @@ namespace LetsGo.Model
 
             var communityToUpdate = (await firebase
                                     .Child("Communities")
-                                    .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+                                    .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
 
             bool added = false;
             if (!communityToUpdate.Object.InviteOnly)
@@ -797,7 +810,7 @@ namespace LetsGo.Model
         {
             var communityToUpdate = (await firebase
                         .Child("Communities")
-                        .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+                        .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
 
             List<string> memberList = new List<string>();
             for (int i = 0; i < community.Members.Count; i++)
