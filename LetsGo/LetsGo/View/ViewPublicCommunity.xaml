@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.Controller.PublicCommunityController">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+<!--
+            <Image  x:Name = "communityImage" Source = "{Binding ProfileImage}"
+                    Aspect = "AspectFill"
+                    HeightRequest = "70"
+                    WidthRequest = "70"
+                    HorizontalOptions = "Center"
+                    VerticalOptions = "Start"
+                    Margin = "0,10,0,0"
+                    />-->
+            <Label x:Name="name" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
+            <Button x:Name="join" Text="Join Community" Clicked="Join_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" HeightRequest="40" WidthRequest="100" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,15,0,0"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

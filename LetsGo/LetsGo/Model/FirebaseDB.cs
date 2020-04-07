@@ -162,7 +162,9 @@ namespace LetsGo.Model
                         Name = item.Object.Name,
                         PublicCommunity = item.Object.PublicCommunity,
                         InviteOnly = item.Object.InviteOnly,
-                        Members = item.Object.Members
+                        Members = item.Object.Members,
+                        CommunityID = item.Object.CommunityID,
+                        CommunityImage = item.Object.CommunityImage
                     }).ToList();
 
             List<CommunityProfile> AllCommunities = communities.ToList();
@@ -335,8 +337,87 @@ namespace LetsGo.Model
                 .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
 
             await firebase.Child("userprofiles").Child(userToDelete.Key).DeleteAsync();
+
+
+            List<UserProfile> users = await GetAllUsers();
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users.ElementAt(i).Friends != null)
+                {
+                    if (users.ElementAt(i).Friends.Contains(current))
+                    {
+                        List<string> friends = users.ElementAt(i).Friends;
+                        friends.Remove(current);
+                        var user = (await firebase.Child("userprofiles").OnceAsync<UserProfile>()).Where(a => a.Object.Email == users.ElementAt(i).Email).FirstOrDefault();
+                        await firebase.Child("userprofiles").Child(user.Key).PutAsync(new UserProfile()
+                        {
+                            Name = user.Object.Name,
+                            Email = user.Object.Email,
+                            DateOfBirth = user.Object.DateOfBirth,
+                            Password = user.Object.Password,
+                            Location = user.Object.Location,
+                            Interests = user.Object.Interests,
+                            FriendRequests = user.Object.FriendRequests,
+                            Friends = friends,
+                            PublicAcct = user.Object.PublicAcct,
+                            ProfileImage = user.Object.ProfileImage
+                        });
+                    }
+                }
+
+            }
+
+            var communities = (await firebase
+                    .Child("Communities")
+                    .OnceAsync<CommunityProfile>()).Select(item => new CommunityProfile()
+                    {
+                        Leader = item.Object.Leader,
+                        Description = item.Object.Description,
+                        Location = item.Object.Location,
+                        Interests = item.Object.Interests,
+                        Name = item.Object.Name,
+                        PublicCommunity = item.Object.PublicCommunity,
+                        InviteOnly = item.Object.InviteOnly,
+                        Members = item.Object.Members,
+                        CommunityID = item.Object.CommunityID,
+                        CommunityImage = item.Object.CommunityImage
+                    }).ToList();
+
+            List<CommunityProfile> comms = communities.ToList();
+            for (int i = 0; i < comms.Count; i++)
+            {
+                var community = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == comms.ElementAt(i).Leader && a.Object.Name == comms.ElementAt(i).Name).FirstOrDefault();
+                if (comms.ElementAt(i).Leader == current)
+                {
+                    await firebase.Child("Communities").Child(community.Key).DeleteAsync();
+                }
+                else if (comms.ElementAt(i).Members.Contains(current))
+                {
+                    List<string> members = comms.ElementAt(i).Members;
+                    members.Remove(current);
+
+                    await firebase.Child("Communities").Child(community.Key).PutAsync(new CommunityProfile()
+                    {
+                        Leader = community.Object.Leader,
+                        Description = community.Object.Description,
+                        Location = community.Object.Location,
+                        Name = community.Object.Name,
+                        PublicCommunity = community.Object.PublicCommunity,
+                        Interests = community.Object.Interests,
+                        Members = members,
+                        InviteOnly = community.Object.InviteOnly,
+                        CommunityID = community.Object.CommunityID,
+                        CommunityImage = community.Object.CommunityImage
+                    });
+                }
+            }
+
+
             return true;
+
+
         }
+
 
         public async Task<bool> ChangePassword(string oldPassword, string NewPassword)
         {
@@ -694,6 +775,43 @@ namespace LetsGo.Model
                 });
             }
             return publicEvents;
+        }
+
+        public async Task<bool> JoinCommunity(CommunityProfile community)
+        {
+            string currentUser = GetCurrentUser();
+
+            var communityToUpdate = (await firebase
+                                    .Child("Communities")
+                                    .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+
+            bool added = false;
+            if (!communityToUpdate.Object.InviteOnly)
+            {
+                added = await AddUserToCommunity(currentUser, community);
+            }
+            return added;
+        }
+
+        private async Task<bool> AddUserToCommunity(string currentuser, CommunityProfile community)
+        {
+            var communityToUpdate = (await firebase
+                        .Child("Communities")
+                        .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+
+            List<string> memberList = new List<string>();
+            for (int i = 0; i < community.Members.Count; i++)
+            {
+                memberList.Add(community.Members.ElementAt(i));
+            }
+            memberList.Add(currentuser);
+            await firebase
+                .Child("Communities")
+                .Child(communityToUpdate.Key)
+                .Child("Members")
+                .PutAsync(memberList);
+
+            return true;
         }
 
         public async void AddFriend(string friendEmail)

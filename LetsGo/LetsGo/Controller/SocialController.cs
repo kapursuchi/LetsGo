@@ -75,8 +75,8 @@ namespace LetsGo.Controller
             }
             else if (SearchResults[type].ToString() == "LetsGo.Model.CommunityProfile")
             {
-                CommunityProfile community = (CommunityProfile)SearchResults[type];
-                await Navigation.PushAsync(new ViewCommunityAsMember());
+                CommunityProfile selectedCommunity = e.Item as CommunityProfile; ;
+                await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
             }/*
             else if (SearchResults[type].ToString() == "LetsGo.Model.EventProfile")
             {
