@@ -40,17 +40,7 @@ namespace LetsGo.Controller
         {
             await Navigation.PushAsync(new FriendsPageController());
         }
-        public async void OnAdd(object sender, EventArgs e)
-        {
-            var type = (MenuItem)sender;
-            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
-            {
-                UserProfile profile = (UserProfile)type.CommandParameter;
-                string email = profile.Email;
-                fb.AddFriend(email);
-            }
 
-        }
 
         public async void OnView(object sender, ItemTappedEventArgs e)
         {

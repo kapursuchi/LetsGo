@@ -159,7 +159,7 @@ namespace LetsGo.Controller
             if (community.InviteOnly && !community.Members.Contains(fb.GetCurrentUser()))
             {
                 added = await fb.JoinCommunity(community);
-                await DisplayAlert("Message", "This community is invite only. You have requested to join. " +
+                await DisplayAlert("Request Sent", "This community is invite only." +
                     "The community leader will have to accept your request for you to become a member.", "OK");
             }
             else
@@ -168,7 +168,9 @@ namespace LetsGo.Controller
             }
             if (added)
             {
-                await DisplayAlert("Message", "You are now a member of this community", "OK");
+                await DisplayAlert("Success", "You are now a member of this community", "OK");
+                Navigation.RemovePage(this);
+                await Navigation.PushAsync(new ViewCommunityMemberController(community));
             }
         }
     }
