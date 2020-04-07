@@ -33,7 +33,7 @@
                             Text="{Binding Name}"
                             FontAttributes="Bold"
                             FontSize="Title"
-                            VerticalOptions="Start"
+                            VerticalOptions="Center"
                             HorizontalOptions="Center" />
             <Label      x:Name="location"
                             Text="{Binding Location}"

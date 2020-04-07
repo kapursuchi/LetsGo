@@ -158,6 +158,7 @@ namespace LetsGo.Controller
             bool added = false;
             if (community.InviteOnly && !community.Members.Contains(fb.GetCurrentUser()))
             {
+                added = await fb.JoinCommunity(community);
                 await DisplayAlert("Message", "This community is invite only. You have requested to join. " +
                     "The community leader will have to accept your request for you to become a member.", "OK");
             }

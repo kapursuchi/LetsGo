@@ -13,7 +13,7 @@ namespace LetsGo.Controller
     {
 
         private ObservableCollection<UserProfile> _requests { get; set; }
-        public ObservableCollection<UserProfile> FriendRequestNotifications 
+        public ObservableCollection<UserProfile> RequestNotifications
         {
             get
             {
@@ -22,7 +22,7 @@ namespace LetsGo.Controller
             set
             {
                 _requests = value;
-                OnPropertyChanged(nameof(FriendRequestNotifications));
+                OnPropertyChanged(nameof(RequestNotifications));
             }
         }
         readonly FirebaseDB fb = new FirebaseDB();
@@ -42,18 +42,31 @@ namespace LetsGo.Controller
 
         public async void SetValues()
         {
-            FriendRequestNotifications = new ObservableCollection<UserProfile>();
+            RequestNotifications = new ObservableCollection<UserProfile>();
             List<UserProfile> profiles = await fb.GetFriendRequests();
-            FriendRequestNotifications = new ObservableCollection<UserProfile>(profiles);
+            List<UserProfile> commRequests = await fb.GetCommunityRequests();
+            if (profiles != null)
+            {
+                RequestNotifications = new ObservableCollection<UserProfile>(profiles);
+            }
+            else if (commRequests != null)
+            {
+                RequestNotifications = new ObservableCollection<UserProfile>(commRequests);
+            }
+            
+            for (int i = 0; i < commRequests.Count; i++)
+            {
+                RequestNotifications.Add(commRequests.ElementAt(i));
+            }
 
-            if (FriendRequestNotifications.Count == 0)
+            if (RequestNotifications.Count == 0)
             {
 
-                FriendRequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
+                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
 
             }
 
-            notifications.ItemsSource = FriendRequestNotifications;
+            notifications.ItemsSource = RequestNotifications;
         }
 
         public void OnAccept(object sender, EventArgs e)
@@ -61,11 +74,11 @@ namespace LetsGo.Controller
             var type = (MenuItem)sender;
             UserProfile profile = (UserProfile)type.CommandParameter;
             fb.AcceptRequest(profile);
-            UserProfile listitem = (from pro in FriendRequestNotifications
-                               where pro == type.CommandParameter
+            UserProfile listitem = (from pro in RequestNotifications
+                                    where pro == type.CommandParameter
                                select pro)
                             .FirstOrDefault<UserProfile>();
-            FriendRequestNotifications.Remove(listitem);
+            RequestNotifications.Remove(listitem);
         }
 
         public void OnDecline(object sender, EventArgs e)
@@ -73,11 +86,11 @@ namespace LetsGo.Controller
             var type = (MenuItem)sender;
             UserProfile profile = (UserProfile)type.CommandParameter;
             fb.RemoveRequest(profile);
-            UserProfile listitem = (from pro in FriendRequestNotifications
+            UserProfile listitem = (from pro in RequestNotifications
                                     where pro == type.CommandParameter
                                     select pro)
                             .FirstOrDefault<UserProfile>();
-            FriendRequestNotifications.Remove(listitem);
+            RequestNotifications.Remove(listitem);
 
         }
 

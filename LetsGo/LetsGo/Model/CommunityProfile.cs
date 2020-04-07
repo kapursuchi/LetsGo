@@ -17,6 +17,8 @@ namespace LetsGo.Model
         public List<string> Members { get; set; }
         public string CommunityImage { get; set; }
         public Guid CommunityID { get; set; }
+
+        public List<string> CommunityRequests { get; set; }
         
         public CommunityProfile(string eMail, string eDesc, string location, string interestTags, string eName, bool isPublic, bool invOnly, List<string> members, Guid id)
         {
@@ -29,6 +31,7 @@ namespace LetsGo.Model
             InviteOnly = invOnly;
             Members = members;
             CommunityID = id;
+            CommunityRequests = new List<string>();
             List<string> preInterests = interestTags.Split(',').ToList();
             for (int i = 0; i < preInterests.Count; i++)
             {
