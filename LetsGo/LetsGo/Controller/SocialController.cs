@@ -75,8 +75,24 @@ namespace LetsGo.Controller
             }
             else if (SearchResults[type].ToString() == "LetsGo.Model.CommunityProfile")
             {
-                CommunityProfile community = (CommunityProfile)SearchResults[type];
-                await Navigation.PushAsync(new ViewCommunityAsMember());
+                CommunityProfile selectedCommunity = e.Item as CommunityProfile;
+                bool member = await fb.isCommunityMember(selectedCommunity);
+                string userEmail = fb.GetCurrentUser();
+                // Community Leader taps on community
+                if (selectedCommunity.Leader == userEmail)
+                {
+                    await Navigation.PushAsync(new ViewCommunityLeaderController(selectedCommunity));
+                }
+                // Regular member taps on community
+                else if (member)
+                {
+                    await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
+                }
+                else
+                {
+                    await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
+                }
+                
             }/*
             else if (SearchResults[type].ToString() == "LetsGo.Model.EventProfile")
             {

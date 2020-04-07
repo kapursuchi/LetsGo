@@ -26,10 +26,10 @@ namespace LetsGo.Controller
 
         public ProfileController()
         {
-
+            SetValues();
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            SetValues();
+            
             name.BindingContext = this;
             location.BindingContext = this;
             

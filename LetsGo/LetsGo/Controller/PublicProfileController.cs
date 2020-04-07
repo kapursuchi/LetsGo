@@ -12,8 +12,9 @@ namespace LetsGo.Controller
         private UserProfile profile { get; set; }
 
         public List<string> Interests { get; set; }
-        private string _name { get; set; }
+        
         private string _location { get; set; }
+        private string _name { get; set; }
         public string Name
         {
             get
