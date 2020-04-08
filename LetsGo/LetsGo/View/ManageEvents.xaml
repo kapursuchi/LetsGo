@@ -17,17 +17,12 @@
                         </OnPlatform>
                     </Label.IsVisible>
                 </Label>
-                <Label Text="Manage Events Page"
-                    VerticalOptions="Start" 
-                    HorizontalOptions="CenterAndExpand" 
-                    FontSize="Title"
-                    TextColor="Black"
-                    WidthRequest="1000"
-                    BackgroundColor="Ivory"/>
-                
+                <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+
                 <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" WidthRequest="1000" FontSize="Body" BackgroundColor="Transparent" TextColor="#564aff"  VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-                <Label x:Name="YourEvents" Text="Your Events" TextColor="Black" FontSize="Title" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" BackgroundColor="Ivory"/>
-                
+
+                <Label x:Name="YourEvents" Text="Your Events" TextColor="Black" FontSize="Medium" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -58,6 +53,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

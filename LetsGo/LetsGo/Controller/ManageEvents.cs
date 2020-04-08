@@ -30,7 +30,7 @@ namespace LetsGo.Controller
             SetValues();
 
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
         }
         public async void NavigateToCreateEvent(object sender, EventArgs e)
         {
