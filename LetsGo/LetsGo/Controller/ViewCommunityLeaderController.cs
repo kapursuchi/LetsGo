@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using LetsGo.Model;
 using Xamarin.Forms;
+using System.Linq;
 using System.ComponentModel;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -16,11 +17,12 @@ namespace LetsGo.Controller
         readonly FirebaseDB fb = new FirebaseDB();
         private CommunityProfile community { get; set; }
         public List<string> Interests { get; set; }
+        public List<string> Members { get; set; }
         private string _name { get; set; }
         private string _location { get; set; }
         private string _description { get; set; }
         private string _leader { get; set; }
-        private Guid CommunityID { get; set; }
+        private string CommunityID { get; set; }
         private string _leaderName { get; set; }
         private Image _img { get; set; }
 
@@ -84,6 +86,8 @@ namespace LetsGo.Controller
                 OnPropertyChanged(nameof(Location));
             }
         }
+
+
         public string Description
         {
             get
@@ -100,7 +104,6 @@ namespace LetsGo.Controller
         public ViewCommunityLeaderController(CommunityProfile c)
         {
             community = c;
-            System.Diagnostics.Debug.WriteLine(c.CommunityID.ToString());
             SetValues(community);
             InitializeComponent();
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
@@ -108,23 +111,23 @@ namespace LetsGo.Controller
             location.BindingContext = this;
             description.BindingContext = this;
             leader.BindingContext = this;
+
         }
 
         public async void SetValues(CommunityProfile community)
         {
-            Interests = new List<string>();
+            Interests = community.Interests;
             Name = community.Name;
             Location = community.Location;
             Description = community.Description;
             CommunityID = community.CommunityID;
             Leader = community.Leader;
+            Members = community.Members;
             if (Location == null)
             {
                 Location = "No Location Yet...";
             }
-            string id = CommunityID.ToString();
-
-            Interests = await fb.GetCommunityInterests(id);
+            //Interests = await fb.GetCommunityInterests(community);
             if (Interests.Count == 0)
             {
                 Interests.Add("No interests listed yet...");
@@ -132,16 +135,9 @@ namespace LetsGo.Controller
             string ln = await fb.GetUsersName(Leader);
             LeaderName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
 
-            //interests.ItemsSource = Interests;
+            interests.ItemsSource = Interests;
 
-
-
-
-            System.Diagnostics.Debug.WriteLine(id);
-
-
-
-            string communityPictureStr = await fb.GetCommunityPicture(id);
+            string communityPictureStr = await fb.GetCommunityPicture(CommunityID);
             if (communityPictureStr != null)
             {
                 imgChosen.Source = ImageSource.FromUri(new Uri(communityPictureStr));
@@ -209,6 +205,22 @@ namespace LetsGo.Controller
                 await DisplayAlert("Upload Failed", ex.Message, "OK");
             }
 
+        }
+
+        public async void OnDeleteCommunity_Pressed(object sender, EventArgs e)
+        {
+            bool choice = await DisplayAlert("Delete Community", "Are you sure you want to delete this community? This action cannot be undone.", "OK", "Cancel");
+            // user selects cancel on prompt
+            if (choice == false)
+            {
+                return;
+            }
+            // user selects OK, delete community
+            else
+            {
+                await fb.DeleteCommunity(Leader.ToLower(), Name.ToLower());
+                await Navigation.PopToRootAsync();
+            }
         }
         
     }

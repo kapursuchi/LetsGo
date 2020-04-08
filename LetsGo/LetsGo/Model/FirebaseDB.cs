@@ -76,7 +76,7 @@ namespace LetsGo.Model
             return true;
         }
 
-        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List<string> mems, Guid id)
+        public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List<string> mems, string id)
         {
             CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly, mems, id);
             await firebase
@@ -299,13 +299,13 @@ namespace LetsGo.Model
 
         }
 
-        public async Task<List<string>> GetCommunityInterests(string id)
+        public async Task<List<string>> GetCommunityInterests(CommunityProfile community)
         {
             List<CommunityProfile> communities = await GetAllCommunities();
-            var CurrentCommunity = communities.Where(a => a.CommunityID.ToString() == id).FirstOrDefault();
+            var CurrentCommunity = communities.Where(a => a.Leader == community.Leader && a.Name == community.Name).FirstOrDefault();
             List<string> interests = new List<string>();
-            if (CurrentCommunity.Interests == null)
-                return interests;
+            //if (CurrentCommunity.Interests == null)
+            //    return interests;
             for (int i = 0; i < CurrentCommunity.Interests.Count; i++)
             {
                 interests.Add(textInfo.ToTitleCase(CurrentCommunity.Interests.ElementAt(i)));
@@ -328,6 +328,13 @@ namespace LetsGo.Model
 
         }
 
+        public async Task<bool> DeleteCommunity(string leader, string communityname)
+        {
+            var communityToDelete = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == leader && a.Object.Name == communityname).FirstOrDefault();
+            await firebase.Child("Communities").Child(communityToDelete.Key).DeleteAsync();
+
+            return true;
+        }
 
         public async Task<bool> DeleteUserAccount()
         {
@@ -411,11 +418,7 @@ namespace LetsGo.Model
                     });
                 }
             }
-
-
             return true;
-
-
         }
 
 

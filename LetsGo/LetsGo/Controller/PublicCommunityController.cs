@@ -16,7 +16,7 @@ namespace LetsGo.Controller
         private string _location { get; set; }
         private string _description { get; set; }
         private string _leader { get; set; }
-        private Guid CommunityID { get; set; }
+        private string CommunityID { get; set; }
         private string _leaderName { get; set; }
         private Image _img { get; set; }
         public Image ProfileImage
@@ -132,7 +132,6 @@ namespace LetsGo.Controller
             {
                 Location = "No Location Yet...";
             }
-            string id = CommunityID.ToString();
             //Interests = await fb.GetCommunityInterests(id);
             if (Interests.Count == 0)
             {

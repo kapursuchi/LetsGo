@@ -47,5 +47,11 @@ namespace LetsGo.Controller
 
         }
 
+        protected override void OnAppearing()
+        {
+            GrabCommunities();
+            base.OnAppearing();
+        }
+
     }
-}
+} 

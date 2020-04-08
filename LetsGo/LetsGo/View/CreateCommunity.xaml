@@ -77,7 +77,7 @@
             </Grid>
             <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
             
-            <Button x:Name="createCommunity" Text="Create Community" Clicked="CreateCommunity_Clicked" VerticalOptions="End" HorizontalOptions="Center" Margin="20" BackgroundColor="LightSteelBlue" TextColor="Black"/>
+            <Button x:Name="createCommunity" Text="Create Community" Clicked="CreateCommunity_Clicked" VerticalOptions="End" WidthRequest="175" HorizontalOptions="Center" Margin="20" BackgroundColor="LightSteelBlue" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
 
         </StackLayout>
     </ContentPage.Content>

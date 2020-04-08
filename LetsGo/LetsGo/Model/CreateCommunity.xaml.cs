@@ -13,7 +13,7 @@ namespace LetsGo.Model
     public partial class CreateCommunityPage : ContentPage
     {
         readonly FirebaseDB fb = new FirebaseDB();
-        public async Task<bool> CreateCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool isInviteOnly, List<string> mems, Guid id)
+        public async Task<bool> CreateCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool isInviteOnly, List<string> mems, string id)
         {
             bool created = await fb.InitializeCommunity(userEmail, description, location, interests, name, publicCommunity, isInviteOnly, mems, id);
 

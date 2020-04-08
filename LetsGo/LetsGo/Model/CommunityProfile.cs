@@ -16,9 +16,9 @@ namespace LetsGo.Model
         public bool InviteOnly { get; set; }
         public List<string> Members { get; set; }
         public string CommunityImage { get; set; }
-        public Guid CommunityID { get; set; }
+        public string CommunityID { get; set; }
         
-        public CommunityProfile(string eMail, string eDesc, string location, string interestTags, string eName, bool isPublic, bool invOnly, List<string> members, Guid id)
+        public CommunityProfile(string eMail, string eDesc, string location, string interestTags, string eName, bool isPublic, bool invOnly, List<string> members, string id)
         {
             Leader = eMail;
             Description = eDesc;

@@ -82,8 +82,8 @@
                             />
             </Grid>
                        
-            <Button x:Name="createAccount" Text="Create Account" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black"/>
-            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Gainsboro" TextColor="Black"/>
+            <Button x:Name="createAccount" Text="Create Account" WidthRequest="150" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
+            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Transparent" TextColor="Red"/>
         </StackLayout>
 
     </ContentPage.Content>

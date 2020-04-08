@@ -51,7 +51,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     />
-            <ListView x:Name="interests"  SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

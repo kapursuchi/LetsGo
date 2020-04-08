@@ -32,7 +32,7 @@ namespace LetsGo.Controller
             string name = eName.Text;
             List<string> mems = new List<string>();
             mems.Add(leaderEmail);
-            Guid id = Guid.NewGuid();
+            string id = Guid.NewGuid().ToString();
 
             bool token = await _createCommunity.CreateCommunity(leaderEmail, description, location, interestTags, name, isPublic, isInviteOnly, mems, id);
             if (token == true)
