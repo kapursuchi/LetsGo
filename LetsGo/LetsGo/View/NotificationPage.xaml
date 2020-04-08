@@ -23,7 +23,7 @@
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"
                    TextColor="Black"/>
-            <ListView x:Name="notifications" SeparatorVisibility="None" ItemsSource="{Binding FriendRequestNotifications}" IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="notifications" SeparatorVisibility="None" ItemsSource="{Binding RequestNotifications}" IsPullToRefreshEnabled="True" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>

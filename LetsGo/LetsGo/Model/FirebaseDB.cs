@@ -117,7 +117,7 @@ namespace LetsGo.Model
                     .OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
 
                 await firebase.Child("userprofiles").Child(userToUpdate.Key)
-                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, Friends = CurrentUser.Friends, PublicAcct = CurrentUser.PublicAcct });
+                    .PutAsync(new UserProfile() { Name = CurrentUser.Name, Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, EventRequests = CurrentUser.EventRequests, CommunityRequests = CurrentUser.CommunityRequests, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = EncryptDecrypt("LetsGoResetPassword441", 5), Location = CurrentUser.Location, Interests = CurrentUser.Interests, Friends = CurrentUser.Friends, PublicAcct = CurrentUser.PublicAcct });
             }
             catch (Exception)
             {
@@ -140,7 +140,9 @@ namespace LetsGo.Model
                         Interests = item.Object.Interests,
                         Friends = item.Object.Friends,
                         PublicAcct = item.Object.PublicAcct,
-                        ProfileImage = item.Object.ProfileImage
+                        ProfileImage = item.Object.ProfileImage,
+                        EventRequests = item.Object.EventRequests,
+                        CommunityRequests = item.Object.CommunityRequests
                     }).ToList();
 
             List<UserProfile> AllUsers = users.ToList();
@@ -164,7 +166,8 @@ namespace LetsGo.Model
                         InviteOnly = item.Object.InviteOnly,
                         Members = item.Object.Members,
                         CommunityID = item.Object.CommunityID,
-                        CommunityImage = item.Object.CommunityImage
+                        CommunityImage = item.Object.CommunityImage,
+                        CommunityRequests = item.Object.CommunityRequests
                     }).ToList();
 
             List<CommunityProfile> AllCommunities = communities.ToList();
@@ -204,7 +207,19 @@ namespace LetsGo.Model
             await firebase
             .Child("userprofiles")
             .Child(userToUpdate.Key)
-            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
+            .PutAsync(new UserProfile() { 
+                Name = uName.ToLower(),
+                Email = CurrentUser.Email, 
+                ProfileImage = CurrentUser.ProfileImage,
+                EventRequests = CurrentUser.EventRequests,
+                CommunityRequests = CurrentUser.CommunityRequests,
+                FriendRequests = CurrentUser.FriendRequests,
+                DateOfBirth = CurrentUser.DateOfBirth, 
+                Password = CurrentUser.Password, 
+                Location = location.ToLower(), 
+                Interests = interests, 
+                Friends = CurrentUser.Friends, 
+                PublicAcct = publicAccount });
             return true;
         }
 
@@ -367,7 +382,9 @@ namespace LetsGo.Model
                             FriendRequests = user.Object.FriendRequests,
                             Friends = friends,
                             PublicAcct = user.Object.PublicAcct,
-                            ProfileImage = user.Object.ProfileImage
+                            ProfileImage = user.Object.ProfileImage,
+                            EventRequests = user.Object.EventRequests,
+                            CommunityRequests = user.Object.CommunityRequests
                         });
                     }
                 }
@@ -387,7 +404,8 @@ namespace LetsGo.Model
                         InviteOnly = item.Object.InviteOnly,
                         Members = item.Object.Members,
                         CommunityID = item.Object.CommunityID,
-                        CommunityImage = item.Object.CommunityImage
+                        CommunityImage = item.Object.CommunityImage,
+                        CommunityRequests = item.Object.CommunityRequests
                     }).ToList();
 
             List<CommunityProfile> comms = communities.ToList();
@@ -414,7 +432,8 @@ namespace LetsGo.Model
                         Members = members,
                         InviteOnly = community.Object.InviteOnly,
                         CommunityID = community.Object.CommunityID,
-                        CommunityImage = community.Object.CommunityImage
+                        CommunityImage = community.Object.CommunityImage,
+                        CommunityRequests = community.Object.CommunityRequests
                     });
                 }
             }
@@ -448,7 +467,9 @@ namespace LetsGo.Model
                             FriendRequests = CurrentUser.FriendRequests,
                             Friends = CurrentUser.Friends,
                             PublicAcct = CurrentUser.PublicAcct,
-                            ProfileImage = CurrentUser.ProfileImage
+                            ProfileImage = CurrentUser.ProfileImage,
+                            EventRequests = CurrentUser.EventRequests,
+                            CommunityRequests = CurrentUser.CommunityRequests
                         }) ;
             return true;
         }
@@ -494,7 +515,9 @@ namespace LetsGo.Model
                         FriendRequests = CurrentUser.FriendRequests,
                         Friends = CurrentUser.Friends,
                         PublicAcct = CurrentUser.PublicAcct,
-                        ProfileImage = photo
+                        ProfileImage = photo,
+                        EventRequests = CurrentUser.EventRequests,
+                        CommunityRequests = CurrentUser.CommunityRequests
                     });
             return photo;
         }
@@ -528,7 +551,8 @@ namespace LetsGo.Model
                         Members = CurrentCommunity.Members,
                         InviteOnly = CurrentCommunity.InviteOnly,
                         CommunityID = CurrentCommunity.CommunityID,
-                        CommunityImage = photo
+                        CommunityImage = photo,
+                        CommunityRequests = CurrentCommunity.CommunityRequests
                     });
             return photo;
         }
@@ -651,7 +675,9 @@ namespace LetsGo.Model
                     Location = textInfo.ToTitleCase(publicUsers.ElementAt(i).Location),
                     FriendRequests = publicUsers.ElementAt(i).FriendRequests,
                     PublicAcct = publicUsers.ElementAt(i).PublicAcct,
-                    ProfileImage = publicUsers.ElementAt(i).ProfileImage
+                    ProfileImage = publicUsers.ElementAt(i).ProfileImage,
+                    EventRequests = publicUsers.ElementAt(i).EventRequests,
+                    CommunityRequests = publicUsers.ElementAt(i).CommunityRequests
                 }) ;
             }
 
@@ -667,7 +693,8 @@ namespace LetsGo.Model
                     PublicCommunity = publicCommunities.ElementAt(i).PublicCommunity,
                     CommunityImage = publicCommunities.ElementAt(i).CommunityImage,
                     InviteOnly = publicCommunities.ElementAt(i).InviteOnly,
-                    Members = publicCommunities.ElementAt(i).Members
+                    Members = publicCommunities.ElementAt(i).Members,
+                    CommunityRequests = publicCommunities.ElementAt(i).CommunityRequests
                 });
             }
 
@@ -695,7 +722,8 @@ namespace LetsGo.Model
                     PublicCommunity = communities.ElementAt(i).Object.PublicCommunity,
                     CommunityImage = communities.ElementAt(i).Object.CommunityImage,
                     InviteOnly = communities.ElementAt(i).Object.InviteOnly,
-                    Members = communities.ElementAt(i).Object.Members
+                    Members = communities.ElementAt(i).Object.Members,
+                    CommunityRequests = communities.ElementAt(i).Object.CommunityRequests
                 });
             }
             return results;
@@ -719,7 +747,9 @@ namespace LetsGo.Model
                     Friends = users.ElementAt(i).Object.Friends,
                     FriendRequests = users.ElementAt(i).Object.FriendRequests,
                     PublicAcct = users.ElementAt(i).Object.PublicAcct,
-                    ProfileImage = users.ElementAt(i).Object.ProfileImage
+                    ProfileImage = users.ElementAt(i).Object.ProfileImage,
+                    EventRequests = users.ElementAt(i).Object.EventRequests,
+                    CommunityRequests = users.ElementAt(i).Object.CommunityRequests
                 });
             }
             return publicUsers;
@@ -758,7 +788,8 @@ namespace LetsGo.Model
                     InviteOnly = commList.ElementAt(i).Object.InviteOnly,
                     Members = commList.ElementAt(i).Object.Members,
                     CommunityID = commList.ElementAt(i).Object.CommunityID,
-                    CommunityImage = commList.ElementAt(i).Object.CommunityImage
+                    CommunityImage = commList.ElementAt(i).Object.CommunityImage,
+                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests
                 });
             }
 
@@ -805,6 +836,10 @@ namespace LetsGo.Model
             if (!communityToUpdate.Object.InviteOnly)
             {
                 added = await AddUserToCommunity(currentUser, community);
+            }
+            else
+            {
+                added = await SendCommunityRequest(currentUser, community);
             }
             return added;
         }
@@ -874,7 +909,9 @@ namespace LetsGo.Model
                     Friends = CurrentFriendsList,
                     FriendRequests = CurrentUser.FriendRequests,
                     PublicAcct = CurrentUser.PublicAcct,
-                    ProfileImage = CurrentUser.ProfileImage
+                    ProfileImage = CurrentUser.ProfileImage,
+                    EventRequests = CurrentUser.EventRequests,
+                    CommunityRequests = CurrentUser.CommunityRequests
                 });
 
             List<string> FriendsList = await GetAllFriends(friendToAdd);
@@ -893,7 +930,9 @@ namespace LetsGo.Model
                     Friends = FriendsList,
                     FriendRequests = FriendUser.FriendRequests,
                     PublicAcct = FriendUser.PublicAcct,
-                    ProfileImage = FriendUser.ProfileImage
+                    ProfileImage = FriendUser.ProfileImage,
+                    EventRequests = FriendUser.EventRequests,
+                    CommunityRequests = FriendUser.CommunityRequests
                 });
 
             return true;
@@ -911,6 +950,71 @@ namespace LetsGo.Model
             {
                 return false;
             }
+        }
+
+        private async Task<bool> SendCommunityRequest(string currentUser, CommunityProfile communityToJoin)
+        {
+            var current = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == currentUser).FirstOrDefault();
+
+            var leader = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == communityToJoin.Leader).FirstOrDefault();
+
+            var comm = (await firebase
+                .Child("Communities")
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == communityToJoin.Leader && a.Object.Name == communityToJoin.Name).FirstOrDefault();
+
+
+            List<UserProfile> users = await GetAllUsers();
+            var CurrentUser = users.Where(a => a.Email == currentUser).FirstOrDefault();
+            var leaderUser = users.Where(a => a.Email == communityToJoin.Leader).FirstOrDefault();
+            List<string> notification = leaderUser.CommunityRequests;
+            if (notification == null)
+                notification = new List<string>();
+            notification.Add(currentUser);
+
+            List<string> commRequests = communityToJoin.CommunityRequests;
+            commRequests.Add(currentUser);
+            await firebase
+                .Child("userprofiles")
+                .Child(leader.Key)
+                .PutAsync(new UserProfile()
+                {
+                    Name = leader.Object.Name.ToLower(),
+                    Email = leader.Object.Email,
+                    DateOfBirth = leader.Object.DateOfBirth,
+                    Password = leader.Object.Password,
+                    Location = leader.Object.Location.ToLower(),
+                    Interests = leader.Object.Interests,
+                    Friends = leader.Object.Friends,
+                    FriendRequests = leader.Object.FriendRequests,
+                    PublicAcct = leader.Object.PublicAcct,
+                    ProfileImage = leader.Object.ProfileImage,
+                    EventRequests = leader.Object.EventRequests,
+                    CommunityRequests = notification
+                });
+
+            await firebase
+                .Child("Communities")
+                .Child(comm.Key)
+                .PutAsync(new CommunityProfile
+                {
+                    Leader = comm.Object.Leader,
+                    Description = comm.Object.Description,
+                    Location = comm.Object.Location,
+                    Interests = comm.Object.Interests,
+                    Name = comm.Object.Name,
+                    PublicCommunity = comm.Object.PublicCommunity,
+                    InviteOnly = comm.Object.InviteOnly,
+                    Members = comm.Object.Members,
+                    CommunityID = comm.Object.CommunityID,
+                    CommunityImage = comm.Object.CommunityImage,
+                    CommunityRequests = commRequests
+                });
+
+            return true;
         }
 
         private async void SendFriendRequest(string currentUser, string friendToRequest)
@@ -947,8 +1051,83 @@ namespace LetsGo.Model
                     Friends = FriendsList,
                     FriendRequests = notification,
                     PublicAcct = FriendUser.PublicAcct,
-                    ProfileImage = FriendUser.ProfileImage
+                    ProfileImage = FriendUser.ProfileImage,
+                    EventRequests = FriendUser.EventRequests,
+                    CommunityRequests = FriendUser.CommunityRequests
                 });
+
+        }
+
+        public async Task<List<UserProfile>> GetCommunityRequests()
+        {
+            string current = GetCurrentUser();
+            var currentUser = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
+            List<UserProfile> users = await GetAllUsers();
+            var CurrentUser = users.Where(a => a.Email == current).FirstOrDefault();
+
+            List<string> notifications = new List<string>();
+            List<UserProfile> commRequests = new List<UserProfile>();
+
+            if (CurrentUser.CommunityRequests == null)
+                return commRequests;
+
+            for (int i = 0; i < currentUser.Object.CommunityRequests.Count; i++)
+            {
+                UserProfile userToAdd = await GetProfileOfUser(currentUser.Object.CommunityRequests.ElementAt(i));
+                commRequests.Add(new UserProfile()
+                {
+                    Name = textInfo.ToTitleCase(userToAdd.Name),
+                    Email = userToAdd.Email,
+                    DateOfBirth = userToAdd.DateOfBirth,
+                    Password = userToAdd.Password,
+                    Location = textInfo.ToTitleCase(userToAdd.Location),
+                    Interests = userToAdd.Interests,
+                    Friends = userToAdd.Friends,
+                    FriendRequests = userToAdd.FriendRequests,
+                    PublicAcct = userToAdd.PublicAcct,
+                    ProfileImage = userToAdd.ProfileImage,
+                    EventRequests = userToAdd.EventRequests,
+                    CommunityRequests = userToAdd.CommunityRequests
+                });
+            }
+            return commRequests;
+
+        }
+
+        public async Task<List<UserProfile>> GetEventRequests()
+        {
+            string current = GetCurrentUser();
+            var currentUser = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
+            List<UserProfile> users = await GetAllUsers();
+            var CurrentUser = users.Where(a => a.Email == current).FirstOrDefault();
+            List<string> notifications = new List<string>();
+            List<UserProfile> eventRequests = new List<UserProfile>();
+            if (CurrentUser.EventRequests == null)
+                return eventRequests;
+            for (int i = 0; i < currentUser.Object.EventRequests.Count; i++)
+            {
+                UserProfile userToAdd = await GetProfileOfUser(currentUser.Object.EventRequests.ElementAt(i));
+                eventRequests.Add(new UserProfile()
+                {
+                    Name = textInfo.ToTitleCase(userToAdd.Name),
+                    Email = userToAdd.Email,
+                    DateOfBirth = userToAdd.DateOfBirth,
+                    Password = userToAdd.Password,
+                    Location = textInfo.ToTitleCase(userToAdd.Location),
+                    Interests = userToAdd.Interests,
+                    Friends = userToAdd.Friends,
+                    FriendRequests = userToAdd.FriendRequests,
+                    PublicAcct = userToAdd.PublicAcct,
+                    ProfileImage = userToAdd.ProfileImage,
+                    EventRequests = userToAdd.EventRequests,
+                    CommunityRequests = userToAdd.CommunityRequests
+                });
+            }
+            return eventRequests;
 
         }
 
@@ -980,7 +1159,9 @@ namespace LetsGo.Model
                     Friends = userToAdd.Friends,
                     FriendRequests = userToAdd.FriendRequests,
                     PublicAcct = userToAdd.PublicAcct,
-                    ProfileImage = userToAdd.ProfileImage
+                    ProfileImage = userToAdd.ProfileImage,
+                    EventRequests = userToAdd.EventRequests,
+                    CommunityRequests = userToAdd.CommunityRequests
                 });
             }
             return friendRequests;
@@ -992,38 +1173,127 @@ namespace LetsGo.Model
             var currentUser = (await firebase
                 .Child("userprofiles")
                 .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
-            List<UserProfile> friendrequests = await GetFriendRequests();
-            friendrequests.Remove(userToRemove);
 
-            List<string> updated = new List<string>();
-            for (int i = 0; i < friendrequests.Count; i++)
+            if (currentUser.Object.FriendRequests != null && currentUser.Object.FriendRequests.Contains(userToRemove.Email))
             {
-                updated.Add(friendrequests.ElementAt(i).Email);
+                List<UserProfile> friendrequests = await GetFriendRequests();
+                friendrequests.Remove(userToRemove);
+
+                List<string> updated = new List<string>();
+                for (int i = 0; i < friendrequests.Count; i++)
+                {
+                    updated.Add(friendrequests.ElementAt(i).Email);
+                }
+
+                await firebase
+                    .Child("userprofiles")
+                    .Child(currentUser.Key)
+                    .PutAsync(new UserProfile()
+                    {
+                        Name = currentUser.Object.Name.ToLower(),
+                        Email = currentUser.Object.Email,
+                        DateOfBirth = currentUser.Object.DateOfBirth,
+                        Password = currentUser.Object.Password,
+                        Location = currentUser.Object.Location.ToLower(),
+                        Interests = currentUser.Object.Interests,
+                        Friends = currentUser.Object.Friends,
+                        FriendRequests = updated,
+                        PublicAcct = currentUser.Object.PublicAcct,
+                        ProfileImage = currentUser.Object.ProfileImage,
+                        EventRequests = currentUser.Object.EventRequests,
+                        CommunityRequests = currentUser.Object.CommunityRequests
+                    });
+            }
+            else if (currentUser.Object.CommunityRequests != null && currentUser.Object.CommunityRequests.Contains(userToRemove.Email))
+            {
+                List<CommunityProfile> comms = await GetAllCommunities();
+                var community = comms.Where(a => a.CommunityRequests.Contains(userToRemove.Email)).FirstOrDefault();
+                List<string> commRequests = currentUser.Object.CommunityRequests;
+                commRequests.Remove(userToRemove.Email);
+                List<string> updated = new List<string>();
+                for (int i = 0; i < commRequests.Count; i++)
+                {
+                    updated.Add(commRequests.ElementAt(i));
+                }
+
+                await firebase
+                    .Child("userprofiles")
+                    .Child(currentUser.Key)
+                    .PutAsync(new UserProfile()
+                    {
+                        Name = currentUser.Object.Name.ToLower(),
+                        Email = currentUser.Object.Email,
+                        DateOfBirth = currentUser.Object.DateOfBirth,
+                        Password = currentUser.Object.Password,
+                        Location = currentUser.Object.Location.ToLower(),
+                        Interests = currentUser.Object.Interests,
+                        Friends = currentUser.Object.Friends,
+                        FriendRequests = currentUser.Object.FriendRequests,
+                        PublicAcct = currentUser.Object.PublicAcct,
+                        ProfileImage = currentUser.Object.ProfileImage,
+                        EventRequests = currentUser.Object.EventRequests,
+                        CommunityRequests = updated
+                    });
+
+                List<string> commRequestsinComm = community.CommunityRequests;
+                commRequestsinComm.Remove(userToRemove.Email);
+                List<string> newRequestList = new List<string>();
+                for (int i = 0; i < commRequestsinComm.Count; i++)
+                {
+                    newRequestList.Add(commRequests.ElementAt(i));
+                }
+                var commToUpdate = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
+
+                await firebase
+                        .Child("Communities")
+                        .Child(commToUpdate.Key)
+                        .PutAsync(new CommunityProfile
+                        {
+                            Leader = commToUpdate.Object.Leader,
+                            Description = commToUpdate.Object.Description,
+                            Location = commToUpdate.Object.Location,
+                            Interests = commToUpdate.Object.Interests,
+                            Name = commToUpdate.Object.Name,
+                            PublicCommunity = commToUpdate.Object.PublicCommunity,
+                            InviteOnly = commToUpdate.Object.InviteOnly,
+                            Members = commToUpdate.Object.Members,
+                            CommunityID = commToUpdate.Object.CommunityID,
+                            CommunityImage = commToUpdate.Object.CommunityImage,
+                            CommunityRequests = newRequestList
+                        });
+
+
             }
 
-            await firebase
-                .Child("userprofiles")
-                .Child(currentUser.Key)
-                .PutAsync(new UserProfile()
-                {
-                    Name = currentUser.Object.Name.ToLower(),
-                    Email = currentUser.Object.Email,
-                    DateOfBirth = currentUser.Object.DateOfBirth,
-                    Password = currentUser.Object.Password,
-                    Location = currentUser.Object.Location.ToLower(),
-                    Interests = currentUser.Object.Interests,
-                    Friends = currentUser.Object.Friends,
-                    FriendRequests = updated,
-                    PublicAcct = currentUser.Object.PublicAcct,
-                    ProfileImage = currentUser.Object.ProfileImage
-                });
+
+
 
         }
 
         public async void AcceptRequest(UserProfile newFriend)
         {
             string current = GetCurrentUser();
-            bool added = await AddUserAsFriend(current, newFriend.Email);
+            var currentUser = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
+            if (currentUser.Object.FriendRequests !=null)
+            {
+                if (currentUser.Object.FriendRequests.Contains(newFriend.Email))
+                {
+                    bool added = await AddUserAsFriend(current, newFriend.Email);
+                }
+            }
+            else if (currentUser.Object.CommunityRequests != null)
+            {
+                if (currentUser.Object.CommunityRequests.Contains(newFriend.Email))
+                {
+                    List<CommunityProfile> comms = await GetAllCommunities();
+                    var community = comms.Where(a => a.CommunityRequests.Contains(newFriend.Email)).FirstOrDefault();
+                    bool added = await AddUserToCommunity(newFriend.Email, community);
+                }
+            }
+
+
             RemoveRequest(newFriend);
         }
 
@@ -1056,7 +1326,9 @@ namespace LetsGo.Model
                     Friends = updated,
                     FriendRequests = currentUser.Object.FriendRequests,
                     PublicAcct = currentUser.Object.PublicAcct,
-                    ProfileImage = currentUser.Object.ProfileImage
+                    ProfileImage = currentUser.Object.ProfileImage,
+                    EventRequests = currentUser.Object.EventRequests,
+                    CommunityRequests = currentUser.Object.CommunityRequests
                 });
 
             var friendUser = (await firebase
@@ -1085,7 +1357,9 @@ namespace LetsGo.Model
                     Friends = friendUpdated,
                     FriendRequests = friendUser.Object.FriendRequests,
                     PublicAcct = friendUser.Object.PublicAcct,
-                    ProfileImage = friendUser.Object.ProfileImage
+                    ProfileImage = friendUser.Object.ProfileImage,
+                    EventRequests = friendUser.Object.EventRequests,
+                    CommunityRequests = friendUser.Object.CommunityRequests
                 });
 
 
@@ -1149,7 +1423,9 @@ namespace LetsGo.Model
                         Friends = friend.Friends,
                         FriendRequests = friend.FriendRequests,
                         PublicAcct = friend.PublicAcct,
-                        ProfileImage = friend.ProfileImage
+                        ProfileImage = friend.ProfileImage,
+                        EventRequests = friend.EventRequests,
+                        CommunityRequests = friend.CommunityRequests
                 });
             }
 
