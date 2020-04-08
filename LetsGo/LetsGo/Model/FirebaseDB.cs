@@ -268,9 +268,12 @@ namespace LetsGo.Model
                 .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == CurrentUserEmail).FirstOrDefault();
 
             List<EventProfile> events = await GetAllEvents();
-
+            EventProfile empty = new EventProfile() { Name = "Not Part of Any Events!"};
             var CurrentEvent = events.Where(a => a.EventOwner == CurrentUserEmail).FirstOrDefault();
-            return CurrentEvent;
+            if (CurrentEvent != null)
+                return CurrentEvent;
+            else
+                return empty;
         }
 
         public async Task<bool> HasPublicAccount()
@@ -529,6 +532,38 @@ namespace LetsGo.Model
                                              PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent});
             }
             return feed;
+        }
+
+        public async Task<List<EventProfile>> GetUserEvents()
+        {
+            List<EventProfile> events = new List<EventProfile>();
+            string currentEmail = GetCurrentUser();
+
+            
+
+            var allUserEvents = (await firebase
+                        .Child("Events")
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == currentEmail.ToLower()).ToList();
+
+            var feedEvents = allUserEvents.ToList();
+
+
+            for (int i = 0; i < feedEvents.Count; i++)
+            {
+                events.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Name),
+                    DateOfEvent = feedEvents.ElementAt(i).Object.DateOfEvent,
+                    Location = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Location),
+                    Description = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Description),
+                    EventOwner = feedEvents.ElementAt(i).Object.EventOwner,
+                    StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
+                    EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent,
+                    Interests = feedEvents.ElementAt(i).Object.Interests,
+                    PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent
+                });
+            }
+            return events;
         }
 
         public async Task<ArrayList> Search(string InterestTag)

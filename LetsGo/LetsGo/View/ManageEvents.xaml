@@ -6,10 +6,17 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ManageEvents">
-    
     <ContentPage.Content>
         <ScrollView HeightRequest="3000">
             <StackLayout>
+                <Label Text="" Margin="15">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <OnPlatform.iOS>true</OnPlatform.iOS>
+                            <OnPlatform.Android>false</OnPlatform.Android>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
                 <Label Text="Manage Events Page"
                     VerticalOptions="Start" 
                     HorizontalOptions="CenterAndExpand" 
@@ -20,48 +27,36 @@
                 
                 <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" WidthRequest="1000" FontSize="Body" BackgroundColor="Transparent" TextColor="#564aff"  VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
                 <Label x:Name="YourEvents" Text="Your Events" TextColor="Black" FontSize="Title" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" BackgroundColor="Ivory"/>
-                <!--<Button x:Name="Update_EventList" Text="Refresh Events" Clicked="UpdateEventList" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" BackgroundColor="Ivory"/>-->
-                <Label x:Name="EventName" Text="{Binding Name}" TextColor="Black" 
-                           VerticalOptions="Start" 
-                           HorizontalOptions="Center"
-                           FontAttributes="Bold"
-                           FontSize="Medium" Margin="0"/>
-                <Label      x:Name="EventDescription"
-                                Text="{Binding Description}"
-                                TextColor="Black"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Start"
-                                FontSize="Medium"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                />
-                <Grid   x:Name="eventgrid" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Margin="0">
+                
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Image      Source="socialicon.png"
-                            HeightRequest="20"
-                                HorizontalOptions="End"
-                            VerticalOptions="Start"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                />
-                    <Label      x:Name="EventLocation"
-                                Text="{Binding Location}"
-                                TextColor="Black"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Start"
-                                FontSize="Medium"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                />
-
-
+                    <ListView x:Name="ListEvents" ItemsSource="{Binding Events}" RowHeight="110">
+                        <ListView.ItemTemplate>
+                            <DataTemplate >
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source = "defaultProfilePic.PNG"
+                                           WidthRequest="90" HeightRequest="90"
+                                           Grid.Column="0" Aspect="Fill"/>
+                                        <StackLayout Orientation="Vertical" Grid.Column="1">
+                                            <Label Text="{Binding Name}" FontSize="Subtitle" TextColor="Black"/>
+                                            <Label Text="{Binding Description}" TextColor="Black"
+                                               FontSize="Subtitle"/>
+                                            <Label Text="{Binding Location}" TextColor="Black"
+                                               FontSize="Subtitle"/>
+                                            <Label Text="{Binding DateOfEvent}" TextColor="Black" FontSize="Subtitle"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </StackLayout>
         </ScrollView>

@@ -25,13 +25,12 @@ namespace LetsGo.Controller
 
         public ManageEvents()
         {
+
+            Events = new List<EventProfile>();
+            SetValues();
+
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            SetValues();
-            EventName.BindingContext = this;
-            EventLocation.BindingContext = this;
-            EventDescription.BindingContext = this;
-
         }
         public async void NavigateToCreateEvent(object sender, EventArgs e)
         {
@@ -89,29 +88,18 @@ namespace LetsGo.Controller
                 OnPropertyChanged(nameof(Description));
             }
         }
-
-        private async void SetValues()
+        public List<EventProfile> Events { get; set; }
+        public async void SetValues()
         {
-            Name = await fb.GetEventName();
-            Name = Text_Info.ToTitleCase(Name);
-            Location = await fb.GetEventLocation();
-            if (Location != null)
-                Location = Text_Info.ToTitleCase(Location);
-            else
+            Events = await fb.GetUserEvents();
+            if(Events.Count == 0)
             {
-                Location = "No Location Yet...";
+                Events = new List<EventProfile>();
+
+                Events.Add(new EventProfile("There are no events you are a part of!", "No description available", DateTime.Today,
+                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
             }
-            Description = await fb.GetEventDescription();
-            /*string profilePictureStr = await fb.GetEventPicture();
-            if (profilePictureStr != null)
-            {
-                EventImg.Source = ImageSource.FromUri(new Uri(profilePictureStr));
-            }
-            else
-            {
-                EventImg.Source = ImageSource.FromFile("LetsGoLogo.PNG");
-            }
-            ProfilePicture = EventImg;*/
+            ListEvents.ItemsSource = Events;
         }
     }
 }
