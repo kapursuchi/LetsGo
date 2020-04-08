@@ -175,6 +175,29 @@ namespace LetsGo.Model
             return AllCommunities;
         }
 
+        public async Task<List<EventProfile>> GetAllEvents()
+        {
+            var events = (await firebase
+                    .Child("Events")
+                    .OnceAsync<EventProfile>()).Select(item => new EventProfile
+                    {
+                        Name = item.Object.Name,
+                        DateOfEvent = item.Object.DateOfEvent,
+                        StartOfEvent = item.Object.StartOfEvent,
+                        EndOfEvent = item.Object.EndOfEvent,
+                        Description = item.Object.Description,
+                        Location = item.Object.Location,
+                        Interests = item.Object.Interests,
+                        PublicEvent = item.Object.PublicEvent,
+                        EventOwner = item.Object.EventOwner
+                    }).ToList();
+
+            List<EventProfile> AllEvents = events.ToList();
+
+
+            return AllEvents;
+        }
+
         public async Task<bool> UpdateUserProfile(string uName, string location, bool publicAccount, List<string> interestList)
         {
 
@@ -223,6 +246,41 @@ namespace LetsGo.Model
             return true;
         }
 
+        /*public async Task<bool> UpdateEventProfile(string Name, string location, bool publicEvent, DateTime Date, List<string> interestList)
+        {
+            string CurrentUserEmail = GetCurrentUser();
+            var CurrentEvent = (await firebase
+                .Child("Events")
+                .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == CurrentUserEmail).FirstOrDefault();
+
+            List<EventProfile> Events = await GetAllEvents();
+
+
+
+            var CurrentUser = Events.Where(a => a.EventOwner == CurrentUserEmail).FirstOrDefault();
+            DateTime date = CurrentUser.DateOfEvent;
+            string email = CurrentUser.EventOwner;
+            List<string> interests;
+
+            if (CurrentUser.EventOwner != email)
+                return false;
+
+            interests = new List<string>();
+            for (int i = 0; i < interestList.Count; i++)
+            {
+                if (!interests.Contains(interestList.ElementAt(i).ToLower()))
+                    interests.Add(interestList.ElementAt(i).ToLower());
+            }
+
+
+
+            await firebase
+            .Child("userprofiles")
+            .Child(userToUpdate.Key)
+            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
+            return true;
+        }*/
+
         public void SetCurrentUser(string email)
         {
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -246,6 +304,42 @@ namespace LetsGo.Model
 
             var CurrentUser = users.Where(a => a.Email == CurrentUserEmail).FirstOrDefault();
             return CurrentUser;
+        }
+
+        private async Task<EventProfile> Event()
+        {
+            string CurrentUserEmail = GetCurrentUser();
+            var AllEvents = (await firebase
+                .Child("Event")
+                .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == CurrentUserEmail).FirstOrDefault();
+
+            List<EventProfile> events = await GetAllEvents();
+            EventProfile empty = new EventProfile() { Name = "Not Part of Any Events!"};
+            var CurrentEvent = events.Where(a => a.EventOwner == CurrentUserEmail).FirstOrDefault();
+            if (CurrentEvent != null)
+                return CurrentEvent;
+            else
+                return empty;
+        }
+
+        public async Task<string> GetEventName()
+        {
+            EventProfile current = await Event();
+
+            return current.Name;
+        }
+        public async Task<string> GetEventLocation()
+        {
+            EventProfile current = await Event();
+
+            return current.Location;
+        }
+
+        public async Task<string> GetEventDescription()
+        {
+            EventProfile current = await Event();
+
+            return current.Description;
         }
 
         public async Task<bool> HasPublicAccount()
@@ -637,6 +731,38 @@ namespace LetsGo.Model
                                              PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent});
             }
             return feed;
+        }
+
+        public async Task<List<EventProfile>> GetUserEvents()
+        {
+            List<EventProfile> events = new List<EventProfile>();
+            string currentEmail = GetCurrentUser();
+
+            
+
+            var allUserEvents = (await firebase
+                        .Child("Events")
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == currentEmail.ToLower()).ToList();
+
+            var feedEvents = allUserEvents.ToList();
+
+
+            for (int i = 0; i < feedEvents.Count; i++)
+            {
+                events.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Name),
+                    DateOfEvent = feedEvents.ElementAt(i).Object.DateOfEvent,
+                    Location = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Location),
+                    Description = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Description),
+                    EventOwner = feedEvents.ElementAt(i).Object.EventOwner,
+                    StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
+                    EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent,
+                    Interests = feedEvents.ElementAt(i).Object.Interests,
+                    PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent
+                });
+            }
+            return events;
         }
 
         public async Task<ArrayList> Search(string InterestTag)
