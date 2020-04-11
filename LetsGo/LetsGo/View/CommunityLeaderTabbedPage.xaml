@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+            xmlns:local ="clr-namespace:LetsGo.Controller;assembly=LetsGo"
+            BarBackgroundColor="#80b3d1"
+            BarTextColor="Black"
+            SelectedTabColor="White"
+            BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.Controller.CommunityLeaderViewController">
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+        <local:ViewCommunityLeaderController  BindingContext="{Binding community}" HeightRequest="20" WidthRequest="20" Title="Overview"/>
+        <local:CommunityAnnouncementsController HeightRequest="20" WidthRequest="20" Title="Announcements"/>
+        <local:CommunityMembersListController HeightRequest="20" WidthRequest="20" Title="Members"/>
+    </TabbedPage.Children>
+</TabbedPage>

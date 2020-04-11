@@ -9,6 +9,7 @@ using System.Linq;
 using System.ComponentModel;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using LetsGo.Model.Authentication;
 
 namespace LetsGo.Controller
 {
@@ -114,12 +115,27 @@ namespace LetsGo.Controller
 
         }
 
+        public ViewCommunityLeaderController()
+        {
+            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            community = auth.GetCurrentCommunity();
+            SetValues(community);
+            InitializeComponent();
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            name.BindingContext = this;
+            location.BindingContext = this;
+            description.BindingContext = this;
+            leader.BindingContext = this;
+        }
+
         public async void SetValues(CommunityProfile community)
         {
-            Interests = community.Interests;
+            List<string> interestList = community.Interests;
+            Interests = new List<string>();
             Name = community.Name;
             Location = community.Location;
             Description = community.Description;
+            
             CommunityID = community.CommunityID;
             Leader = community.Leader;
             Members = community.Members;
@@ -128,9 +144,18 @@ namespace LetsGo.Controller
                 Location = "No Location Yet...";
             }
             //Interests = await fb.GetCommunityInterests(community);
-            if (Interests.Count == 0)
+            if (interestList.Count == 0)
             {
                 Interests.Add("No interests listed yet...");
+            }
+            else
+            {
+                foreach (string interest in interestList)
+                {
+                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(interest);
+                    Interests.Add(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(interest));
+                }
+
             }
             string ln = await fb.GetUsersName(Leader);
             LeaderName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);

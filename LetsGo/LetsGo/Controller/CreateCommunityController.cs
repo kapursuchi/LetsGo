@@ -6,7 +6,7 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-
+using LetsGo.Model.Authentication;
 
 namespace LetsGo.Controller
 {
@@ -38,8 +38,10 @@ namespace LetsGo.Controller
             if (token == true)
             {
                 await DisplayAlert("Success", "Your community has breen created.", "OK");
-                await Navigation.PopAsync();
-                await Navigation.PushAsync(new CommunityPageController());
+                //await Navigation.PopAsync();
+                //var auth = DependencyService.Get<IFirebaseAuthenticator>();
+                //auth.SetCurrentCommunity(emailAddress);
+                //await Navigation.PushAsync(new CommunityPageController());
             }
             else
             {

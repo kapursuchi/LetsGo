@@ -1,6 +1,7 @@
 ﻿using LetsGo.Model.Authentication;
 using LetsGo.iOS;
 using Xamarin.Forms;
+using LetsGo.Model;
 
 [assembly: Dependency(typeof(FirebaseAuthenticator))]
 namespace LetsGo.iOS
@@ -8,7 +9,8 @@ namespace LetsGo.iOS
     public class FirebaseAuthenticator : IFirebaseAuthenticator
     {
         private string CurrentUser;
-  
+        private CommunityProfile CurrentCommunity;
+        private EventProfile CurrentEvent;
 
         public void SetCurrentUser(string email)
         {
@@ -18,6 +20,26 @@ namespace LetsGo.iOS
         public string GetCurrentUser()
         {
             return CurrentUser;
+        }
+
+        public void SetCurrentCommunity(CommunityProfile comm)
+        {
+            CurrentCommunity = comm;
+        }
+
+        public CommunityProfile GetCurrentCommunity()
+        {
+            return CurrentCommunity;
+        }
+
+        public void SetCurrentEvent(EventProfile evt)
+        {
+            CurrentEvent = evt;
+        }
+
+        public EventProfile GetCurrentEvent()
+        {
+            return CurrentEvent;
         }
     }
 }

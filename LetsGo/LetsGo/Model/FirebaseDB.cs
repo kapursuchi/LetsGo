@@ -820,7 +820,8 @@ namespace LetsGo.Model
                     CommunityImage = publicCommunities.ElementAt(i).CommunityImage,
                     InviteOnly = publicCommunities.ElementAt(i).InviteOnly,
                     Members = publicCommunities.ElementAt(i).Members,
-                    CommunityRequests = publicCommunities.ElementAt(i).CommunityRequests
+                    CommunityRequests = publicCommunities.ElementAt(i).CommunityRequests,
+                    CommunityID = publicCommunities.ElementAt(i).CommunityID
                 });
             }
 
@@ -849,7 +850,8 @@ namespace LetsGo.Model
                     CommunityImage = communities.ElementAt(i).Object.CommunityImage,
                     InviteOnly = communities.ElementAt(i).Object.InviteOnly,
                     Members = communities.ElementAt(i).Object.Members,
-                    CommunityRequests = communities.ElementAt(i).Object.CommunityRequests
+                    CommunityRequests = communities.ElementAt(i).Object.CommunityRequests,
+                    CommunityID = communities.ElementAt(i).Object.CommunityID
                 });
             }
             return results;

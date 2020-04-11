@@ -7,5 +7,14 @@
 
         string GetCurrentUser();
 
+        void SetCurrentCommunity(CommunityProfile comm);
+
+        CommunityProfile GetCurrentCommunity();
+
+        void SetCurrentEvent(EventProfile evt);
+
+        EventProfile GetCurrentEvent();
+
+
     }
 }

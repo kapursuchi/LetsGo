@@ -28,7 +28,7 @@ namespace LetsGo.Controller
         {
             SetValues();
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
         }
 
         public async void SetValues()

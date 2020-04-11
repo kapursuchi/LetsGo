@@ -1,4 +1,5 @@
 ﻿using LetsGo.Model;
+using LetsGo.Model.Authentication;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,27 +67,32 @@ namespace LetsGo.Controller
             else if (SearchResults[type].ToString() == "LetsGo.Model.CommunityProfile")
             {
                 CommunityProfile selectedCommunity = e.Item as CommunityProfile;
+                var auth = DependencyService.Get<IFirebaseAuthenticator>();
+                auth.SetCurrentCommunity(selectedCommunity);
                 bool member = await fb.isCommunityMember(selectedCommunity);
                 string userEmail = fb.GetCurrentUser();
                 // Community Leader taps on community
                 if (selectedCommunity.Leader == userEmail)
                 {
-                    await Navigation.PushAsync(new ViewCommunityLeaderController(selectedCommunity));
+                    await Navigation.PushAsync(new CommunityLeaderViewController(selectedCommunity));
                 }
                 // Regular member taps on community
                 else if (member)
                 {
-                    await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
+                    await Navigation.PushAsync(new CommunityMemberViewController(selectedCommunity));
+                    //await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
                 }
                 else
                 {
                     await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
                 }
-                
+
             }/*
             else if (SearchResults[type].ToString() == "LetsGo.Model.EventProfile")
             {
-                EventProfile event = (EventProfile)SearchResults[type];
+                EventProfile evt = (EventProfile)SearchResults[type];
+                var auth = DependencyService.Get<IFirebaseAuthenticator>();
+                auth.SetCurrentEvent(evt);
             }*/
             this.ClearValue(ListView.SelectedItemProperty);
 
