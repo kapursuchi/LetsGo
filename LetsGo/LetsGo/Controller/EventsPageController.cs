@@ -1,63 +1,125 @@
 ﻿using System;
+using LetsGo.Model;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
-using LetsGo.Model;
+using System.ComponentModel;
+using System.Globalization;
+using LetsGo.Model.Authentication;
 
 namespace LetsGo.Controller
 {
-    public partial class EventsPageController
+    public partial class EventsPageController : ContentPage, INotifyPropertyChanged
     {
-        private bool eventPublic;
-        DateTime dobChosen;
-        TimeSpan Start;
-        TimeSpan End;
-        readonly FirebaseDB fb = new FirebaseDB();
+        //private ManageEvents profile = new ManageEvents();
+
+        private FirebaseDB fb = new FirebaseDB();
+        private string Eventname { get; set; }
+        private string Eventlocation { get; set; }
+        private string Eventdescription { get; set; }
+        //private List<string> EventInterests { get; set; }
+
+        private Image EventImg { get; set; }
+
+
+        TextInfo Text_Info = new CultureInfo("en-US", false).TextInfo;
 
         public EventsPageController()
         {
-            InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
-        }
-        readonly private EventsPage _createEvent = new EventsPage();
-        public async void CreateEvent_Clicked(object sender, EventArgs e)
-        {
 
-            string eventDetails = Edetails.Text;
-            string EventName = Ename.Text;
-            string eMail = fb.GetCurrentUser();
-            string location = city.Text;
-            string likes = interests.Text;
-            DateTime EventDate = dobChosen;
-            string eStart = Start.ToString();
-            string eEnd = End.ToString();
-            bool token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, location, eMail, likes, eventPublic);
-            if (token == true)
+            Events = new List<EventProfile>();
+            SetValues();
+
+            InitializeComponent();
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+        }
+        public async void NavigateToCreateEvent(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateEventController());
+        }
+
+        public string Name
+        {
+            get
             {
-                await DisplayAlert("Success", "Event has been created.", "OK");
-                await Navigation.PushAsync(new ManageEvents());
+                return Eventname;
             }
+            set
+            {
+                Eventname = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public Image ProfilePicture
+        {
+            get
+            {
+                return EventImg;
+            }
+            set
+            {
+                EventImg = value;
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
+
+        public string Location
+        {
+            get
+            {
+                return Eventlocation;
+            }
+            set
+            {
+                Eventlocation = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return Eventdescription;
+            }
+            set
+            {
+                Eventdescription = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+        public List<EventProfile> Events { get; set; }
+        public async void SetValues()
+        {
+            Events = await fb.GetUserEvents();
+            if(Events.Count == 0)
+            {
+                Events = new List<EventProfile>();
+
+                Events.Add(new EventProfile("There are no events you are a part of!", "No description available", DateTime.Today,
+                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
+            }
+            ListEvents.ItemsSource = Events;
+        }
+
+        public async void Event_Tapped(object sender, ItemTappedEventArgs e)
+        {
+            EventProfile selectedEvent = e.Item as EventProfile;
+            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            auth.SetCurrentEvent(selectedEvent);
+            string userEmail = fb.GetCurrentUser();
+            // Event Owner taps on event
+            if (selectedEvent.EventOwner == userEmail)
+            {
+                await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
+            }
+            // Regular member taps on event
             else
             {
-                await DisplayAlert("Failed to Create Event", "?", "OK");
+                await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
             }
+
         }
-        public void On_Toggled(object sender, ToggledEventArgs e)
-        {
-            eventPublic = e.Value;
-        }
-        public void OnDateSelected(object sender, DateChangedEventArgs e)
-        {
-            dobChosen = e.NewDate;
-        }
-        /*Start and end assigned to are here
-        public void OnStartTimeSelected(object sender, TimeEventArgs e)
-        {
-            Start = e.;
-        }
-        public void OnEndTimeSelected(object sender, DateChangedEventArgs e)
-        {
-            End = e.NewTime;
-        }*/
     }
 }
