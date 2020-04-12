@@ -7,9 +7,124 @@
              x:Class="LetsGo.Controller.ViewEventAsOwnerController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Event Owner view"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Image  x:Name="imgChosen"
+                            Source="{Binding EventImage}"
+                            Aspect="AspectFill"
+                            HeightRequest="80"
+                            WidthRequest="80"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Margin="0,15,0,0"
+                            />
+            <Label  x:Name="name"
+                            Text="{Binding Name}"
+                            FontAttributes="Bold"
+                            FontSize="Title"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Center" />
+            <Label      x:Name="location"
+                            Text="{Binding Location}"
+                            TextColor="DarkGray"
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                            FontAttributes="Italic" />
+
+            <Label  Text="Event Owner: "
+                    HorizontalOptions="Center"
+                    TextColor="Gray"
+                    FontAttributes="Bold"
+                    VerticalOptions="Start"
+                    Margin="0,10,0,0"
+                    />
+            <Button x:Name="owner"
+                    Text="{Binding OwnerName}"
+                    TextColor="Blue"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"
+                    Margin="-8"
+                    BorderWidth="0"
+                    Clicked="OnOwnerName_Clicked"/>
+            <Label  Text="Event Description: "
+                    HorizontalOptions="Center"
+                    TextColor="Gray"
+                    FontAttributes="Bold"
+                    Margin="0,10,0,0"
+                    />
+            <Label x:Name="description"
+                    Text="{Binding Description}"
+                    FontSize="Medium"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    Padding="5"/>
+
+            <Label  x:Name="interestslabel"
+                    Text="Event Interests:"
+                    TextColor="Gray"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Margin="0,10,0,0"
+                    />
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout x:Name="layout">
+                                <Label  x:Name="interest"
+                                        Text="{Binding .}"
+                                        TextColor="Black"
+                                        FontSize="Body"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <Grid VerticalOptions="End" HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="changePicture"
+                        Text="Choose Image"
+                        BackgroundColor="LightSteelBlue"
+                        FontSize="Micro"
+                        HeightRequest="50"
+                        Clicked="Upload_Picture_Clicked"
+                        Grid.Column="0"
+                        Margin="5"
+                        HorizontalOptions="Center"
+                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        WidthRequest="100"
+                        />
+                <Button x:Name="deleteSelected"
+                        Text="Delete Event"
+                        TextColor="Red"
+                        BackgroundColor="LightSteelBlue"
+                        FontSize="Micro"
+                        HeightRequest="50"
+                        Clicked="OnDeleteEvent_Pressed"
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalOptions="Center"
+                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        WidthRequest="120"
+                         />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -87,13 +87,30 @@ namespace LetsGo.Controller
                     await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
                 }
 
-            }/*
+            }
             else if (SearchResults[type].ToString() == "LetsGo.Model.EventProfile")
             {
-                EventProfile evt = (EventProfile)SearchResults[type];
+                EventProfile selectedEvent = (EventProfile)SearchResults[type];
                 var auth = DependencyService.Get<IFirebaseAuthenticator>();
-                auth.SetCurrentEvent(evt);
-            }*/
+                auth.SetCurrentEvent(selectedEvent);
+                bool member = await fb.isEventMember(selectedEvent);
+                string userEmail = fb.GetCurrentUser();
+                // Community Leader taps on community
+                if (selectedEvent.EventOwner == userEmail)
+                {
+                    await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
+                }
+                // Regular member taps on community
+                else if (member)
+                {
+                    await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
+                    //await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
+                }
+                else
+                {
+                    //await Navigation.PushAsync(new PublicEventController(selectedEvent));
+                }
+            }
             this.ClearValue(ListView.SelectedItemProperty);
 
         }

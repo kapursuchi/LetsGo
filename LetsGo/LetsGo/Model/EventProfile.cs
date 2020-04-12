@@ -12,6 +12,8 @@ namespace LetsGo.Model
         //public ImageSource ProfilePicture { get; set; }
         public DateTime DateOfEvent { get; set; }
 
+        public string EventID { get; set; }
+
         public string StartOfEvent { get; set; }
 
         public string EndOfEvent { get; set; }
@@ -26,6 +28,10 @@ namespace LetsGo.Model
 
         public List<string> Interests { get; set; }
 
+        public string EventImage { get; set; }
+
+        public List<string> Members { get; set; }
+
         public EventProfile(string eName, string eDetails, DateTime eDate, string eStart, string eEnd, string location, string eMail, string interestTags, bool publicAccount)
         {
             Name = eName;
@@ -37,12 +43,15 @@ namespace LetsGo.Model
             PublicEvent = publicAccount;
             Location = location;
             Interests = new List<string>();
+            EventID = Guid.NewGuid().ToString();
+            Members = new List<string>();
+            Members.Add(eMail);
             List<string> preInterests = interestTags.Split(',').ToList();
             for (int i = 0; i < preInterests.Count; i++)
             {
                 Interests.Add(preInterests.ElementAt(i).ToLower().Trim());
             }
-            //ProfilePicture = ImageSource.FromFile("defaultProfilePic.jpg");
+            EventImage = "eventimage.png";
         }
 
         public EventProfile()

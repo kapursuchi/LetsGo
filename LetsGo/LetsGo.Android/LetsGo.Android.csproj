@@ -115,8 +115,10 @@
     <AndroidResource Include="Resources\drawable\communityimage.jpg">
       <IncludeInPackage>false</IncludeInPackage>
       <LogicalName>communityimage.jpg</LogicalName>
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\eventimage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

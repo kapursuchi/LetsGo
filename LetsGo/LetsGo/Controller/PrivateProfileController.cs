@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LetsGo.Model;
+using System.Globalization;
 
 namespace LetsGo.Controller
 {
@@ -42,13 +43,13 @@ namespace LetsGo.Controller
             profile = user;
             SetValues(user);
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
             name.BindingContext = this;
         }
 
         public async void SetValues(UserProfile user)
         {
-            Name = user.Name;
+            Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.Name);
             string profilePictureStr = await fb.GetProfilePicture(user.Email);
             if (profilePictureStr != null)
             {

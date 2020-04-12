@@ -189,7 +189,10 @@ namespace LetsGo.Model
                         Location = item.Object.Location,
                         Interests = item.Object.Interests,
                         PublicEvent = item.Object.PublicEvent,
-                        EventOwner = item.Object.EventOwner
+                        EventOwner = item.Object.EventOwner,
+                        EventID = item.Object.EventID,
+                        EventImage = item.Object.EventImage,
+                        Members = item.Object.Members
                     }).ToList();
 
             List<EventProfile> AllEvents = events.ToList();
@@ -616,9 +619,22 @@ namespace LetsGo.Model
             return photo;
         }
 
-        public async Task<string> UploadEventPhoto(Stream filestream, string eventName)
+        public async Task<string> UploadEventPhoto(Stream filestream, string eventID)
         {
-            string photo = await UploadFile(filestream, "events", eventName, "eventimage.jpg");
+           
+            List<EventProfile> events = await GetAllEvents();
+            var currentEvent = events.Where(a => a.EventID.ToString() == eventID).FirstOrDefault();
+            var evtToUpdate = (await firebase
+                                .Child("Events")
+                                .OnceAsync<EventProfile>()).Where(a => a.Object.EventID == eventID).FirstOrDefault();
+            string photo = await UploadFile(filestream, "events", eventID, "eventimage.jpg");
+
+            await firebase
+                .Child("Events")
+                .Child(evtToUpdate.Key)
+                .Child("EventID")
+                .PutAsync(photo);
+
             return photo;
         }
         
@@ -674,9 +690,9 @@ namespace LetsGo.Model
             return picture;
         }
 
-        public async Task<string> GetEventPicture(string eventName)
+        public async Task<string> GetEventPicture(string eventID)
         {
-            string picture = await GetPicture("events", eventName, "eventimage.jpg");
+            string picture = await GetPicture("events", eventID, "eventimage.jpg");
             return picture;
         }
 
@@ -728,7 +744,8 @@ namespace LetsGo.Model
                                              Location = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Location), Description = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Description),
                                              EventOwner = feedEvents.ElementAt(i).Object.EventOwner, StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
                                              EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent, Interests = feedEvents.ElementAt(i).Object.Interests,
-                                             PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent});
+                                             PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent, EventID = feedEvents.ElementAt(i).Object.EventID, 
+                                               EventImage = feedEvents.ElementAt(i).Object.EventImage, Members = feedEvents.ElementAt(i).Object.Members});
             }
             return feed;
         }
@@ -759,7 +776,10 @@ namespace LetsGo.Model
                     StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
                     EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent,
                     Interests = feedEvents.ElementAt(i).Object.Interests,
-                    PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent
+                    PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent,
+                    EventID = feedEvents.ElementAt(i).Object.EventID,
+                    EventImage = feedEvents.ElementAt(i).Object.EventImage,
+                    Members = feedEvents.ElementAt(i).Object.Members
                 });
             }
             return events;
@@ -785,7 +805,10 @@ namespace LetsGo.Model
                     StartOfEvent = publicEvents.ElementAt(i).StartOfEvent,
                     EndOfEvent = publicEvents.ElementAt(i).EndOfEvent,
                     Interests = publicEvents.ElementAt(i).Interests,
-                    PublicEvent = publicEvents.ElementAt(i).PublicEvent
+                    PublicEvent = publicEvents.ElementAt(i).PublicEvent,
+                    EventID = publicEvents.ElementAt(i).EventID,
+                    EventImage = publicEvents.ElementAt(i).EventImage,
+                    Members = publicEvents.ElementAt(i).Members
                 });
             }
 
@@ -888,9 +911,22 @@ namespace LetsGo.Model
             string current = GetCurrentUser();
             var comm = (await firebase
                 .Child("Communities")
-                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.CommunityID.ToString() == community.CommunityID).FirstOrDefault();
 
             if (comm.Object.Members.Contains(current))
+                return true;
+
+            return false;
+        }
+
+        public async Task<bool> isEventMember(EventProfile evt)
+        {
+            string current = GetCurrentUser();
+            var selectedEvt = (await firebase
+                            .Child("Events")
+                            .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == evt.EventOwner && a.Object.EventID.ToString() == evt.EventID).FirstOrDefault();
+
+            if (selectedEvt.Object.Members.Contains(current))
                 return true;
 
             return false;
@@ -946,7 +982,11 @@ namespace LetsGo.Model
                     StartOfEvent = eventsList.ElementAt(i).Object.StartOfEvent,
                     EndOfEvent = eventsList.ElementAt(i).Object.EndOfEvent,
                     Interests = eventsList.ElementAt(i).Object.Interests,
-                    PublicEvent = eventsList.ElementAt(i).Object.PublicEvent
+                    PublicEvent = eventsList.ElementAt(i).Object.PublicEvent,
+                    EventID = eventsList.ElementAt(i).Object.EventID,
+                    EventImage = eventsList.ElementAt(i).Object.EventImage,
+                    Members = eventsList.ElementAt(i).Object.Members
+                   
                 });
             }
             return publicEvents;
