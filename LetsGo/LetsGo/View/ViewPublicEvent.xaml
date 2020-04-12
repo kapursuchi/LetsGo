@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
-             x:Class="LetsGo.Controller.PublicCommunityController">
+             x:Class="LetsGo.Controller.PublicEventController">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="" Margin="15">
@@ -17,7 +17,7 @@
                 </Label.IsVisible>
             </Label>
             <Image  x:Name="imgChosen"
-                            Source="{Binding CommunityImage}"
+                            Source="{Binding EventImage}"
                             Aspect="AspectFill"
                             HeightRequest="100"
                             WidthRequest="100"
@@ -50,13 +50,13 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Community Leader: "
+                <Label Text="Event Owner: "
                          HorizontalOptions="End"
                          Grid.Column="0"
                          Grid.Row="1"
                          Padding="5" />
-                <Label x:Name="leader"
-                        Text="{Binding LeaderName}"
+                <Label x:Name="owner"
+                        Text="{Binding OwnerName}"
                         TextColor="Black"
                         FontSize="Medium"
                         HorizontalOptions="StartAndExpand"
@@ -74,21 +74,22 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Community Description: "
+                <Label Text="Event Description: "
                          HorizontalOptions="End"
                          Grid.Column="0"
                          Padding="5"/>
                 <Label x:Name="description"
                         Text="{Binding Description}"
+                       VerticalOptions="Center"
                         FontSize="Medium"
                         TextColor="Black"
-                       VerticalOptions="Center"
                         HorizontalOptions="StartAndExpand"
                         Grid.Column="1"
                         Padding="5"/>
             </Grid>
 
-            <Button x:Name="join" Text="Join Community" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,15,0,0"/>
+            <Button x:Name="join" Text="Join Event" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="LightSteelBlue" 
+                    TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,15,0,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

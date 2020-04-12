@@ -65,11 +65,14 @@
                             Grid.Row="0"
                             Grid.Column="0" />
                 <TimePicker 
+                    x:Name="_startTime"
                             BackgroundColor="Ivory"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
                             Grid.Column="1"
-                            Time ="{Binding SelectedTime}"
+                            Time ="01:00:00"
+                            Format="T"
+                            PropertyChanged="OnStartTimeSelected"
                             />
             </Grid>
 
@@ -91,11 +94,14 @@
                             Grid.Row="0"
                             Grid.Column="0" />
                 <TimePicker 
+                            x:Name="_endTime"
                             BackgroundColor="Ivory"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
                             Grid.Column="1"
-                            Time = "{Binding SelectedTime}"
+                            Time = "01:00:00"
+                            Format="T"
+                            PropertyChanged="OnEndTimeSelected"
                             />
             </Grid>
             <Grid   x:Name="publicAccountSwitch"

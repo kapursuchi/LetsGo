@@ -22,6 +22,7 @@ namespace LetsGo.Controller
             location.BindingContext = this;
             description.BindingContext = this;
             owner.BindingContext = this;
+            eventTime.BindingContext = this;
         }
         public ViewEventAsOwnerController()
         {
@@ -34,6 +35,7 @@ namespace LetsGo.Controller
             location.BindingContext = this;
             description.BindingContext = this;
             owner.BindingContext = this;
+            eventTime.BindingContext = this;
         }
         readonly FirebaseDB fb = new FirebaseDB();
         private EventProfile thisEvent { get; set; }
@@ -46,6 +48,49 @@ namespace LetsGo.Controller
         private string EventID { get; set; }
         private string _ownerName { get; set; }
         private Image _img { get; set; }
+
+        private string _startTime { get; set; }
+        private string _endTime { get; set; }
+        private string _eventTime { get; set; }
+
+        public string StartTime
+        {
+            get
+            {
+                return _startTime;
+            }
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged(nameof(StartTime));
+            }
+        }
+
+        public string EndTime
+        {
+            get
+            {
+                return _endTime;
+            }
+            set
+            {
+                _endTime = value;
+                OnPropertyChanged(nameof(EndTime));
+            }
+        }
+
+        public string EventTime
+        {
+            get
+            {
+                return _eventTime;
+            }
+            set
+            {
+                _eventTime = value;
+                OnPropertyChanged(nameof(EventTime));
+            }
+        }
 
         public Image EventImage
         {
@@ -130,6 +175,9 @@ namespace LetsGo.Controller
             Name = evt.Name;
             Location = evt.Location;
             Description = evt.Description;
+            StartTime = evt.StartOfEvent;
+            EndTime = evt.EndOfEvent;
+            EventTime = StartTime + " to " + EndTime;
 
             EventID = evt.EventID;
             EventOwner = evt.EventOwner;

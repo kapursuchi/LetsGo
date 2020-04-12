@@ -95,20 +95,19 @@ namespace LetsGo.Controller
                 auth.SetCurrentEvent(selectedEvent);
                 bool member = await fb.isEventMember(selectedEvent);
                 string userEmail = fb.GetCurrentUser();
-                // Community Leader taps on community
+                // Event Owner taps on event
                 if (selectedEvent.EventOwner == userEmail)
                 {
                     await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
                 }
-                // Regular member taps on community
+                // Regular member taps on event
                 else if (member)
                 {
                     await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
-                    //await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
                 }
                 else
                 {
-                    //await Navigation.PushAsync(new PublicEventController(selectedEvent));
+                    await Navigation.PushAsync(new PublicEventController(selectedEvent));
                 }
             }
             this.ClearValue(ListView.SelectedItemProperty);

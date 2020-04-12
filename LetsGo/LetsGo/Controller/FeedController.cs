@@ -11,6 +11,7 @@ using System.ComponentModel;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System.Linq;
+using LetsGo.Model.Authentication;
 
 namespace LetsGo.Controller
 {
@@ -19,14 +20,14 @@ namespace LetsGo.Controller
         readonly private FirebaseDB fb = new FirebaseDB();
 
         public FeedController()
-        {   
+        {
             FeedEvents = new List<EventProfile>();
-            
+
             SetFeed();
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            
+
         }
 
 
@@ -41,22 +42,41 @@ namespace LetsGo.Controller
                 FeedEvents = new List<EventProfile>();
 
                 FeedEvents.Add(new EventProfile("There are no public events in your location!", "No description available", DateTime.Today,
-                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true ));
-                
-                
+                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
+
+
             }
             FeedView.ItemsSource = FeedEvents;
-            
-            
-        }
-        
-        public void OnAdd(object sender, EventArgs e)
-        {
+
 
         }
 
-        public void OnView(object sender, EventArgs e)
+
+        public async void OnView(object sender, ItemTappedEventArgs e)
         {
+            var type = e.ItemIndex;
+
+            EventProfile selectedEvent = (EventProfile)FeedEvents[type];
+            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            auth.SetCurrentEvent(selectedEvent);
+            bool member = await fb.isEventMember(selectedEvent);
+            string userEmail = fb.GetCurrentUser();
+            // EventOwner  taps on event
+            if (selectedEvent.EventOwner == userEmail)
+            {
+                await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
+            }
+            // Regular member taps on event
+            else if (member)
+            {
+                await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
+            }
+            else
+            {
+                await Navigation.PushAsync(new PublicEventController(selectedEvent));
+            }
+
+            this.ClearValue(Xamarin.Forms.ListView.SelectedItemProperty);
 
         }
 

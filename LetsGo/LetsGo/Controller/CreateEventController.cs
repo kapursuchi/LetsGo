@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LetsGo.Model;
+using System.ComponentModel;
 
 namespace LetsGo.Controller
 {
@@ -19,7 +20,7 @@ namespace LetsGo.Controller
             InitializeComponent();
             ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
         }
-        readonly private EventsPage _createEvent = new EventsPage();
+        readonly private CreateEvent _createEvent = new CreateEvent();
         public async void CreateEvent_Clicked(object sender, EventArgs e)
         {
 
@@ -50,14 +51,13 @@ namespace LetsGo.Controller
         {
             dobChosen = e.NewDate;
         }
-        /*Start and end assigned to are here
-        public void OnStartTimeSelected(object sender, TimeEventArgs e)
+        public void OnStartTimeSelected(object sender, PropertyChangedEventArgs e)
         {
-            Start = e.;
+            Start =  _startTime.Time;
         }
-        public void OnEndTimeSelected(object sender, DateChangedEventArgs e)
+        public void OnEndTimeSelected(object sender, PropertyChangedEventArgs e)
         {
-            End = e.NewTime;
-        }*/
+            End = _endTime.Time;
+        }
     }
 }

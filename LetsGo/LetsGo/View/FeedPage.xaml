@@ -24,20 +24,11 @@
                    FontSize="Medium"
                    TextColor="Black"/>
 
-            <ListView x:Name="FeedView" SeparatorVisibility="None" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="FeedView" SeparatorVisibility="None" ItemTapped="OnView" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnAdd" CommandParameter="{Binding .}" Text="Add" />
-                                <MenuItem Clicked="OnView" CommandParameter="{Binding .}" Text="View" />
-                            </ViewCell.ContextActions>
-                            <StackLayout Padding="15,0">
-                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
-                                <Label Text="{Binding Description}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
-                            </StackLayout>
-                        </ViewCell>
+                        <ImageCell Text="{Binding Name}" Detail="{Binding Description}" TextColor="Black"  CommandParameter="{Binding .}"/>
                     </DataTemplate>
 
                 </ListView.ItemTemplate>

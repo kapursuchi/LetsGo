@@ -1,37 +1,25 @@
-﻿using System;
+﻿using LetsGo.Model;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using LetsGo.Model;
 using Xamarin.Forms;
 
 namespace LetsGo.Controller
 {
-    public partial class PublicCommunityController
+    public partial class PublicEventController
     {
         readonly FirebaseDB fb = new FirebaseDB();
-        private CommunityProfile community { get; set; }
+        private EventProfile thisEvent { get; set; }
         public List<string> Interests { get; set; }
         private string _name { get; set; }
         private string _location { get; set; }
         private string _description { get; set; }
-        private string _leader { get; set; }
-        private string CommunityID { get; set; }
-        private string _leaderName { get; set; }
+        private string _evtowner { get; set; }
+        private string EventID { get; set; }
+        private string _ownername { get; set; }
         private Image _img { get; set; }
-        public Image ProfileImage
-        {
-            get
-            {
-                return _img;
-            }
-            set
-            {
-                _img = value;
-                OnPropertyChanged(nameof(ProfileImage));
-            }
-        }
-        
+
         public string Name
         {
             get
@@ -45,28 +33,28 @@ namespace LetsGo.Controller
             }
         }
 
-        public string LeaderName
+        public string OwnerName
         {
             get
             {
-                return _leaderName;
+                return _ownername;
             }
             set
             {
-                _leaderName = value;
-                OnPropertyChanged(nameof(LeaderName));
+                _ownername = value;
+                OnPropertyChanged(nameof(OwnerName));
             }
         }
-        public string Leader
+        public string EventOwner
         {
             get
             {
-                return _leader;
+                return _evtowner;
             }
             set
             {
-                _leader = value;
-                OnPropertyChanged(nameof(Leader));
+                _evtowner = value;
+                OnPropertyChanged(nameof(EventOwner));
             }
         }
         public string Location
@@ -83,7 +71,7 @@ namespace LetsGo.Controller
         }
 
 
-        public Image CommunityImage
+        public Image EventImage
         {
             get
             {
@@ -92,7 +80,7 @@ namespace LetsGo.Controller
             set
             {
                 _img = value;
-                OnPropertyChanged(nameof(CommunityImage));
+                OnPropertyChanged(nameof(EventImage));
             }
         }
         public string Description
@@ -107,27 +95,26 @@ namespace LetsGo.Controller
                 OnPropertyChanged(nameof(Description));
             }
         }
-
-        public PublicCommunityController(CommunityProfile comm)
+        public PublicEventController(EventProfile evt)
         {
-            community = comm;
-            SetValues(community);
+            thisEvent = evt;
+            SetValues(thisEvent);
             InitializeComponent();
             ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
             name.BindingContext = this;
             location.BindingContext = this;
             description.BindingContext = this;
-            leader.BindingContext = this;
+            owner.BindingContext = this;
         }
 
-        public async void SetValues(CommunityProfile comm)
+        public async void SetValues(EventProfile evt)
         {
-            Name = comm.Name;
+            Name = evt.Name;
             Interests = new List<string>();
-            Location = comm.Location;
-            Description = comm.Description;
-            CommunityID = comm.CommunityID;
-            Leader = comm.Leader;
+            Location = evt.Location;
+            Description = evt.Description;
+            EventID = evt.EventID;
+            EventOwner = evt.EventOwner;
             if (Location == null)
             {
                 Location = "No Location Yet...";
@@ -137,23 +124,24 @@ namespace LetsGo.Controller
             {
                 Interests.Add("No interests listed yet...");
             }
-            string ln = await fb.GetUsersName(Leader);
-            LeaderName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
+            string ln = await fb.GetUsersName(EventOwner);
+            OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
 
-            string communityPictureStr = await fb.GetCommunityPicture(CommunityID);
-            if (communityPictureStr != null)
+            string eventPictureStr = await fb.GetEventPicture(EventID);
+            if (eventPictureStr != null)
             {
-                imgChosen.Source = ImageSource.FromUri(new Uri(communityPictureStr));
+                imgChosen.Source = ImageSource.FromUri(new Uri(eventPictureStr));
             }
             else
             {
-                imgChosen.Source = ImageSource.FromFile("communityimage.jpg");
+                imgChosen.Source = ImageSource.FromFile("eventimage.png");
             }
-            CommunityImage = imgChosen;
+            EventImage = imgChosen;
         }
 
-        public async void Join_Clicked(object sender, EventArgs e)
+        public void Join_Clicked(object sender, EventArgs e)
         {
+            /*
             bool added = false;
             if (community.InviteOnly && !community.Members.Contains(fb.GetCurrentUser()))
             {
@@ -171,6 +159,7 @@ namespace LetsGo.Controller
                 Navigation.RemovePage(this);
                 await Navigation.PushAsync(new ViewCommunityMemberController(community));
             }
+            */
         }
     }
 }

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace LetsGo.Model
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EventsPage : ContentPage
+    public partial class CreateEvent : ContentPage
     {
         readonly FirebaseDB fb = new FirebaseDB();
         public async Task<bool> CreateUserEvent(string name, string details, DateTime dob, string start, string end, string location, string email, string interests, bool publicAcct)
