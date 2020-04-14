@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using LetsGo.Model;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using Firebase.Database;
-using Firebase.Database.Query;
-using System.Linq;
 using LetsGo.Model.Authentication;
 
 namespace LetsGo.Controller

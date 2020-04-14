@@ -1141,10 +1141,12 @@ namespace LetsGo.Model
             List<string> notification = leaderUser.CommunityRequests;
             if (notification == null)
                 notification = new List<string>();
-            notification.Add(currentUser);
+            if (!notification.Contains(currentUser))
+                notification.Add(currentUser);
 
             List<string> commRequests = communityToJoin.CommunityRequests;
-            commRequests.Add(currentUser);
+            if (!commRequests.Contains(currentUser))
+                commRequests.Add(currentUser);
             await firebase
                 .Child("userprofiles")
                 .Child(leader.Key)
@@ -1199,7 +1201,8 @@ namespace LetsGo.Model
             List<string> notification = FriendUser.FriendRequests;
             if (notification == null)
                 notification = new List<string>();
-            notification.Add(currentUser);
+            if (!notification.Contains(currentUser))
+                notification.Add(currentUser);
             List<string> FriendsList = FriendUser.Friends;
             if (FriendsList == null)
             {
