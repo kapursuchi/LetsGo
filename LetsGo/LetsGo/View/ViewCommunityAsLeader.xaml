@@ -125,6 +125,18 @@
                         BorderColor="Navy" BorderWidth="3" CornerRadius="15"
                         WidthRequest="120"
                          />
+                <Button x:Name="inviteUsers"
+                        Text="Invite Users"
+                        Clicked="OnInviteUsers_Clicked"
+                        TextColor="Black"
+                        BackgroundColor="LightSteelBlue"
+                        FontSize="Micro"
+                        HeightRequest="50"
+                        WidthRequest="100"
+                        Margin="5"
+                        BorderWidth="3" 
+                        BorderColor="Navy" CornerRadius="15"
+                        Grid.Column="2"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

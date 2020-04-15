@@ -30,6 +30,10 @@ namespace LetsGo.Model
 
         public List<string> CommunityRequests { get; set; }
 
+        public List<string> CommunityInvites { get; set; }
+
+        
+
         public UserProfile(string uName, DateTime uDOB, string uEmail, string uPass, bool publicAccount)
         {
             Name = uName;
@@ -43,6 +47,7 @@ namespace LetsGo.Model
             FriendRequests = new List<string>();
             EventRequests = new List<string>();
             CommunityRequests = new List<string>();
+            CommunityInvites = new List<string>();
             ProfileImage = "defaultProfilePic.jpg";
         }
 

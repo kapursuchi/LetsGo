@@ -247,6 +247,11 @@ namespace LetsGo.Controller
                 await Navigation.PopToRootAsync();
             }
         }
+
+        public async void OnInviteUsers_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new InviteCommunityMembersController(community));
+        }
         
     }
 }

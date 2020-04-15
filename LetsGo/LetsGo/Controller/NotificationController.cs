@@ -84,6 +84,7 @@ namespace LetsGo.Controller
         public void OnDecline(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
+            
             UserProfile profile = (UserProfile)type.CommandParameter;
             fb.RemoveRequest(profile);
             UserProfile listitem = (from pro in RequestNotifications

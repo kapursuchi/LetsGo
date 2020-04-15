@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LetsGo.Controller.InviteCommunityMembersController"
+             BackgroundColor="LightGoldenrodYellow">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+            <Image Source="LogoBanner.PNG" HeightRequest="70" WidthRequest="1080" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+
+            <ScrollView>
+                <SearchBar x:Name="searchBar" Placeholder="Search for Friend to Invite"  PlaceholderColor="Gray" VerticalOptions="StartAndExpand" TextColor="Black" SearchButtonPressed="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>
+            </ScrollView>
+            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="LightGoldenrodYellow">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <ViewCell>
+                            <StackLayout>
+                                <Grid   x:Name="friends"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center"
+                                            BackgroundColor="LightGoldenrodYellow">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="profilePicture" Source="{Binding ProfileImage}" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                                    <Label      x:Name="friendName"
+                                                    Text="{Binding Name}"
+                                                    TextColor="Black"
+                                                    FontSize="Body"
+                                                FontAttributes="Bold"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Center"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1" />
+                                    <Button    x:Name="invite"
+                                                    Text="Invite"
+                                                    HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                    BackgroundColor="Transparent"
+                                               CommandParameter="{Binding .}"
+                                                    TextColor="Navy"
+                                                    Grid.Row="0"
+                                                    Grid.Column="2"
+                                                    Clicked="OnInvite_Clicked"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="done" Text="Done Inviting!" Clicked="OnDone_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="100"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
