@@ -6,14 +6,16 @@ using LetsGo.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections;
+using System.Globalization;
 
 namespace LetsGo.Controller
 {
     public partial class NotificationController : INotifyPropertyChanged
     {
 
-        private ObservableCollection<UserProfile> _requests { get; set; }
-        public ObservableCollection<UserProfile> RequestNotifications
+        private ObservableCollection<object> _requests { get; set; }
+        public ObservableCollection<object> RequestNotifications
         {
             get
             {
@@ -42,21 +44,25 @@ namespace LetsGo.Controller
 
         public async void SetValues()
         {
-            RequestNotifications = new ObservableCollection<UserProfile>();
+            RequestNotifications =  new ObservableCollection<object>();
             List<UserProfile> profiles = await fb.GetFriendRequests();
             List<UserProfile> commRequests = await fb.GetCommunityRequests();
-            if (profiles != null)
+            List<CommunityProfile> commInvites = await fb.GetCommunityInvites();
+
+            for (int i = 0; i < profiles.Count; i++)
             {
-                RequestNotifications = new ObservableCollection<UserProfile>(profiles);
+                profiles.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(profiles.ElementAt(i).Name);
+                RequestNotifications.Add(profiles.ElementAt(i));
             }
-            else if (commRequests != null)
-            {
-                RequestNotifications = new ObservableCollection<UserProfile>(commRequests);
-            }
-            
             for (int i = 0; i < commRequests.Count; i++)
             {
+                commRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commRequests.ElementAt(i).Name);
                 RequestNotifications.Add(commRequests.ElementAt(i));
+            }
+            for (int i = 0; i < commInvites.Count; i++)
+            {
+                commInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commInvites.ElementAt(i).Name);
+                RequestNotifications.Add(commInvites.ElementAt(i));
             }
 
             if (RequestNotifications.Count == 0)
@@ -69,20 +75,45 @@ namespace LetsGo.Controller
             notifications.ItemsSource = RequestNotifications;
         }
 
-        public void OnAccept(object sender, EventArgs e)
+        public async void OnAccept(object sender, EventArgs e)
         {
+            
             var type = (MenuItem)sender;
-            UserProfile profile = (UserProfile)type.CommandParameter;
-            fb.AcceptRequest(profile);
-            UserProfile listitem = (from pro in RequestNotifications
-                                    where pro == type.CommandParameter
-                               select pro)
-                            .FirstOrDefault<UserProfile>();
-            RequestNotifications.Remove(listitem);
+            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
+            {
+                UserProfile profile = (UserProfile)type.CommandParameter;
+                fb.AcceptRequest(null, null, profile);
+                RequestNotifications.Remove(type.CommandParameter);
+            }
+            else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+            {
+                CommunityProfile profile = (CommunityProfile)type.CommandParameter;
+                string current =  fb.GetCurrentUser();
+                UserProfile currentUser = await fb.GetUserObject(current);
+                fb.AcceptRequest(null, profile, currentUser);
+                RequestNotifications.Remove(type.CommandParameter);
+
+            }
+            else if (type.CommandParameter.ToString() == "LetsGo.Model.EventProfile")
+            {
+                EventProfile profile = (EventProfile)type.CommandParameter;
+                string current = fb.GetCurrentUser();
+                UserProfile currentUser = await fb.GetUserObject(current);
+                //fb.AcceptRequest(profile, null, currentUser);
+                //RequestNotifications.Remove(type.CommandParameter);
+            }
+
+            if (RequestNotifications.Count == 0)
+            {
+
+                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
+
+            }
+            
         }
 
         public void OnDecline(object sender, EventArgs e)
-        {
+        {/*
             var type = (MenuItem)sender;
             
             UserProfile profile = (UserProfile)type.CommandParameter;
@@ -92,7 +123,39 @@ namespace LetsGo.Controller
                                     select pro)
                             .FirstOrDefault<UserProfile>();
             RequestNotifications.Remove(listitem);
+            */
 
+            var type = (MenuItem)sender;
+            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
+            {
+                UserProfile profile = (UserProfile)type.CommandParameter;
+                fb.RemoveRequest(profile);
+                int index = RequestNotifications.IndexOf(profile);
+                RequestNotifications.RemoveAt(index);
+            }
+            else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+            {
+                CommunityProfile profile = (CommunityProfile)type.CommandParameter;
+                string current = fb.GetCurrentUser();
+                fb.RemoveInvite(null, profile.CommunityID, current);
+                int index = RequestNotifications.IndexOf(profile);
+                RequestNotifications.RemoveAt(index);
+            }
+            else if (type.CommandParameter.ToString() == "LetsGo.Model.EventProfile")
+            {
+                EventProfile profile = (EventProfile)type.CommandParameter;
+                string current = fb.GetCurrentUser();
+                fb.RemoveInvite(profile.EventID, null, current);
+                int index = RequestNotifications.IndexOf(profile);
+                RequestNotifications.RemoveAt(index);
+            }
+
+            if (RequestNotifications.Count == 0)
+            {
+
+                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
+
+            }
         }
 
     }

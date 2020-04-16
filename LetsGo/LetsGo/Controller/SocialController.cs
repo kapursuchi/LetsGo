@@ -80,7 +80,6 @@ namespace LetsGo.Controller
                 else if (member)
                 {
                     await Navigation.PushAsync(new CommunityMemberViewController(selectedCommunity));
-                    //await Navigation.PushAsync(new ViewCommunityMemberController(selectedCommunity));
                 }
                 else
                 {

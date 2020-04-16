@@ -142,7 +142,8 @@ namespace LetsGo.Model
                         PublicAcct = item.Object.PublicAcct,
                         ProfileImage = item.Object.ProfileImage,
                         EventRequests = item.Object.EventRequests,
-                        CommunityRequests = item.Object.CommunityRequests
+                        CommunityRequests = item.Object.CommunityRequests,
+                        CommunityInvites = item.Object.CommunityInvites
                     }).ToList();
 
             List<UserProfile> AllUsers = users.ToList();
@@ -1276,8 +1277,42 @@ namespace LetsGo.Model
             }
         }
 
+        public async Task<List<CommunityProfile>> GetCommunityInvites()
+        {
+            string current = GetCurrentUser();
+            var currentUser = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
 
+            List<CommunityProfile> invites = new List<CommunityProfile>();
+            for (int i = 0; i < currentUser.Object.CommunityInvites.Count; i++)
+            {
+                CommunityProfile comm = await GetCommunity(currentUser.Object.CommunityInvites.ElementAt(i));
+                invites.Add(comm);
+            }
 
+            return invites;            
+        }
+
+        public async Task<CommunityProfile> GetCommunity(string communityID)
+        {
+            var comm = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == communityID).FirstOrDefault();
+            CommunityProfile community = new CommunityProfile()
+            {
+                CommunityID = comm.Object.CommunityID,
+                CommunityRequests = comm.Object.CommunityRequests,
+                PublicCommunity = comm.Object.PublicCommunity,
+                Members = comm.Object.Members,
+                Interests = comm.Object.Interests,
+                Description = comm.Object.Description,
+                InviteOnly = comm.Object.InviteOnly,
+                CommunityImage = comm.Object.CommunityImage,
+                Leader = comm.Object.Leader,
+                Location = comm.Object.Location,
+                Name = comm.Object.Name
+            };
+            return community;
+        }
         public async Task<List<UserProfile>> GetCommunityRequests()
         {
             string current = GetCurrentUser();
@@ -1495,7 +1530,7 @@ namespace LetsGo.Model
 
         }
 
-        public async void AcceptRequest(UserProfile newFriend)
+        public async void AcceptRequest(EventProfile evt, CommunityProfile comm, UserProfile newFriend)
         {
             string current = GetCurrentUser();
             var currentUser = (await firebase
@@ -1506,6 +1541,7 @@ namespace LetsGo.Model
                 if (currentUser.Object.FriendRequests.Contains(newFriend.Email))
                 {
                     bool added = await AddUserAsFriend(current, newFriend.Email);
+                    RemoveRequest(newFriend);
                 }
             }
             else if (currentUser.Object.CommunityRequests != null)
@@ -1515,11 +1551,49 @@ namespace LetsGo.Model
                     List<CommunityProfile> comms = await GetAllCommunities();
                     var community = comms.Where(a => a.CommunityRequests.Contains(newFriend.Email)).FirstOrDefault();
                     bool added = await AddUserToCommunity(newFriend.Email, community);
+                    RemoveRequest(newFriend);
                 }
             }
 
+            if (comm != null)
+            {
+                bool added = await AddUserToCommunity(current, comm);
+                RemoveInvite(null, comm.CommunityID, current);
+            }
+            
 
-            RemoveRequest(newFriend);
+            
+        }
+
+        public async void RemoveInvite(string eventID, string commID, string currentUser)
+        {
+            if (commID != null)
+            {
+                var current = (await firebase
+                    .Child("userprofiles")
+                    .OnceAsync<UserProfile>()).Where(a => a.Object.Email == currentUser).FirstOrDefault();
+                List<string> commInvites = current.Object.CommunityInvites;
+                List<string> updated = new List<string>();
+                if (commInvites != null && commInvites.Contains(commID))
+                { 
+                    for (int i = 0; i < commInvites.Count; i++)
+                    {
+                        if (commInvites.ElementAt(i) != commID)
+                        {
+                            updated.Add(commInvites.ElementAt(i));
+                        }
+                    }
+                }
+
+
+
+                await firebase
+                    .Child("userprofiles")
+                    .Child(current.Key)
+                    .Child("CommunityInvites")
+                    .PutAsync(updated);
+
+            }
         }
 
 
