@@ -1285,11 +1285,15 @@ namespace LetsGo.Model
                 .OnceAsync<UserProfile>()).Where(a => a.Object.Email == current).FirstOrDefault();
 
             List<CommunityProfile> invites = new List<CommunityProfile>();
-            for (int i = 0; i < currentUser.Object.CommunityInvites.Count; i++)
+            if (currentUser.Object.CommunityInvites != null)
             {
-                CommunityProfile comm = await GetCommunity(currentUser.Object.CommunityInvites.ElementAt(i));
-                invites.Add(comm);
+                for (int i = 0; i < currentUser.Object.CommunityInvites.Count; i++)
+                {
+                    CommunityProfile comm = await GetCommunity(currentUser.Object.CommunityInvites.ElementAt(i));
+                    invites.Add(comm);
+                }
             }
+
 
             return invites;            
         }

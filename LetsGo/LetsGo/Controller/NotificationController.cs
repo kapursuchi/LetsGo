@@ -49,21 +49,32 @@ namespace LetsGo.Controller
             List<UserProfile> commRequests = await fb.GetCommunityRequests();
             List<CommunityProfile> commInvites = await fb.GetCommunityInvites();
 
-            for (int i = 0; i < profiles.Count; i++)
+            if (profiles != null || profiles.Count != 0)
             {
-                profiles.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(profiles.ElementAt(i).Name);
-                RequestNotifications.Add(profiles.ElementAt(i));
+                for (int i = 0; i < profiles.Count; i++)
+                {
+                    profiles.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(profiles.ElementAt(i).Name);
+                    RequestNotifications.Add(profiles.ElementAt(i));
+                }
             }
-            for (int i = 0; i < commRequests.Count; i++)
+            if (commRequests != null || commRequests.Count != 0)
             {
-                commRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commRequests.ElementAt(i).Name);
-                RequestNotifications.Add(commRequests.ElementAt(i));
+                for (int i = 0; i < commRequests.Count; i++)
+                {
+                    commRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commRequests.ElementAt(i).Name);
+                    RequestNotifications.Add(commRequests.ElementAt(i));
+                }
             }
-            for (int i = 0; i < commInvites.Count; i++)
+
+            if (commInvites != null || commInvites.Count != 0)
             {
-                commInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commInvites.ElementAt(i).Name);
-                RequestNotifications.Add(commInvites.ElementAt(i));
+                for (int i = 0; i < commInvites.Count; i++)
+                {
+                    commInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commInvites.ElementAt(i).Name);
+                    RequestNotifications.Add(commInvites.ElementAt(i));
+                }
             }
+
 
             if (RequestNotifications.Count == 0)
             {
