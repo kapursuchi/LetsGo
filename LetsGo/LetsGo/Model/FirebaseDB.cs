@@ -791,13 +791,70 @@ namespace LetsGo.Model
             return events;
         }
 
+        public async Task<List<CommunityProfile>> GetAllCommunities(string InterestTag)
+        {
+            var communities = (await firebase
+                .Child("Communities")
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Interests.Contains(InterestTag)).ToList();
+
+            List<CommunityProfile> publicCommunities = new List<CommunityProfile>();
+
+            var commList = communities.ToList();
+            for (int i = 0; i < commList.Count; i++)
+            {
+                publicCommunities.Add(new CommunityProfile()
+                {
+                    Name = textInfo.ToTitleCase(commList.ElementAt(i).Object.Name),
+                    Description = textInfo.ToTitleCase(commList.ElementAt(i).Object.Description),
+                    Location = textInfo.ToTitleCase(commList.ElementAt(i).Object.Location),
+                    Leader = commList.ElementAt(i).Object.Leader,
+                    Interests = commList.ElementAt(i).Object.Interests,
+                    PublicCommunity = commList.ElementAt(i).Object.PublicCommunity,
+                    InviteOnly = commList.ElementAt(i).Object.InviteOnly,
+                    Members = commList.ElementAt(i).Object.Members,
+                    CommunityID = commList.ElementAt(i).Object.CommunityID,
+                    CommunityImage = commList.ElementAt(i).Object.CommunityImage,
+                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests
+                });
+            }
+
+            return publicCommunities;
+        }
+
+        public async Task<List<UserProfile>> GetAllUsers(string InterestTag)
+        {
+            var users = (await firebase
+                        .Child("userprofiles")
+                        .OnceAsync<UserProfile>()).Where(a => a.Object.Interests.Contains(InterestTag) && a.Object.Email != GetCurrentUser()).ToList();
+            List<UserProfile> publicUsers = new List<UserProfile>();
+            for (int i = 0; i < users.Count; i++)
+            {
+                publicUsers.Add(new UserProfile()
+                {
+                    Name = textInfo.ToTitleCase(users.ElementAt(i).Object.Name),
+                    DateOfBirth = users.ElementAt(i).Object.DateOfBirth,
+                    Email = users.ElementAt(i).Object.Email,
+                    Interests = users.ElementAt(i).Object.Interests,
+                    Location = textInfo.ToTitleCase(users.ElementAt(i).Object.Location),
+                    Friends = users.ElementAt(i).Object.Friends,
+                    FriendRequests = users.ElementAt(i).Object.FriendRequests,
+                    PublicAcct = users.ElementAt(i).Object.PublicAcct,
+                    ProfileImage = users.ElementAt(i).Object.ProfileImage,
+                    EventRequests = users.ElementAt(i).Object.EventRequests,
+                    CommunityRequests = users.ElementAt(i).Object.CommunityRequests,
+                    CommunityInvites = users.ElementAt(i).Object.CommunityInvites
+                });
+            }
+            return publicUsers;
+        }
+
         public async Task<ArrayList> Search(string InterestTag)
         {
             string currentEmail = GetCurrentUser();
             ArrayList searchResults = new ArrayList();
-            List<EventProfile> publicEvents = await GetPublicEvents(InterestTag.ToLower());
-            List<CommunityProfile> publicCommunities = await GetPublicCommunities(InterestTag.ToLower());
-            List<UserProfile> publicUsers = await GetPublicUsers(InterestTag.ToLower());
+            List<EventProfile> publicEvents = await GetAllEvents(InterestTag.ToLower());
+            List<CommunityProfile> publicCommunities = await GetAllCommunities(InterestTag.ToLower());
+            List<UserProfile> publicUsers = await GetAllUsers(InterestTag.ToLower());
 
             for (int i = 0; i < publicEvents.Count; i++)
             {
@@ -834,7 +891,7 @@ namespace LetsGo.Model
                     EventRequests = publicUsers.ElementAt(i).EventRequests,
                     CommunityRequests = publicUsers.ElementAt(i).CommunityRequests,
                     CommunityInvites = publicUsers.ElementAt(i).CommunityInvites
-                }) ;
+                });
             }
 
             for (int i = 0; i < publicCommunities.Count; i++)
@@ -1006,14 +1063,14 @@ namespace LetsGo.Model
 
             var communityToUpdate = (await firebase
                                     .Child("Communities")
-                                    .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == community.Leader && a.Object.Name == community.Name.ToLower()).FirstOrDefault();
+                                    .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
 
             bool added = false;
-            if (!communityToUpdate.Object.InviteOnly)
+            if (!communityToUpdate.Object.InviteOnly && communityToUpdate.Object.PublicCommunity)
             {
                 added = await AddUserToCommunity(currentUser, community);
             }
-            else
+            else if (communityToUpdate.Object.InviteOnly || !communityToUpdate.Object.PublicCommunity)
             {
                 added = await SendCommunityRequest(currentUser, community);
             }
@@ -1181,7 +1238,7 @@ namespace LetsGo.Model
 
             var comm = (await firebase
                 .Child("Communities")
-                .OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == communityToJoin.Leader && a.Object.Name == communityToJoin.Name).FirstOrDefault();
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == communityToJoin.CommunityID).FirstOrDefault();
 
 
             List<UserProfile> users = await GetAllUsers();
@@ -1194,6 +1251,8 @@ namespace LetsGo.Model
                 notification.Add(currentUser);
 
             List<string> commRequests = communityToJoin.CommunityRequests;
+            if (commRequests == null)
+                commRequests = new List<string>();
             if (!commRequests.Contains(currentUser))
                 commRequests.Add(currentUser);
             await firebase
@@ -1236,7 +1295,6 @@ namespace LetsGo.Model
 
             return true;
         }
-
         private async Task<bool> SendEventRequest(string currentUser, EventProfile eventToJoin)
         {
             var current = (await firebase
@@ -1305,6 +1363,38 @@ namespace LetsGo.Model
                 });
 
             return true;
+        }
+
+        public async Task<List<EventProfile>> GetAllEvents(string InterestTag)
+        {
+            var events = (await firebase
+            .Child("Events")
+            .OnceAsync<EventProfile>()).Where(a => a.Object.Interests.Contains(InterestTag)).ToList();
+
+            var eventsList = events.ToList();
+
+            List<EventProfile> publicEvents = new List<EventProfile>();
+
+            for (int i = 0; i < eventsList.Count; i++)
+            {
+                publicEvents.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Name),
+                    DateOfEvent = eventsList.ElementAt(i).Object.DateOfEvent,
+                    Location = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Location),
+                    Description = textInfo.ToTitleCase(eventsList.ElementAt(i).Object.Description),
+                    EventOwner = eventsList.ElementAt(i).Object.EventOwner,
+                    StartOfEvent = eventsList.ElementAt(i).Object.StartOfEvent,
+                    EndOfEvent = eventsList.ElementAt(i).Object.EndOfEvent,
+                    Interests = eventsList.ElementAt(i).Object.Interests,
+                    PublicEvent = eventsList.ElementAt(i).Object.PublicEvent,
+                    EventID = eventsList.ElementAt(i).Object.EventID,
+                    EventImage = eventsList.ElementAt(i).Object.EventImage,
+                    Members = eventsList.ElementAt(i).Object.Members
+
+                });
+            }
+            return publicEvents;
         }
 
         private async void SendFriendRequest(string currentUser, string friendToRequest)

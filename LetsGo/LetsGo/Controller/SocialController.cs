@@ -16,12 +16,12 @@ namespace LetsGo.Controller
         public SocialController()
         {
             SearchResults = new ArrayList();
-            
+
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-       
+
 
         public async void Search_Text(object sender, TextChangedEventArgs e)
         {
@@ -81,9 +81,13 @@ namespace LetsGo.Controller
                 {
                     await Navigation.PushAsync(new CommunityMemberViewController(selectedCommunity));
                 }
-                else
+                else if (selectedCommunity.PublicCommunity)
                 {
                     await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
+                }
+                else if (!selectedCommunity.PublicCommunity)
+                {
+                    await Navigation.PushAsync(new PrivateCommunityController(selectedCommunity));
                 }
 
             }
@@ -95,6 +99,7 @@ namespace LetsGo.Controller
                 bool member = await fb.isEventMember(selectedEvent);
                 string userEmail = fb.GetCurrentUser();
                 // Event Owner taps on event
+
                 if (selectedEvent.EventOwner == userEmail)
                 {
                     await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
@@ -104,9 +109,13 @@ namespace LetsGo.Controller
                 {
                     await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
                 }
-                else
+                else if (selectedEvent.PublicEvent)
                 {
                     await Navigation.PushAsync(new PublicEventController(selectedEvent));
+                }
+                else if (!selectedEvent.PublicEvent)
+                {
+                    await Navigation.PushAsync(new PrivateEventController(selectedEvent));
                 }
             }
             this.ClearValue(ListView.SelectedItemProperty);

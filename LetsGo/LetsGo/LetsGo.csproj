@@ -61,13 +61,6 @@
       <DependentUpon>CreateCommunity.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Images\communityimage.jpg">
-      <IncludeInPackage>false</IncludeInPackage>
-      <LogicalName>communityimage.jpg</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="View\ChangePasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -120,6 +113,12 @@
     <EmbeddedResource Update="View\ViewFriendProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\ViewPrivateCommunity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\ViewPrivateEvent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\ViewPrivateProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -142,6 +141,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="View\homeicon.png" />
-    <None Remove="Images\communityimage.jpg" />
   </ItemGroup>
 </Project>
