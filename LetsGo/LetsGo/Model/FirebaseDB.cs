@@ -765,7 +765,7 @@ namespace LetsGo.Model
 
             var allUserEvents = (await firebase
                         .Child("Events")
-                        .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == currentEmail.ToLower()).ToList();
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.Members.Contains(currentEmail)).ToList();
 
             var feedEvents = allUserEvents.ToList();
 
@@ -1020,6 +1020,25 @@ namespace LetsGo.Model
             return added;
         }
 
+        public async Task<bool> JoinEvent(EventProfile event_)
+        {
+            string currentUser = GetCurrentUser();
+
+            var eventToUpdate = (await firebase
+                                    .Child("Events")
+                                    .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == event_.EventOwner && a.Object.Name == event_.Name.ToLower()).FirstOrDefault();
+
+            bool added = false;
+            if (eventToUpdate.Object.PublicEvent)
+            {
+                added = await AddUserToEvent(currentUser, event_);
+            }
+            else
+            {
+                added = await SendEventRequest(currentUser, event_);
+            }
+            return added;
+        }
         private async Task<bool> AddUserToCommunity(string currentuser, CommunityProfile community)
         {
             var communityToUpdate = (await firebase
@@ -1213,6 +1232,76 @@ namespace LetsGo.Model
                     CommunityID = comm.Object.CommunityID,
                     CommunityImage = comm.Object.CommunityImage,
                     CommunityRequests = commRequests
+                });
+
+            return true;
+        }
+
+        private async Task<bool> SendEventRequest(string currentUser, EventProfile eventToJoin)
+        {
+            var current = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == currentUser).FirstOrDefault();
+
+            var leader = (await firebase
+                .Child("userprofiles")
+                .OnceAsync<UserProfile>()).Where(a => a.Object.Email == eventToJoin.EventOwner).FirstOrDefault();
+
+            var event_ = (await firebase
+                .Child("Events")
+                .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == eventToJoin.EventOwner && a.Object.Name == eventToJoin.Name).FirstOrDefault();
+
+
+            List<UserProfile> users = await GetAllUsers();
+            var CurrentUser = users.Where(a => a.Email == currentUser).FirstOrDefault();
+            var leaderUser = users.Where(a => a.Email == eventToJoin.EventOwner).FirstOrDefault();
+            List<string> notification = leaderUser.EventRequests;
+            if (notification == null)
+                notification = new List<string>();
+            if (!notification.Contains(currentUser))
+                notification.Add(currentUser);
+
+            List<string> eventRequests = eventToJoin.EventRequests;
+            if (!eventRequests.Contains(currentUser))
+                eventRequests.Add(currentUser);
+            await firebase
+                .Child("userprofiles")
+                .Child(leader.Key)
+                .PutAsync(new UserProfile()
+                {
+                    Name = leader.Object.Name.ToLower(),
+                    Email = leader.Object.Email,
+                    DateOfBirth = leader.Object.DateOfBirth,
+                    Password = leader.Object.Password,
+                    Location = leader.Object.Location.ToLower(),
+                    Interests = leader.Object.Interests,
+                    Friends = leader.Object.Friends,
+                    FriendRequests = leader.Object.FriendRequests,
+                    PublicAcct = leader.Object.PublicAcct,
+                    ProfileImage = leader.Object.ProfileImage,
+                    EventRequests = leader.Object.EventRequests,
+                    CommunityRequests = notification,
+                    CommunityInvites = leader.Object.CommunityInvites
+                });
+
+            await firebase
+                .Child("Events")
+                .Child(event_.Key)
+                .PutAsync(new EventProfile
+                {
+                    EventOwner = event_.Object.EventOwner,
+                    Description = event_.Object.Description,
+                    Location = event_.Object.Location,
+                    Interests = event_.Object.Interests,
+                    Name = event_.Object.Name,
+                    DateOfEvent = event_.Object.DateOfEvent,
+                    StartOfEvent = event_.Object.StartOfEvent,
+                    EndOfEvent = event_.Object.EndOfEvent,
+                    PublicEvent = event_.Object.PublicEvent,
+                    Members = event_.Object.Members,
+                    EventID = event_.Object.EventID,
+                    EventImage = event_.Object.EventImage,
+                    EventRequests = eventRequests
                 });
 
             return true;

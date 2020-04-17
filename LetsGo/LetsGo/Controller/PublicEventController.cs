@@ -10,7 +10,7 @@ namespace LetsGo.Controller
     public partial class PublicEventController
     {
         readonly FirebaseDB fb = new FirebaseDB();
-        private EventProfile thisEvent { get; set; }
+        public EventProfile thisEvent { get; set; }
         public List<string> Interests { get; set; }
         private string _name { get; set; }
         private string _location { get; set; }
@@ -139,27 +139,27 @@ namespace LetsGo.Controller
             EventImage = imgChosen;
         }
 
-        public void Join_Clicked(object sender, EventArgs e)
+        public async void Join_Clicked(object sender, EventArgs e)
         {
-            /*
+            
             bool added = false;
-            if (community.InviteOnly && !community.Members.Contains(fb.GetCurrentUser()))
+            if (!thisEvent.PublicEvent)
             {
-                added = await fb.JoinCommunity(community);
-                await DisplayAlert("Request Sent", "This community is invite only." +
-                    "The community leader will have to accept your request for you to become a member.", "OK");
+                added = await fb.JoinEvent(thisEvent);
+                await DisplayAlert("Request Sent", "This event is private." +
+                    "The event owner will have to invite you for you to become a member.", "OK");
             }
             else
             {
-                added = await fb.JoinCommunity(community);
+                added = await fb.JoinEvent(thisEvent);
             }
             if (added)
             {
-                await DisplayAlert("Success", "You are now a member of this community", "OK");
+                await DisplayAlert("Success", "You are now a member of this event", "OK");
                 Navigation.RemovePage(this);
-                await Navigation.PushAsync(new ViewCommunityMemberController(community));
+                await Navigation.PushAsync(new ViewEventAsMemberController(thisEvent));
             }
-            */
+            
         }
     }
 }
