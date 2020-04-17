@@ -32,7 +32,9 @@ namespace LetsGo.Model
 
         public List<string> CommunityInvites { get; set; }
 
-        
+        public List<string> EventInvites { get; set; }
+
+
 
         public UserProfile(string uName, DateTime uDOB, string uEmail, string uPass, bool publicAccount)
         {

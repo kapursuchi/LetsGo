@@ -48,6 +48,8 @@ namespace LetsGo.Controller
             List<UserProfile> profiles = await fb.GetFriendRequests();
             List<UserProfile> commRequests = await fb.GetCommunityRequests();
             List<CommunityProfile> commInvites = await fb.GetCommunityInvites();
+            List<EventProfile> eventInvites = await fb.GetEventInvites();
+            List<UserProfile> eventRequests = await fb.GetEventRequests();
 
             if (profiles != null || profiles.Count != 0)
             {
@@ -72,6 +74,24 @@ namespace LetsGo.Controller
                 {
                     commInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commInvites.ElementAt(i).Name);
                     RequestNotifications.Add(commInvites.ElementAt(i));
+                }
+            }
+
+            if (eventInvites != null || eventInvites.Count != 0)
+            {
+                for (int i = 0; i < eventInvites.Count; i++)
+                {
+                    eventInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(eventInvites.ElementAt(i).Name);
+                    RequestNotifications.Add(eventInvites.ElementAt(i));
+                }
+            }
+
+            if (eventRequests != null || eventRequests.Count != 0)
+            {
+                for (int i = 0; i < eventRequests.Count; i++)
+                {
+                    eventRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(eventRequests.ElementAt(i).Name);
+                    RequestNotifications.Add(eventRequests.ElementAt(i));
                 }
             }
 
@@ -110,8 +130,8 @@ namespace LetsGo.Controller
                 EventProfile profile = (EventProfile)type.CommandParameter;
                 string current = fb.GetCurrentUser();
                 UserProfile currentUser = await fb.GetUserObject(current);
-                //fb.AcceptRequest(profile, null, currentUser);
-                //RequestNotifications.Remove(type.CommandParameter);
+                fb.AcceptRequest(profile, null, currentUser);
+                RequestNotifications.Remove(type.CommandParameter);
             }
 
             if (RequestNotifications.Count == 0)
