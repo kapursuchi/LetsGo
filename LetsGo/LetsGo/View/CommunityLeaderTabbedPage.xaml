@@ -14,6 +14,6 @@
     <TabbedPage.Children>
         <local:ViewCommunityLeaderController  BindingContext="{Binding community}" HeightRequest="20" WidthRequest="20" Title="Overview"/>
         <local:CommunityAnnouncementsController HeightRequest="20" WidthRequest="20" Title="Announcements"/>
-        <local:CommunityMembersListController HeightRequest="20" WidthRequest="20" Title="Members"/>
+        <local:LeaderMembersListController HeightRequest="20" WidthRequest="20" Title="Members"/>
     </TabbedPage.Children>
 </TabbedPage>

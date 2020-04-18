@@ -53,6 +53,7 @@ namespace LetsGo.Controller
         private async void Navigate_ForgotPasswordPage(object sender, EventArgs e)
         {
             //Navigate to Forgot Password Page
+            
             await Navigation.PushAsync(new ForgotPasswordController());
         }
 

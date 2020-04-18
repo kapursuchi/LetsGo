@@ -443,12 +443,32 @@ namespace LetsGo.Model
 
         }
 
-        public async Task<bool> DeleteCommunity(string leader, string communityname)
+        public async Task<bool> DeleteCommunity(CommunityProfile community)
         {
-            var communityToDelete = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == leader && a.Object.Name == communityname).FirstOrDefault();
+            var communityToDelete = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
             await firebase.Child("Communities").Child(communityToDelete.Key).DeleteAsync();
 
             return true;
+        }
+
+        public async void AppointNewCommunityLeader(CommunityProfile community, string userToAppoint)
+        {
+            var communityToUpdate = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+            await firebase.Child("Communities").Child(communityToUpdate.Key).PutAsync(new CommunityProfile()
+            {
+                Leader = userToAppoint,
+                Description = communityToUpdate.Object.Description,
+                Location = communityToUpdate.Object.Location,
+                Name = communityToUpdate.Object.Name,
+                PublicCommunity = communityToUpdate.Object.PublicCommunity,
+                Interests = communityToUpdate.Object.Interests,
+                Members = communityToUpdate.Object.Members,
+                InviteOnly = communityToUpdate.Object.InviteOnly,
+                CommunityID = communityToUpdate.Object.CommunityID,
+                CommunityImage = communityToUpdate.Object.CommunityImage,
+                CommunityRequests = communityToUpdate.Object.CommunityRequests
+            });
+            RemoveCommunityMember(community, community.Leader);
         }
 
         public async Task<bool> DeleteUserAccount()
@@ -2187,6 +2207,24 @@ namespace LetsGo.Model
             return members;
 
 
+        }
+
+        public async void RemoveCommunityMember(CommunityProfile community, string memberToRemove)
+        {
+            var comm = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
+            if (community.Members != null)
+            {
+                List<string> newMemberList = new List<string>();
+                for (int i = 0; i < community.Members.Count; i++)
+                {
+                    if (community.Members.ElementAt(i) != memberToRemove)
+                    {
+                        newMemberList.Add(community.Members.ElementAt(i));
+                    }    
+                }
+
+                await firebase.Child("Communities").Child(comm.Key).Child("Members").PutAsync(newMemberList);
+            }
         }
 
 

@@ -107,7 +107,7 @@ namespace LetsGo.Controller
             community = c;
             SetValues(community);
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
             name.BindingContext = this;
             location.BindingContext = this;
             description.BindingContext = this;
@@ -121,7 +121,7 @@ namespace LetsGo.Controller
             community = auth.GetCurrentCommunity();
             SetValues(community);
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
             name.BindingContext = this;
             location.BindingContext = this;
             description.BindingContext = this;
@@ -243,7 +243,7 @@ namespace LetsGo.Controller
             // user selects OK, delete community
             else
             {
-                await fb.DeleteCommunity(Leader.ToLower(), Name.ToLower());
+                await fb.DeleteCommunity(community);
                 await Navigation.PopToRootAsync();
             }
         }

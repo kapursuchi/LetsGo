@@ -20,7 +20,7 @@ namespace LetsGo.Controller
         public CreateCommunityController()
         {
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
         }
         readonly private CreateCommunityPage _createCommunity = new CreateCommunityPage();
         public async void CreateCommunity_Clicked(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace LetsGo.Controller
             if (token == true)
             {
                 await DisplayAlert("Success", "Your community has breen created.", "OK");
-                //await Navigation.PopAsync();
+                await Navigation.PopAsync();
                 //var auth = DependencyService.Get<IFirebaseAuthenticator>();
                 //auth.SetCurrentCommunity(emailAddress);
                 //await Navigation.PushAsync(new CommunityPageController());
