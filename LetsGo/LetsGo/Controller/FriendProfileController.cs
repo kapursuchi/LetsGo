@@ -62,7 +62,7 @@ namespace LetsGo.Controller
             Interests = new List<string>();
             SetValues(friend);
             InitializeComponent();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightSteelBlue;
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
             name.BindingContext = this;
             location.BindingContext = this;
         }

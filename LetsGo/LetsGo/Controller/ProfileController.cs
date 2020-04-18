@@ -21,7 +21,7 @@ namespace LetsGo.Controller
 
         private Image _img { get; set; }
 
-
+        private UserProfile user { get; set; }
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
         public ProfileController()
@@ -33,6 +33,18 @@ namespace LetsGo.Controller
             name.BindingContext = this;
             location.BindingContext = this;
             
+        }
+
+        public ProfileController(UserProfile profile)
+        {
+            user = profile;
+            SetValues();
+            InitializeComponent();
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+
+            name.BindingContext = this;
+            location.BindingContext = this;
+
         }
 
         public List<string> Interests { get; set; }

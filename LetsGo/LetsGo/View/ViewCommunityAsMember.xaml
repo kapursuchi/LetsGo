@@ -22,7 +22,7 @@
             <Label  x:Name="name"
                             Text="{Binding Name}"
                             FontAttributes="Bold"
-                            FontSize="Title"
+                            FontSize="Medium"
                             VerticalOptions="Start"
                             HorizontalOptions="Center" />
             <Label      x:Name="location"

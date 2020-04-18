@@ -6,6 +6,12 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
+        <ToolbarItem Text="Update Community" Order="Secondary"/> <!--Delete community, remove members, and upload picture should be in this page-->
+        <ToolbarItem Text="Create Announcement" Order="Secondary"/>
+        <ToolbarItem Text="Add Event" Order="Secondary"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Image  x:Name="imgChosen"
@@ -106,37 +112,13 @@
                         FontSize="Micro"
                         HeightRequest="50"
                         Clicked="Upload_Picture_Clicked"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         HorizontalOptions="Center"
                         BorderColor="Navy" BorderWidth="3" CornerRadius="15"
                         WidthRequest="100"
                         />
-                 <Button x:Name="deleteSelected"
-                        Text="Delete Community"
-                        TextColor="Red"
-                        BackgroundColor="LightSteelBlue"
-                        FontSize="Micro"
-                        HeightRequest="50"
-                        Clicked="OnDeleteCommunity_Pressed"
-                        Grid.Column="1"
-                        Margin="5"
-                        HorizontalOptions="Center"
-                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
-                        WidthRequest="120"
-                         />
-                <Button x:Name="inviteUsers"
-                        Text="Invite Users"
-                        Clicked="OnInviteUsers_Clicked"
-                        TextColor="Black"
-                        BackgroundColor="LightSteelBlue"
-                        FontSize="Micro"
-                        HeightRequest="50"
-                        WidthRequest="100"
-                        Margin="5"
-                        BorderWidth="3" 
-                        BorderColor="Navy" CornerRadius="15"
-                        Grid.Column="2"/>
+                 
             </Grid>
         </StackLayout>
     </ContentPage.Content>

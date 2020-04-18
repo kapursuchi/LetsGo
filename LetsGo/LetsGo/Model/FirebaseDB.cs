@@ -2122,6 +2122,40 @@ namespace LetsGo.Model
 
         }
 
+        public async Task<List<UserProfile>> GetCommunityMembers(CommunityProfile community)
+        {
+            List<UserProfile> users = await GetAllUsers();
+
+            List<UserProfile> members = new List<UserProfile>();
+            if (community.Members != null)
+            {
+                for (int i = 0; i < community.Members.Count; i++)
+                {
+                    var friend = users.Where(a => a.Email == community.Members.ElementAt(i)).FirstOrDefault();
+                    members.Add(new UserProfile()
+                    {
+                        Name = textInfo.ToTitleCase(friend.Name),
+                        Email = friend.Email,
+                        DateOfBirth = friend.DateOfBirth,
+                        Password = friend.Password,
+                        Location = textInfo.ToTitleCase(friend.Location),
+                        Interests = friend.Interests,
+                        Friends = friend.Friends,
+                        FriendRequests = friend.FriendRequests,
+                        PublicAcct = friend.PublicAcct,
+                        ProfileImage = friend.ProfileImage,
+                        EventRequests = friend.EventRequests,
+                        CommunityRequests = friend.CommunityRequests,
+                        CommunityInvites = friend.CommunityInvites
+                    });
+                }
+
+            }
+            return members;
+
+
+        }
+
 
     }
 }

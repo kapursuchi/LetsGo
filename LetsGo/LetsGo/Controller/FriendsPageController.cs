@@ -11,7 +11,7 @@ namespace LetsGo.Controller
     {
         
         private ObservableCollection<UserProfile> _friends { get; set; }
-        public new ObservableCollection<UserProfile> FriendsList
+        public ObservableCollection<UserProfile> FriendsList
         {
             get
             {
