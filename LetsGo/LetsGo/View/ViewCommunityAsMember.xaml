@@ -89,6 +89,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button x:Name="leave" Text="Leave Community" Clicked="OnLeave_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

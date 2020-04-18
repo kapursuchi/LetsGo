@@ -194,5 +194,22 @@ namespace LetsGo.Controller
             }
         }
 
+        public async void OnLeave_Clicked(object sender, EventArgs e)
+        {
+            string current = fb.GetCurrentUser();
+            bool choice = await DisplayAlert("Confirm", "Are you sure you want to leave this community?", "YES", "NO");
+            if (choice)
+            {
+                fb.RemoveCommunityMember(comm, current);
+                await DisplayAlert("Success", "You are no longer a member of this community. You will now be redirected to your communities page.", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                return;
+            }
+               
+        }
+
     }
 }
