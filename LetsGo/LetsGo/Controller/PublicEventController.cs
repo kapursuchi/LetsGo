@@ -157,7 +157,7 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Success", "You are now a member of this event", "OK");
                 Navigation.RemovePage(this);
-                await Navigation.PushAsync(new ViewEventAsMemberController(thisEvent));
+                await Navigation.PushAsync(new EventMemberViewController(thisEvent));
             }
             
         }
