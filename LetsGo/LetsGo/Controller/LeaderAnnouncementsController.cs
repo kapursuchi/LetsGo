@@ -7,13 +7,14 @@ using Xamarin.Forms;
 
 namespace LetsGo.Controller
 {
-    public partial class CommunityAnnouncementsController
+    public partial class LeaderAnnouncementsController
     {
         readonly FirebaseDB fb = new FirebaseDB();
         private CommunityProfile thisCommunity { get; set; }
 
         public List<Announcement> AnnouncementList { get; set; }
-        public CommunityAnnouncementsController()
+
+        public LeaderAnnouncementsController()
         {
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
             thisCommunity = auth.GetCurrentCommunity();
@@ -34,6 +35,14 @@ namespace LetsGo.Controller
                 AnnouncementList.Add(new Announcement(thisCommunity.CommunityID, "No Announcements"));
             }
             announcements.ItemsSource = AnnouncementList;
+        }
+
+        public void OnPost_Clicked(object sender, EventArgs e)
+        {
+            string announcementStr = newAnnouncement.Text;
+            fb.CreateAnnouncement(thisCommunity.CommunityID, announcementStr);
+            newAnnouncement.Text = string.Empty;
+            newAnnouncement.Placeholder = "Create a new announcement...";
         }
     }
 }

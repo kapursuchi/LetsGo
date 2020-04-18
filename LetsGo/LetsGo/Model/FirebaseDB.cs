@@ -168,7 +168,8 @@ namespace LetsGo.Model
                         Members = item.Object.Members,
                         CommunityID = item.Object.CommunityID,
                         CommunityImage = item.Object.CommunityImage,
-                        CommunityRequests = item.Object.CommunityRequests
+                        CommunityRequests = item.Object.CommunityRequests,
+                        AnnouncementIDs = item.Object.AnnouncementIDs
                     }).ToList();
 
             List<CommunityProfile> AllCommunities = communities.ToList();
@@ -451,6 +452,54 @@ namespace LetsGo.Model
             return true;
         }
 
+        public async void CreateAnnouncement(string communityID, string announcement)
+        {
+            Announcement newAnnouncement = new Announcement(communityID, announcement);
+            var communityToUpdate = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == communityID).FirstOrDefault();
+
+            List<string> announcements = communityToUpdate.Object.AnnouncementIDs;
+            if (announcements == null)
+                announcements = new List<string>();
+            announcements.Add(newAnnouncement.AnnouncementID);
+            await firebase.Child("Communities").Child(communityToUpdate.Key).PutAsync(new CommunityProfile()
+            {
+                Leader = communityToUpdate.Object.Leader,
+                Description = communityToUpdate.Object.Description,
+                Location = communityToUpdate.Object.Location,
+                Name = communityToUpdate.Object.Name,
+                PublicCommunity = communityToUpdate.Object.PublicCommunity,
+                Interests = communityToUpdate.Object.Interests,
+                Members = communityToUpdate.Object.Members,
+                InviteOnly = communityToUpdate.Object.InviteOnly,
+                CommunityID = communityToUpdate.Object.CommunityID,
+                CommunityImage = communityToUpdate.Object.CommunityImage,
+                CommunityRequests = communityToUpdate.Object.CommunityRequests,
+                AnnouncementIDs = announcements
+            });
+
+            await firebase.Child("Announcements").PostAsync(newAnnouncement);
+        }
+
+        public async  Task<List<Announcement>> GetCommunityAnnouncements(string communityID)
+        {
+            var announcements = (await firebase.Child("Announcements").OnceAsync<Announcement>()).Where(a => a.Object.CommunityID == communityID).ToList();
+
+            List<Announcement> commAnnouncements = new List<Announcement>();
+            if (announcements != null)
+            {
+                for (int i = 0; i < announcements.Count; i++)
+                {
+                    commAnnouncements.Add(new Announcement()
+                    {
+                        AnnouncementID = announcements.ElementAt(i).Object.AnnouncementID,
+                        CommunityID = announcements.ElementAt(i).Object.CommunityID,
+                        Description = announcements.ElementAt(i).Object.Description
+                    });
+                }
+            }
+            return commAnnouncements;
+            
+        }
         public async void AppointNewCommunityLeader(CommunityProfile community, string userToAppoint)
         {
             var communityToUpdate = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
@@ -466,7 +515,8 @@ namespace LetsGo.Model
                 InviteOnly = communityToUpdate.Object.InviteOnly,
                 CommunityID = communityToUpdate.Object.CommunityID,
                 CommunityImage = communityToUpdate.Object.CommunityImage,
-                CommunityRequests = communityToUpdate.Object.CommunityRequests
+                CommunityRequests = communityToUpdate.Object.CommunityRequests,
+                AnnouncementIDs = communityToUpdate.Object.AnnouncementIDs
             });
             RemoveCommunityMember(community, community.Leader);
         }
@@ -526,7 +576,8 @@ namespace LetsGo.Model
                         Members = item.Object.Members,
                         CommunityID = item.Object.CommunityID,
                         CommunityImage = item.Object.CommunityImage,
-                        CommunityRequests = item.Object.CommunityRequests
+                        CommunityRequests = item.Object.CommunityRequests,
+                        AnnouncementIDs = item.Object.AnnouncementIDs
                     }).ToList();
 
             List<CommunityProfile> comms = communities.ToList();
@@ -554,7 +605,8 @@ namespace LetsGo.Model
                         InviteOnly = community.Object.InviteOnly,
                         CommunityID = community.Object.CommunityID,
                         CommunityImage = community.Object.CommunityImage,
-                        CommunityRequests = community.Object.CommunityRequests
+                        CommunityRequests = community.Object.CommunityRequests,
+                        AnnouncementIDs = community.Object.AnnouncementIDs
                     });
                 }
             }
@@ -721,7 +773,8 @@ namespace LetsGo.Model
                         InviteOnly = CurrentCommunity.InviteOnly,
                         CommunityID = CurrentCommunity.CommunityID,
                         CommunityImage = photo,
-                        CommunityRequests = CurrentCommunity.CommunityRequests
+                        CommunityRequests = CurrentCommunity.CommunityRequests,
+                        AnnouncementIDs = CurrentCommunity.AnnouncementIDs
                     });
             return photo;
         }
@@ -867,7 +920,8 @@ namespace LetsGo.Model
                     Members = commList.ElementAt(i).Object.Members,
                     CommunityID = commList.ElementAt(i).Object.CommunityID,
                     CommunityImage = commList.ElementAt(i).Object.CommunityImage,
-                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests
+                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests,
+                    AnnouncementIDs = commList.ElementAt(i).Object.AnnouncementIDs
                 });
             }
 
@@ -961,7 +1015,8 @@ namespace LetsGo.Model
                     InviteOnly = publicCommunities.ElementAt(i).InviteOnly,
                     Members = publicCommunities.ElementAt(i).Members,
                     CommunityRequests = publicCommunities.ElementAt(i).CommunityRequests,
-                    CommunityID = publicCommunities.ElementAt(i).CommunityID
+                    CommunityID = publicCommunities.ElementAt(i).CommunityID,
+                    AnnouncementIDs = publicCommunities.ElementAt(i).AnnouncementIDs
                 });
             }
 
@@ -991,7 +1046,8 @@ namespace LetsGo.Model
                     InviteOnly = communities.ElementAt(i).Object.InviteOnly,
                     Members = communities.ElementAt(i).Object.Members,
                     CommunityRequests = communities.ElementAt(i).Object.CommunityRequests,
-                    CommunityID = communities.ElementAt(i).Object.CommunityID
+                    CommunityID = communities.ElementAt(i).Object.CommunityID,
+                    AnnouncementIDs = communities.ElementAt(i).Object.AnnouncementIDs
                 });
             }
             return results;
@@ -1071,7 +1127,8 @@ namespace LetsGo.Model
                     Members = commList.ElementAt(i).Object.Members,
                     CommunityID = commList.ElementAt(i).Object.CommunityID,
                     CommunityImage = commList.ElementAt(i).Object.CommunityImage,
-                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests
+                    CommunityRequests = commList.ElementAt(i).Object.CommunityRequests,
+                    AnnouncementIDs = commList.ElementAt(i).Object.AnnouncementIDs
                 });
             }
 
@@ -1343,7 +1400,8 @@ namespace LetsGo.Model
                     Members = comm.Object.Members,
                     CommunityID = comm.Object.CommunityID,
                     CommunityImage = comm.Object.CommunityImage,
-                    CommunityRequests = commRequests
+                    CommunityRequests = commRequests,
+                    AnnouncementIDs = comm.Object.AnnouncementIDs
                 });
 
             return true;
@@ -1622,7 +1680,8 @@ namespace LetsGo.Model
                 CommunityImage = comm.Object.CommunityImage,
                 Leader = comm.Object.Leader,
                 Location = comm.Object.Location,
-                Name = comm.Object.Name
+                Name = comm.Object.Name,
+                AnnouncementIDs = comm.Object.AnnouncementIDs
             };
             return community;
         }
@@ -1856,7 +1915,8 @@ namespace LetsGo.Model
                             Members = commToUpdate.Object.Members,
                             CommunityID = commToUpdate.Object.CommunityID,
                             CommunityImage = commToUpdate.Object.CommunityImage,
-                            CommunityRequests = newRequestList
+                            CommunityRequests = newRequestList,
+                            AnnouncementIDs = commToUpdate.Object.AnnouncementIDs
                         });
 
 
