@@ -512,12 +512,12 @@ namespace LetsGo.Model
             List<CommunityProfile> comms = communities.ToList();
             for (int i = 0; i < comms.Count; i++)
             {
-                var community = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.Leader == comms.ElementAt(i).Leader && a.Object.Name == comms.ElementAt(i).Name.ToLower()).FirstOrDefault();
+                var community = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == comms.ElementAt(i).CommunityID).FirstOrDefault();
                 if (comms.ElementAt(i).Leader == current)
                 {
                     await firebase.Child("Communities").Child(community.Key).DeleteAsync();
                 }
-                else if (comms.ElementAt(i).Members.Contains(current))
+                else if (comms.ElementAt(i).Members != null && comms.ElementAt(i).Members.Contains(current))
                 {
                     List<string> members = comms.ElementAt(i).Members;
                     members.Remove(current);
@@ -535,6 +535,39 @@ namespace LetsGo.Model
                         CommunityID = community.Object.CommunityID,
                         CommunityImage = community.Object.CommunityImage,
                         CommunityRequests = community.Object.CommunityRequests
+                    });
+                }
+            }
+
+            List<EventProfile> events = await GetAllEvents();
+
+            for (int i = 0; i < events.Count; i++)
+            {
+                var evt = (await firebase.Child("Events").OnceAsync<EventProfile>()).Where(a => a.Object.EventID == events.ElementAt(i).EventID).FirstOrDefault();
+                if (events.ElementAt(i).EventOwner == current)
+                {
+                    await firebase.Child("Events").Child(evt.Key).DeleteAsync();
+                }
+                else if (events.ElementAt(i).Members != null && events.ElementAt(i).Members.Contains(current))
+                {
+                    List<string> members = events.ElementAt(i).Members;
+                    members.Remove(current);
+
+                    await firebase.Child("Events").Child(evt.Key).PutAsync(new EventProfile()
+                    {
+                        EventOwner = evt.Object.EventOwner,
+                        Description = evt.Object.Description,
+                        Location = evt.Object.Location,
+                        Interests = evt.Object.Interests,
+                        Name = evt.Object.Name,
+                        DateOfEvent = evt.Object.DateOfEvent,
+                        StartOfEvent = evt.Object.StartOfEvent,
+                        EndOfEvent = evt.Object.EndOfEvent,
+                        PublicEvent = evt.Object.PublicEvent,
+                        Members = members,
+                        EventID = evt.Object.EventID,
+                        EventImage = evt.Object.EventImage,
+                        EventRequests = evt.Object.EventRequests
                     });
                 }
             }
