@@ -180,6 +180,18 @@ namespace LetsGo.Controller
 
             EventID = evt.EventID;
             EventOwner = evt.EventOwner;
+            bool isUser = await fb.IsUser(evt.EventOwner);
+            EventOwner = evt.EventOwner;
+            if (isUser)
+            {
+                string ln = await fb.GetUsersName(EventOwner);
+                OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
+            }
+            else
+            {
+                CommunityProfile ln = await fb.GetCommunity(evt.EventOwner);
+                OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln.Name);
+            }
             //Members = evt.Members;
             if (Location == null)
             {
@@ -199,8 +211,6 @@ namespace LetsGo.Controller
                 }
 
             }
-            string ln = await fb.GetUsersName(EventOwner);
-            OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
 
             interests.ItemsSource = Interests;
 
@@ -217,32 +227,61 @@ namespace LetsGo.Controller
 
         public async void OnOwnerName_Clicked(object sender, EventArgs e)
         {
-            bool publicOwner = await fb.IsPublicUser(EventOwner);
+            bool isUser = await fb.IsUser(EventOwner);
             string userEmail = fb.GetCurrentUser();
-            bool isFriendOfOwner = await fb.isFriend(EventOwner);
-            // leader is the current user
-            if (userEmail == EventOwner)
+            if (isUser)
             {
-                await Navigation.PushAsync(new ProfileController());
+                bool publicOwner = await fb.IsPublicUser(EventOwner);
+                
+                bool isFriendOfOwner = await fb.isFriend(EventOwner);
+                // leader is the current user
+                if (userEmail == EventOwner)
+                {
+                    await Navigation.PushAsync(new ProfileController());
+                }
+                // leader is a friend of current user
+                else if (isFriendOfOwner)
+                {
+                    UserProfile friend = await fb.GetUserObject(EventOwner);
+                    await Navigation.PushAsync(new FriendProfileController(friend));
+                }
+                // leader is not a friend of current user and has a public account
+                else if (!isFriendOfOwner && publicOwner)
+                {
+                    UserProfile userToVisit = await fb.GetUserObject(EventOwner);
+                    await Navigation.PushAsync(new PublicProfileController(userToVisit));
+                }
+                // leader is not a friend of current user and has a private account
+                else
+                {
+                    UserProfile userToVisit = await fb.GetUserObject(EventOwner);
+                    await Navigation.PushAsync(new PrivateProfileController(userToVisit));
+                }
             }
-            // leader is a friend of current user
-            else if (isFriendOfOwner)
-            {
-                UserProfile friend = await fb.GetUserObject(EventOwner);
-                await Navigation.PushAsync(new FriendProfileController(friend));
-            }
-            // leader is not a friend of current user and has a public account
-            else if (!isFriendOfOwner && publicOwner)
-            {
-                UserProfile userToVisit = await fb.GetUserObject(EventOwner);
-                await Navigation.PushAsync(new PublicProfileController(userToVisit));
-            }
-            // leader is not a friend of current user and has a private account
             else
             {
-                UserProfile userToVisit = await fb.GetUserObject(EventOwner);
-                await Navigation.PushAsync(new PrivateProfileController(userToVisit));
+                CommunityProfile selectedCommunity = await fb.GetCommunity(EventOwner);
+                bool member = await fb.isCommunityMember(selectedCommunity);
+                // Community Leader taps on community
+                if (selectedCommunity.Leader == userEmail)
+                {
+                    await Navigation.PushAsync(new CommunityLeaderViewController(selectedCommunity));
+                }
+                // Regular member taps on community
+                else if (member)
+                {
+                    await Navigation.PushAsync(new CommunityMemberViewController(selectedCommunity));
+                }
+                else if (selectedCommunity.PublicCommunity)
+                {
+                    await Navigation.PushAsync(new PublicCommunityController(selectedCommunity));
+                }
+                else if (!selectedCommunity.PublicCommunity)
+                {
+                    await Navigation.PushAsync(new PrivateCommunityController(selectedCommunity));
+                }
             }
+
         }
     }
 }

@@ -43,6 +43,27 @@ namespace LetsGo.Model
             EventImage = "eventimage.png";
         }
 
+        public EventProfile(CommunityProfile comm, string eName, string eDetails, DateTime eDate, string eStart, string eEnd, string location, string interestTags, bool publicAccount)
+        {
+            Name = eName;
+            Description = eDetails;
+            DateOfEvent = eDate;
+            StartOfEvent = eStart;
+            EndOfEvent = eEnd;
+            EventOwner = comm.CommunityID;
+            PublicEvent = publicAccount;
+            Location = location;
+            Interests = new List<string>();
+            EventID = Guid.NewGuid().ToString();
+            Members = comm.Members;
+            List<string> preInterests = interestTags.Split(',').ToList();
+            for (int i = 0; i < preInterests.Count; i++)
+            {
+                Interests.Add(preInterests.ElementAt(i).ToLower().Trim());
+            }
+            EventImage = "eventimage.png";
+        }
+
         public EventProfile()
         {
 

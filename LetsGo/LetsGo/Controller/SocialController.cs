@@ -98,9 +98,10 @@ namespace LetsGo.Controller
                 auth.SetCurrentEvent(selectedEvent);
                 bool member = await fb.isEventMember(selectedEvent);
                 string userEmail = fb.GetCurrentUser();
+                bool userOrComm = await fb.IsUser(selectedEvent.EventOwner);
                 // Event Owner taps on event
-
-                if (selectedEvent.EventOwner == userEmail)
+               
+                if (userOrComm && selectedEvent.EventOwner == userEmail)
                 {
                     await Navigation.PushAsync(new EventOwnerViewController(selectedEvent));
                 }

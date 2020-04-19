@@ -37,12 +37,20 @@ namespace LetsGo.Controller
             announcements.ItemsSource = AnnouncementList;
         }
 
-        public void OnPost_Clicked(object sender, EventArgs e)
+        public async void OnPost_Clicked(object sender, EventArgs e)
         {
             string announcementStr = newAnnouncement.Text;
-            fb.CreateAnnouncement(thisCommunity.CommunityID, announcementStr);
-            newAnnouncement.Text = string.Empty;
-            newAnnouncement.Placeholder = "Create a new announcement...";
+            if (!string.IsNullOrEmpty(announcementStr))
+            {
+                fb.CreateAnnouncement(thisCommunity.CommunityID, announcementStr);
+                newAnnouncement.Text = string.Empty;
+                newAnnouncement.Placeholder = "Create a new announcement...";
+            }
+            else
+            {
+                await DisplayAlert("Failed", "Cannot create an empty announcement. Please try again.", "OK");
+            }
+
         }
     }
 }

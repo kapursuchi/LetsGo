@@ -8,9 +8,8 @@
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
-        <ToolbarItem Text="Update Community" Order="Secondary"/> <!--Delete community, remove members, and upload picture should be in this page-->
-        <ToolbarItem Text="Create Announcement" Order="Secondary"/>
-        <ToolbarItem Text="Add Event" Order="Secondary"/>
+        <ToolbarItem Text="Update Community" Order="Secondary"/>
+        <ToolbarItem Text="Add Event" Clicked="OnAddEvent_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>

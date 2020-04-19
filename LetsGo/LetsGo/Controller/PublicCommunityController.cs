@@ -169,7 +169,7 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Success", "You are now a member of this community", "OK");
                 Navigation.RemovePage(this);
-                await Navigation.PushAsync(new ViewCommunityMemberController(community));
+                await Navigation.PushAsync(new CommunityMemberViewController(community));
             }
         }
     }

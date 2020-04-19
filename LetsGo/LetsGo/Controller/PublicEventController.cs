@@ -114,7 +114,18 @@ namespace LetsGo.Controller
             Location = evt.Location;
             Description = evt.Description;
             EventID = evt.EventID;
+            bool isUser = await fb.IsUser(evt.EventOwner);
             EventOwner = evt.EventOwner;
+            if (isUser)
+            {
+                string ln = await fb.GetUsersName(EventOwner);
+                OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
+            }
+            else
+            {
+                CommunityProfile ln = await fb.GetCommunity(evt.EventOwner);
+                OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln.Name);
+            }
             if (Location == null)
             {
                 Location = "No Location Yet...";
@@ -124,8 +135,7 @@ namespace LetsGo.Controller
             {
                 Interests.Add("No interests listed yet...");
             }
-            string ln = await fb.GetUsersName(EventOwner);
-            OwnerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ln);
+
 
             string eventPictureStr = await fb.GetEventPicture(EventID);
             if (eventPictureStr != null)

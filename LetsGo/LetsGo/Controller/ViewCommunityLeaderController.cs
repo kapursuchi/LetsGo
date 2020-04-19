@@ -252,6 +252,11 @@ namespace LetsGo.Controller
         {
             await Navigation.PushAsync(new InviteCommunityMembersController(community));
         }
+
+        public async void OnAddEvent_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateEventController(community));
+        }
         
     }
 }

@@ -15,7 +15,7 @@
                    TextColor="Black"
                    Margin="20"/>
             <Entry x:Name="Ename" Placeholder="Event Name" VerticalOptions="Start" BackgroundColor="Ivory" />
-            
+
             <Entry x:Name="Edetails" Placeholder="Event Details" VerticalOptions="Start" BackgroundColor="Ivory"/>
 
             <Entry x:Name="city" Placeholder="Location of Event"  VerticalOptions="Start" BackgroundColor="Ivory"/>
@@ -130,7 +130,7 @@
                             Toggled="On_Toggled"
                             />
             </Grid>
-            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black"/>
+            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="100"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

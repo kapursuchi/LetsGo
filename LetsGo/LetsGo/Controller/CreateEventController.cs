@@ -14,16 +14,24 @@ namespace LetsGo.Controller
         TimeSpan Start;
         TimeSpan End;
         readonly FirebaseDB fb = new FirebaseDB();
+        private CommunityProfile community { get; set; }
 
         public CreateEventController()
         {
+            community = null;
+            InitializeComponent();
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+        }
+
+        public CreateEventController(CommunityProfile c)
+        {
+            community = c;
             InitializeComponent();
             ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
         }
         readonly private CreateEvent _createEvent = new CreateEvent();
         public async void CreateEvent_Clicked(object sender, EventArgs e)
         {
-
             string eventDetails = Edetails.Text;
             string EventName = Ename.Text;
             string eMail = fb.GetCurrentUser();
@@ -32,16 +40,33 @@ namespace LetsGo.Controller
             DateTime EventDate = dobChosen;
             string eStart = Start.ToString();
             string eEnd = End.ToString();
-            bool token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, location, eMail, likes, eventPublic);
-            if (token == true)
+            bool token = false;
+            if (community == null)
+            {
+
+                 token = await _createEvent.CreateUserEvent(EventName, eventDetails, EventDate, eStart, eEnd, location, eMail, likes, eventPublic);
+
+            }
+            else
+            {
+                token = await fb.InitializeEvent(community, EventName, eventDetails, EventDate, eStart, eEnd, location, eMail, likes, eventPublic);
+            }
+            if (token == true && community == null)
             {
                 await DisplayAlert("Success", "Event has been created.", "OK");
                 await Navigation.PushAsync(new EventsPageController());
             }
-            else
+            else if (token == true)
+            {
+                await DisplayAlert("Success", "Event has been created.", "OK");
+                await Navigation.PopAsync();
+
+            }
+            else if (token == false)
             {
                 await DisplayAlert("Failed to Create Event", "?", "OK");
             }
+
         }
         public void On_Toggled(object sender, ToggledEventArgs e)
         {

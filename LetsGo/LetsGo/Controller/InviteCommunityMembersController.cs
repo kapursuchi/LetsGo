@@ -49,8 +49,16 @@ namespace LetsGo.Controller
 
         public async void OnDone_Clicked(object sender, EventArgs e)
         {
-            fb.SendCommunityInvites(community, usersToInvite);
-            await DisplayAlert("Invites Sent!", "You have sent invites to the users selected to join your community.", "OK");
+            if (usersToInvite.Count != 0)
+            {
+                fb.SendCommunityInvites(community, usersToInvite);
+                await DisplayAlert("Invites Sent!", "You have sent invites to the users selected to join your community.", "OK");
+            }
+            else
+            {
+                await DisplayAlert("No Invites Sent", "You have not selected any friends to invite.", "OK");
+            }
+
             await Navigation.PopAsync();
             
         }

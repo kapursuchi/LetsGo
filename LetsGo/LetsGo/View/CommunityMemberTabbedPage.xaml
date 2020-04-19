@@ -12,7 +12,8 @@
              x:Class="LetsGo.Controller.CommunityMemberViewController">
   <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
-        <local:ViewCommunityMemberController  BindingContext="{Binding community}" HeightRequest="20" WidthRequest="20" Title="Overview"/>
+        <local:ViewCommunityMemberController  BindingContext="{Binding community}"  HeightRequest="20" WidthRequest="20" Title="Home"/>
+        <local:ViewCommunityEventsController HeightRequest="20" WidthRequest="20" Title="Events"/>
         <local:CommunityAnnouncementsController HeightRequest="20" WidthRequest="20" Title="Announcements"/>
         <local:CommunityMembersListController HeightRequest="20" WidthRequest="20" Title="Members"/>
     </TabbedPage.Children>

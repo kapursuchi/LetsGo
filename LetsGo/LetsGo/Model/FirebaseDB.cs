@@ -76,6 +76,15 @@ namespace LetsGo.Model
             return true;
         }
 
+        public async Task<bool> InitializeEvent(CommunityProfile comm, string eName, string edetails, DateTime eDate, string eStart, string eEnd, string location, string eMail, string interests, bool publicAcct)
+        {
+            EventProfile newEvent = new EventProfile(comm, eName.ToLower(), edetails.ToLower(), eDate, eStart, eEnd, location.ToLower(), interests.ToLower(), publicAcct);
+            await firebase
+              .Child("Events")
+              .PostAsync(newEvent);
+            return true;
+        }
+
         public async Task<bool> InitializeCommunity(string userEmail, string description, string location, string interests, string name, bool publicCommunity, bool invOnly, List<string> mems, string id)
         {
             CommunityProfile newCommunity = new CommunityProfile(userEmail, description.ToLower(), location.ToLower(), interests.ToLower(), name.ToLower(), publicCommunity, invOnly, mems, id);
@@ -397,6 +406,17 @@ namespace LetsGo.Model
             {
                 return false;
             }
+        }
+
+        public async Task<bool> IsUser(string userToCheck)
+        {
+            List<UserProfile> users = await GetAllUsers();
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users.ElementAt(i).Email == userToCheck)
+                    return true;
+            }
+            return false;
         }
 
         public async Task<List<string>> GetUsersInterests()
@@ -897,6 +917,40 @@ namespace LetsGo.Model
             return events;
         }
 
+        public async Task<List<EventProfile>> GetCommunityEvents(CommunityProfile community)
+        {
+            List<EventProfile> events = new List<EventProfile>();
+
+
+
+            var allCommEvents = (await firebase
+                        .Child("Events")
+                        .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == community.CommunityID).ToList();
+
+            var feedEvents = allCommEvents.ToList();
+
+
+            for (int i = 0; i < feedEvents.Count; i++)
+            {
+                events.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Name),
+                    DateOfEvent = feedEvents.ElementAt(i).Object.DateOfEvent,
+                    Location = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Location),
+                    Description = textInfo.ToTitleCase(feedEvents.ElementAt(i).Object.Description),
+                    EventOwner = feedEvents.ElementAt(i).Object.EventOwner,
+                    StartOfEvent = feedEvents.ElementAt(i).Object.StartOfEvent,
+                    EndOfEvent = feedEvents.ElementAt(i).Object.EndOfEvent,
+                    Interests = feedEvents.ElementAt(i).Object.Interests,
+                    PublicEvent = feedEvents.ElementAt(i).Object.PublicEvent,
+                    EventID = feedEvents.ElementAt(i).Object.EventID,
+                    EventImage = feedEvents.ElementAt(i).Object.EventImage,
+                    Members = feedEvents.ElementAt(i).Object.Members
+                });
+            }
+            return events;
+        }
+
         public async Task<List<CommunityProfile>> GetAllCommunities(string InterestTag)
         {
             var communities = (await firebase
@@ -1224,7 +1278,10 @@ namespace LetsGo.Model
                 .Child("Members")
                 .PutAsync(memberList);
 
-            return true;
+            bool added = await AddUserToCommunityEvents(currentuser, community);
+            if (added)
+                return true;
+            return false;
         }
 
         private async Task<bool> AddUserToEvent(string currentuser, EventProfile event_)
@@ -1244,6 +1301,34 @@ namespace LetsGo.Model
                 .Child(eventToUpdate.Key)
                 .Child("Members")
                 .PutAsync(memberList);
+
+            return true;
+        }
+
+        private async Task<bool> AddUserToCommunityEvents(string currentuser, CommunityProfile comm)
+        {
+            List<EventProfile> commEvents = await GetCommunityEvents(comm);
+            if (commEvents != null)
+            {
+                for (int i = 0; i < commEvents.Count; i++)
+                {
+                    var eventToUpdate = (await firebase
+                            .Child("Events")
+                            .OnceAsync<EventProfile>()).Where(a => a.Object.EventID == commEvents.ElementAt(i).EventID).FirstOrDefault();
+                    List<string> members = commEvents.ElementAt(i).Members;
+                    if (members == null)
+                        members = new List<string>();
+                    if (!members.Contains(currentuser))
+                        members.Add(currentuser);
+                    await firebase
+                        .Child("Events")
+                        .Child(eventToUpdate.Key)
+                        .Child("Members")
+                        .PutAsync(members);
+
+                }
+            }
+
 
             return true;
         }
