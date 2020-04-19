@@ -46,7 +46,7 @@
                                 <Grid   x:Name="interestList"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Center"
-                                            BackgroundColor="Ivory">
+                                            BackgroundColor="LightGoldenrodYellow">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>

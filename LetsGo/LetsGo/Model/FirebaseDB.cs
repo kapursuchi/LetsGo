@@ -59,6 +59,7 @@ namespace LetsGo.Model
                 }
             }    
         }
+
         public bool SignOutUser()
         {
             return true;
@@ -278,6 +279,48 @@ namespace LetsGo.Model
             return true;
         }
 
+        public async Task<bool> UpdateCommunity(CommunityProfile comm, string uName, string description, string location, bool publicAccount, bool inviteOnly, List<string> interestList)
+        {
+
+            string CurrentUserEmail = GetCurrentUser();
+            var communityToUpdate = (await firebase
+                .Child("Communities")
+                .OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == comm.CommunityID).FirstOrDefault();
+
+            List<UserProfile> users = await GetAllUsers();
+
+            List<string> interests;
+
+            interests = new List<string>();
+            for (int i = 0; i < interestList.Count; i++)
+            {
+                if (!interests.Contains(interestList.ElementAt(i).ToLower()))
+                    interests.Add(interestList.ElementAt(i).ToLower());
+            }
+
+
+
+            await firebase
+            .Child("Communities")
+            .Child(communityToUpdate.Key)
+            .PutAsync(new CommunityProfile()
+            {
+                Leader = communityToUpdate.Object.Leader,
+                Description = description.ToLower(),
+                Location = location.ToLower(),
+                Name = uName.ToLower(),
+                PublicCommunity = publicAccount,
+                Interests = interests,
+                Members = communityToUpdate.Object.Members,
+                InviteOnly = inviteOnly,
+                CommunityID = communityToUpdate.Object.CommunityID,
+                CommunityImage = communityToUpdate.Object.CommunityImage,
+                CommunityRequests = communityToUpdate.Object.CommunityRequests,
+                AnnouncementIDs = communityToUpdate.Object.AnnouncementIDs
+            });
+            return true;
+        }
+
         /*public async Task<bool> UpdateEventProfile(string Name, string location, bool publicEvent, DateTime Date, List<string> interestList)
         {
             string CurrentUserEmail = GetCurrentUser();
@@ -360,6 +403,7 @@ namespace LetsGo.Model
 
             return current.Name;
         }
+
         public async Task<string> GetEventLocation()
         {
             EventProfile current = await Event();
@@ -451,10 +495,11 @@ namespace LetsGo.Model
 
         }
 
+
         public async Task<List<string>> GetCommunityInterests(CommunityProfile community)
         {
             List<CommunityProfile> communities = await GetAllCommunities();
-            var CurrentCommunity = communities.Where(a => a.Leader == community.Leader && a.Name == community.Name).FirstOrDefault();
+            var CurrentCommunity = communities.Where(a => a.CommunityID == community.CommunityID).FirstOrDefault();
             List<string> interests = new List<string>();
             //if (CurrentCommunity.Interests == null)
             //    return interests;
@@ -536,6 +581,7 @@ namespace LetsGo.Model
             return commAnnouncements;
             
         }
+
         public async void AppointNewCommunityLeader(CommunityProfile community, string userToAppoint)
         {
             var communityToUpdate = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
@@ -682,7 +728,6 @@ namespace LetsGo.Model
             return true;
         }
 
-
         public async Task<bool> ChangePassword(string oldPassword, string NewPassword)
         {
             List<UserProfile> users = await GetAllUsers();
@@ -730,9 +775,6 @@ namespace LetsGo.Model
             }
             return szOutStringBuild.ToString();
         }
-
-
-
 
         public async Task<string> UploadProfilePhoto(Stream filestream)
         {
@@ -849,6 +891,7 @@ namespace LetsGo.Model
             string picture = await GetPicture("Communities", communityID, "communityimage.jpg");
             return picture;
         }
+
         private async Task<string> GetPicture(string root, string child, string pictureType)
         {
             string img;
@@ -1175,6 +1218,7 @@ namespace LetsGo.Model
 
             return false;
         }
+
         public async Task<List<CommunityProfile>> GetPublicCommunities(string InterestTag)
         {
             var communities = (await firebase
@@ -1276,6 +1320,7 @@ namespace LetsGo.Model
             }
             return added;
         }
+
         private async Task<bool> AddUserToCommunity(string currentuser, CommunityProfile community)
         {
             var communityToUpdate = (await firebase
@@ -1348,6 +1393,7 @@ namespace LetsGo.Model
 
             return true;
         }
+
         public async void AddFriend(string friendEmail)
         {
             string CurrentUserEmail = GetCurrentUser();
@@ -1507,6 +1553,7 @@ namespace LetsGo.Model
 
             return true;
         }
+
         private async Task<bool> SendEventRequest(string currentUser, EventProfile eventToJoin)
         {
             var current = (await firebase
@@ -2192,9 +2239,6 @@ namespace LetsGo.Model
                 }
             }
         }
-
-
-
 
         public async void DeleteFriend(string friendToRemove)
         {

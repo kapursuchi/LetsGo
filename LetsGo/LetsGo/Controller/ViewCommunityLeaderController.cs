@@ -257,6 +257,11 @@ namespace LetsGo.Controller
         {
             await Navigation.PushAsync(new CreateEventController(community));
         }
+
+        public async void OnUpdate_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UpdateCommunityController());
+        }
         
     }
 }

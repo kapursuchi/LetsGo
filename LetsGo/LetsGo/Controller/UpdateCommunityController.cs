@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LetsGo.Model;
-using Xamarin.Forms;
+﻿using LetsGo.Model;
 using LetsGo.Model.Authentication;
-using System.Linq;
-using System.ComponentModel;
-using System.Globalization;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using System.Threading.Tasks;
-using System.IO;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using Xamarin.Forms;
 
 namespace LetsGo.Controller
 {
-    public partial class UpdateProfileController : ContentPage, INotifyPropertyChanged
+    public partial class UpdateCommunityController
     {
-        private readonly ProfilePage profile = new ProfilePage();
+        private CommunityProfile community { get; set; }
         readonly FirebaseDB fb = new FirebaseDB();
         private bool isPublic;
-        private bool toggled = false;
+        private bool inviteOnly;
+        private bool toggledPublic = false;
+        private bool toggledInvite = false;
         private bool _istoggled;
-
-
-        
-        public bool istoggled
+        private bool _inviteonly;
+        public bool istoggledPublic
         {
             get
             {
@@ -34,13 +32,25 @@ namespace LetsGo.Controller
             set
             {
                 _istoggled = value;
-                OnPropertyChanged(nameof(istoggled));
+                OnPropertyChanged(nameof(istoggledPublic));
+            }
+        }
+        public bool istoggledInvite
+        {
+            get
+            {
+                return _inviteonly;
+            }
+            set
+            {
+                _inviteonly = value;
+                OnPropertyChanged(nameof(istoggledInvite));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -60,7 +70,20 @@ namespace LetsGo.Controller
                 OnPropertyChanged(nameof(Name));
             }
         }
+        private string _description;
 
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
         private string _location;
 
         public string Location
@@ -93,7 +116,7 @@ namespace LetsGo.Controller
         }
 
         private Image _img;
-        public Image ProfileImage
+        public Image CommunityImage
         {
             get
             {
@@ -102,77 +125,84 @@ namespace LetsGo.Controller
             set
             {
                 _img = value;
-                OnPropertyChanged(nameof(ProfileImage));
+                OnPropertyChanged(nameof(CommunityImage));
             }
         }
-
-
-        public UpdateProfileController()
+        public UpdateCommunityController()
         {
-            
+            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            community = auth.GetCurrentCommunity();
+            SetValues();
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            SetValues();
             name.BindingContext = this;
             interests.BindingContext = this;
             location.BindingContext = this;
-            publicAccountSwitch.BindingContext = this;
-            
+            desc.BindingContext = this;
+            publicCommunitySwitch.BindingContext = this;
+            inviteOnlySwitch.BindingContext = this;
         }
 
         readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
         MediaFile file;
-        private async void SetValues()
+
+        public async void SetValues()
         {
-            istoggled = await fb.HasPublicAccount();
-            Name= await fb.GetUsersName();
+            istoggledPublic = community.PublicCommunity;
+            istoggledInvite = community.InviteOnly;
+            Name = community.Name;
             Name = textInfo.ToTitleCase(Name);
-            Location = await fb.GetUsersLocation();
+            Location = community.Location;
             if (Location != null)
                 Location = textInfo.ToTitleCase(Location);
             else
             {
                 Location = "Location";
             }
-            List<string> interestList = await fb.GetUsersInterests();
+            Description = textInfo.ToTitleCase(community.Description);
+            List<string> interestList = await fb.GetCommunityInterests(community);
+            
             InterestList = new ObservableCollection<string>(interestList);
 
-            if (InterestList == null)
+            if (InterestList == null || InterestList.Count == 0)
             {
 
                 InterestList.Add("No interests listed yet...");
 
             }
-            double height = InterestList.Count;
-            height *= 2.0;
-            interests.HeightRequest = height;
+            double height = 40;
+            interests.HeightRequest = InterestList.Count * height;
             interests.ItemsSource = InterestList;
 
-            string profileImageStr = await fb.GetProfilePicture();
-            if (profileImageStr != null)
+            string communityImageStr = await fb.GetCommunityPicture(community.CommunityID);
+            if (communityImageStr != null)
             {
-                imgChosen.Source = ImageSource.FromUri(new Uri(profileImageStr));
+                imgChosen.Source = ImageSource.FromUri(new Uri(communityImageStr));
             }
             else
             {
-                imgChosen.Source = ImageSource.FromFile("defaultProfilePic.jpg");
+                imgChosen.Source = ImageSource.FromFile("communityimage.jpg");
             }
-
         }
 
         public async void Save_Update_Clicked(object sender, EventArgs e)
         {
-            if (toggled == false)
+            if (toggledPublic == false)
             {
-                isPublic = await fb.HasPublicAccount();
+                isPublic = community.PublicCommunity;
+            }
+            if (toggledInvite == false)
+            {
+                inviteOnly = community.InviteOnly;
             }
             string uName = name.Text;
             string city = location.Text;
+            string description = desc.Text;
             List<string> interestList;
             if (intToAdd.Text != null)
-            { 
+            {
                 List<string> interestSplit = intToAdd.Text.Split(',').ToList();
-                interestList= InterestList.ToList();
+                interestList = InterestList.ToList();
 
                 for (int i = 0; i < interestSplit.Count; i++)
                 {
@@ -183,30 +213,43 @@ namespace LetsGo.Controller
             {
                 interestList = InterestList.ToList();
             }
-            bool updated = await profile.UpdateProfile(uName, city, isPublic, interestList);
+            bool updated = await fb.UpdateCommunity(community, uName, description, city, isPublic, inviteOnly, interestList);
             if (!updated)
             {
-                await DisplayAlert("Update Unsuccessful", "Your profile update was unsuccessful.", "OK");
+                await DisplayAlert("Update Unsuccessful", "Your community update was unsuccessful.", "OK");
             }
-            await Navigation.PushAsync(new NavigationBarController());
-            
+            await Navigation.PopAsync();
+
         }
 
 
-        public void On_Toggled(object sender, ToggledEventArgs e)
+        public void On_Toggled_Public(object sender, ToggledEventArgs e)
         {
-            toggled = true;
+            toggledPublic = true;
             isPublic = e.Value;
+        }
+
+
+        public void On_Toggled_Invites(object sender, ToggledEventArgs e)
+        {
+            toggledInvite = true;
+            inviteOnly = e.Value;
         }
 
         public async void Delete_Clicked(object sender, EventArgs e)
         {
-            bool deleted = await profile.DeleteUser();
-            if (deleted)
+            bool choice = await DisplayAlert("Delete Community", "Are you sure you want to delete this community? This action cannot be undone.", "OK", "Cancel");
+            // user selects cancel on prompt
+            if (choice == false)
             {
-                await DisplayAlert("Success", "Your account has been deleted", "OK");
-                await Navigation.PushAsync(new LoginController());
-            }    
+                return;
+            }
+            // user selects OK, delete community
+            else
+            {
+                await fb.DeleteCommunity(community);
+                await Navigation.PopToRootAsync();
+            }
         }
 
         public async void Upload_Picture_Clicked(object sender, EventArgs e)
@@ -225,31 +268,27 @@ namespace LetsGo.Controller
                     var imageStram = file.GetStream();
                     return imageStram;
                 });
-                string photo = await fb.UploadProfilePhoto(file.GetStream());
-                ProfileImage = imgChosen;
-               
+                string photo = await fb.UploadCommunityPhoto(file.GetStream(), community.CommunityID);
+                CommunityImage = imgChosen;
+
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Failed", ex.Message, "OK");
+                await DisplayAlert("Upload Failed", ex.Message, "OK");
             }
-            
+
         }
 
         public void OnRemove(object sender, EventArgs e)
         {
             var item = (Xamarin.Forms.Button)sender;
-
+            item.Text = "Removed";
+            item.TextColor = Color.Crimson;
             string listitem = (from itm in InterestList
-                             where itm == item.CommandParameter.ToString()
-                             select itm)
+                               where itm == item.CommandParameter.ToString()
+                               select itm)
                             .FirstOrDefault<string>();
             InterestList.Remove(listitem);
         }
-        
-
     }
-
-
 }
-

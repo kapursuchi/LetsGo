@@ -8,7 +8,7 @@
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
-        <ToolbarItem Text="Update Community" Order="Secondary"/>
+        <ToolbarItem Text="Update Community" Clicked="OnUpdate_Clicked"  Order="Secondary"/>
         <ToolbarItem Text="Add Event" Clicked="OnAddEvent_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -96,29 +96,7 @@
             </ListView>
 
             
-            <Grid VerticalOptions="End" HorizontalOptions="Center">
-                 <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                 </Grid.RowDefinitions>
-                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                 </Grid.ColumnDefinitions>
-                 <Button x:Name="changePicture"
-                        Text="Choose Image"
-                        BackgroundColor="LightSteelBlue"
-                        FontSize="Micro"
-                        HeightRequest="50"
-                        Clicked="Upload_Picture_Clicked"
-                        Grid.Column="1"
-                        Margin="5"
-                        HorizontalOptions="Center"
-                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
-                        WidthRequest="100"
-                        />
-                 
-            </Grid>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

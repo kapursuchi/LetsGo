@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenRodYellow"
+             x:Class="LetsGo.Controller.UpdateCommunityController">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <Label Text="" Margin="15">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <OnPlatform.iOS>true</OnPlatform.iOS>
+                            <OnPlatform.Android>false</OnPlatform.Android>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
+                <Label Text="Update Community" TextColor="Black" FontSize="Medium" VerticalOptions="Start" HorizontalOptions="Center" Margin="5"/>
+                <Image x:Name="imgChosen" Source="{Binding CommunityImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
+
+                <Button x:Name="changePicture"
+                        Text="Choose Image"
+                        BackgroundColor="LightSteelBlue"
+                        FontSize="Micro"
+                        TextColor="Black"
+                        HeightRequest="32"
+                        Clicked="Upload_Picture_Clicked"
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalOptions="Center"
+                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        WidthRequest="100"
+                        />
+
+                <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="Ivory" />
+                <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
+                <Label x:Name="descriptionLbl" Text="    Description" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Entry x:Name="desc" Text="{Binding Description}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
+                <Label x:Name="interstLbl" Text="    Interests" TextColor="Black"  HorizontalOptions="Start" VerticalOptions="Center"/>
+
+                <ListView x:Name="interests" SeparatorVisibility="None"  Margin="10" HasUnevenRows="True" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid   x:Name="interestList"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center"
+                                            BackgroundColor="LightGoldenrodYellow">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label      x:Name="interest"
+                                                    Text="{Binding .}"
+                                                    TextColor="Black"
+                                                    FontSize="Body"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    Grid.Row="0"
+                                                    Grid.Column="0" />
+                                        <Button    x:Name="remove"
+                                                    Text="Remove"
+                                                    HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                    BackgroundColor="Transparent"
+                                               CommandParameter="{Binding .}"
+                                                    TextColor="Crimson"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Clicked="OnRemove"/>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+
+
+                <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+                <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="Ivory"/>
+
+                <!--<Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>-->
+                <Grid   x:Name="publicAccountSwitch"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label      x:Name="publicAcct"
+                            Text="Public Community"
+                            Margin="10"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                    <Switch     x:Name="publicCommunitySwitch"
+                            OnColor="PowderBlue"
+                            ThumbColor="Black"
+                            Margin="10"
+                            HorizontalOptions="Center"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            
+                            IsToggled="{Binding istoggledPublic}"
+                            Toggled="On_Toggled_Public"
+                            />
+                    <Label      x:Name="invite"
+                            Text="Invite Only"
+                            Margin="10"
+                            TextColor="Black"
+                            FontSize="Body"
+                            HorizontalOptions="Center"
+                            Grid.Row="1"
+                            Grid.Column="0" />
+                    <Switch     x:Name="inviteOnlySwitch"
+                            OnColor="PowderBlue"
+                            ThumbColor="Black"
+                            Margin="10"
+                            HorizontalOptions="Center"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            
+                            IsToggled="{Binding istoggledInvite}"
+                            Toggled="On_Toggled_Invites"
+                            />
+                </Grid>
+
+
+
+                <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
+                <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
