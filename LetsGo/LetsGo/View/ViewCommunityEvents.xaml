@@ -14,7 +14,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"  />
                 </Grid.RowDefinitions>
-                <ListView x:Name="ListEvents" ItemsSource="{Binding Events}" VerticalScrollBarVisibility="Default" SeparatorVisibility="None" SelectionMode="None" ItemTapped="Event_Tapped" BackgroundColor="LightGoldenrodYellow" HasUnevenRows="True">
+                <ListView x:Name="ListEvents" ItemsSource="{Binding CommEvents}" VerticalScrollBarVisibility="Default" SeparatorVisibility="None" SelectionMode="None" ItemTapped="Event_Tapped" BackgroundColor="LightGoldenrodYellow" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

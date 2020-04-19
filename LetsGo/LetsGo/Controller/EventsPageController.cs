@@ -96,7 +96,6 @@ namespace LetsGo.Controller
             if(Events.Count == 0)
             {
                 Events = new List<EventProfile>();
-
                 Events.Add(new EventProfile("There are no events you are a part of!", "No description available", DateTime.Today,
                             "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
             }

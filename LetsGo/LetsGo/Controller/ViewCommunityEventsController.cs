@@ -2,6 +2,7 @@
 using LetsGo.Model.Authentication;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -15,6 +16,9 @@ namespace LetsGo.Controller
         private string Eventlocation { get; set; }
         private string Eventdescription { get; set; }
         private Image EventImg { get; set; }
+
+
+        public ObservableCollection<EventProfile> CommEvents { get; set; }
         public ViewCommunityEventsController()
         {
             var auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -79,16 +83,20 @@ namespace LetsGo.Controller
         public async void SetValues(CommunityProfile community)
         {
             Events = await fb.GetCommunityEvents(community);
+            
             if (Events.Count == 0)
             {
                 Events = new List<EventProfile>();
-
+                Events.Add(new EventProfile("This community has no events.", "No description available", DateTime.Today,
+                        "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
+                CommEvents = new ObservableCollection<EventProfile>(Events);
                 ListEvents.IsVisible = false;
                 noEvents.IsVisible = true;
-                Events.Add(new EventProfile("This community has no events.", "No description available", DateTime.Today,
-                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
+
+                
             }
-            ListEvents.ItemsSource = Events;
+            CommEvents = new ObservableCollection<EventProfile>(Events);
+            ListEvents.ItemsSource = CommEvents;
         }
 
         public async void Event_Tapped(object sender, ItemTappedEventArgs e)

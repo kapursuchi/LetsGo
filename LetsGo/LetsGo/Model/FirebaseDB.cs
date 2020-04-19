@@ -34,6 +34,8 @@ namespace LetsGo.Model
             }
             else if (email.ToLower() == CurrentUser.Email && EncryptDecrypt(password, 5) == CurrentUser.Password)
             {
+                RemoveOldEvents();
+
                 return true;
             }
             else
@@ -42,7 +44,21 @@ namespace LetsGo.Model
             }
         }
 
-
+        public async void RemoveOldEvents()
+        {
+            List<EventProfile> allEvents = await GetAllEvents(); 
+            if (allEvents != null)
+            {
+                for (int i = 0; i < allEvents.Count; i++)
+                {
+                    var currentEvent = (await firebase.Child("Events").OnceAsync<EventProfile>()).Where(a => a.Object.EventID == allEvents.ElementAt(i).EventID).FirstOrDefault();
+                    if (DateTime.Compare(currentEvent.Object.DateOfEvent, DateTime.Today) < 0)
+                    {
+                        await firebase.Child("Events").Child(currentEvent.Key).DeleteAsync();
+                    }
+                }
+            }    
+        }
         public bool SignOutUser()
         {
             return true;
