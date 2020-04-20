@@ -7,7 +7,9 @@
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.NotificationController">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView x:Name="notificationsScroll">
+
+            <StackLayout>
             <Label Text="" Margin="15">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean">
@@ -23,63 +25,150 @@
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"
                    TextColor="Black"/>
-            <ListView x:Name="notifications" SeparatorVisibility="None" ItemsSource="{Binding RequestNotifications}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
-                <ListView.ItemTemplate>
+            <Label x:Name="NoNotificationsLbl" Margin="20" Text="You have no notifications, you're all caught up!" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" />
+            <StackLayout>
+                <Label x:Name="friendRequestsLbl" Text="  Friend Requests" HorizontalOptions="Start" TextColor="Black" FontAttributes="Italic" FontSize="Medium" />
 
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="OnAccept" CommandParameter="{Binding .}" Text="Accept" />
-                                <MenuItem Clicked="OnDecline" CommandParameter="{Binding .}" Text="Decline" />
-                            </ViewCell.ContextActions>
-                            <StackLayout Padding="15,0">
-                                <Grid   x:Name="friendGrid" VerticalOptions="Center" HorizontalOptions="Start" Margin="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                <ListView x:Name="friendRequests" SeparatorVisibility="None" ItemsSource="{Binding FriendRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView.ItemTemplate>
 
-                                    
-                                    <Label     
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnAcceptFRequest" CommandParameter="{Binding .}" Text="Accept" />
+                                    <MenuItem Clicked="OnDeclineFRequest" CommandParameter="{Binding .}" Text="Decline" />
+                                </ViewCell.ContextActions>
+                                    <StackLayout Padding="15,0">
+                                        <Label     
+                                                Text="{Binding Name}"
+                                                TextColor="Black"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center"/>
+
+                                    </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackLayout>
+            <StackLayout>
+                    <Label x:Name="commRequestsLbl" Text="  Community Requests" HorizontalOptions="Start" FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
+
+                <ListView x:Name="commRequestsList" SeparatorVisibility="None" ItemsSource="{Binding CommunityRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnAcceptCRequest" CommandParameter="{Binding .}" Text="Accept" />
+                                    <MenuItem Clicked="OnDeclineCRequest" CommandParameter="{Binding .}" Text="Decline" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Padding="15,0">
+                                   
+
+                                        <Label     
                                                 Text="{Binding Name}"
                                                 TextColor="Black"
                                                 HorizontalOptions="Start"
                                                 VerticalOptions="Center"
-                                                FontAttributes="Bold"
-                                                Grid.Row="1"
-                                                Grid.Column="1"
                                                 />
-                                    <Label     
-                                                Text=" "
+                                        
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackLayout>
+            
+            <StackLayout>
+                    <Label x:Name="eventRequestsLbl" Text="  Event Requests" HorizontalOptions="Start" FontAttributes="Italic"  TextColor="Black" FontSize="Medium"/>
+                <ListView x:Name="eventRequestsList" SeparatorVisibility="None" ItemsSource="{Binding EventRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnAcceptERequest" CommandParameter="{Binding .}" Text="Accept" />
+                                    <MenuItem Clicked="OnDeclineERequest" CommandParameter="{Binding .}" Text="Decline" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Padding="15,0">
+                                  
+                                        <Label     
+                                                Text="{Binding Name}"
                                                 TextColor="Black"
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="Start"
                                                 VerticalOptions="Center"
-                                                FontAttributes="Bold"
-                                                Grid.Row="1"
-                                                Grid.Column="2"
                                                 />
-                                    <Label     
-                                                Text=" "
+                                       
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout>
+                    <Label x:Name="commInivtesLbl" Text="  Community Invites" HorizontalOptions="Start" FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
+
+                <ListView x:Name="commInvitesList" SeparatorVisibility="None" ItemsSource="{Binding CommunityInvites}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnAcceptCInvite" CommandParameter="{Binding .}" Text="Accept" />
+                                    <MenuItem Clicked="OnDeclineCInvite" CommandParameter="{Binding .}" Text="Decline" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Padding="15,0">
+                                   
+                                        <Label     
+                                                Text="{Binding Name}"
                                                 TextColor="Black"
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="Start"
                                                 VerticalOptions="Center"
-                                                FontAttributes="Bold"
-                                                Grid.Row="1"
-                                                Grid.Column="3"
                                                 />
+                                        
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
 
+                    </ListView.ItemTemplate>
 
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout>
+                    <Label x:Name="eventInvitesLbl" Text="  Event Invites" HorizontalOptions="Start"  FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
 
-                </ListView.ItemTemplate>
+                <ListView x:Name="eventInvitesList" SeparatorVisibility="None" ItemsSource="{Binding EventInvites}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView.ItemTemplate>
 
-            </ListView>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnAcceptEInvite" CommandParameter="{Binding .}" Text="Accept" />
+                                    <MenuItem Clicked="OnDeclineEInvite" CommandParameter="{Binding .}" Text="Decline" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Padding="15,0">
+
+                                        <Label     
+                                                Text="{Binding Name}"
+                                                TextColor="Black"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center"/>
+
+                                    </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+            </StackLayout>
         </StackLayout>
+        </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>

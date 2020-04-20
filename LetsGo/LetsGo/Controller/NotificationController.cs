@@ -14,17 +14,73 @@ namespace LetsGo.Controller
     public partial class NotificationController : INotifyPropertyChanged
     {
 
-        private ObservableCollection<object> _requests { get; set; }
-        public ObservableCollection<object> RequestNotifications
+        private ObservableCollection<object> _friendrequests { get; set; }
+
+        private ObservableCollection<object> _commRequests { get; set; }
+        public ObservableCollection<object> CommunityRequests
         {
             get
             {
-               return _requests ;
+                return _commRequests;
             }
             set
             {
-                _requests = value;
-                OnPropertyChanged(nameof(RequestNotifications));
+                _commRequests = value;
+                OnPropertyChanged(nameof(CommunityRequests));
+            }
+        }
+
+        private ObservableCollection<object> _commInvites { get; set; }
+        public ObservableCollection<object> CommunityInvites
+        {
+            get
+            {
+                return _commInvites;
+            }
+            set
+            {
+                _commInvites = value;
+                OnPropertyChanged(nameof(CommunityInvites));
+            }
+        }
+
+        private ObservableCollection<object> _eventRequests { get; set; }
+        public ObservableCollection<object> EventRequests
+        {
+            get
+            {
+                return _eventRequests;
+            }
+            set
+            {
+                _eventRequests = value;
+                OnPropertyChanged(nameof(EventRequests));
+            }
+        }
+
+        private ObservableCollection<object> _eventInvites { get; set; }
+        public ObservableCollection<object> EventInvites
+        {
+            get
+            {
+                return _eventInvites;
+            }
+            set
+            {
+                _eventInvites = value;
+                OnPropertyChanged(nameof(EventInvites));
+            }
+        }
+        public ObservableCollection<object> FriendRequests
+        {
+            get
+            {
+                return _friendrequests;
+            }
+            set
+            {
+                _friendrequests = value;
+                OnPropertyChanged(nameof(FriendRequests));
             }
         }
         readonly FirebaseDB fb = new FirebaseDB();
@@ -40,155 +96,260 @@ namespace LetsGo.Controller
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
 
         public async void SetValues()
         {
-            RequestNotifications =  new ObservableCollection<object>();
             List<UserProfile> profiles = await fb.GetFriendRequests();
             List<UserProfile> commRequests = await fb.GetCommunityRequests();
             List<CommunityProfile> commInvites = await fb.GetCommunityInvites();
             List<EventProfile> eventInvites = await fb.GetEventInvites();
             List<UserProfile> eventRequests = await fb.GetEventRequests();
+            FriendRequests = new ObservableCollection<object>();
+            EventRequests = new ObservableCollection<object>();
+            CommunityRequests = new ObservableCollection<object>();
+            CommunityInvites = new ObservableCollection<object>();
+            EventInvites = new ObservableCollection<object>();
 
-            if (profiles != null || profiles.Count != 0)
+            if (profiles.Count != 0)
             {
                 for (int i = 0; i < profiles.Count; i++)
                 {
                     profiles.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(profiles.ElementAt(i).Name);
-                    RequestNotifications.Add(profiles.ElementAt(i));
+                    FriendRequests.Add(profiles.ElementAt(i));
                 }
             }
-            if (commRequests != null || commRequests.Count != 0)
+            else
+            {
+                friendRequests.IsVisible = false;
+                friendRequestsLbl.IsVisible = false;
+            }
+            if (commRequests.Count != 0)
             {
                 for (int i = 0; i < commRequests.Count; i++)
                 {
                     commRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commRequests.ElementAt(i).Name);
-                    RequestNotifications.Add(commRequests.ElementAt(i));
+                    CommunityRequests.Add(commRequests.ElementAt(i));
                 }
+
+            }
+            else
+            {
+                commRequestsList.IsVisible = false;
+                commRequestsLbl.IsVisible = false;
             }
 
-            if (commInvites != null || commInvites.Count != 0)
+            if (commInvites.Count != 0)
             {
                 for (int i = 0; i < commInvites.Count; i++)
                 {
                     commInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(commInvites.ElementAt(i).Name);
-                    RequestNotifications.Add(commInvites.ElementAt(i));
+
+                    CommunityInvites.Add(commInvites.ElementAt(i));
                 }
             }
+            else
+            {
+                commInvitesList.IsVisible = false;
+                commInivtesLbl.IsVisible = false;
+            }
 
-            if (eventInvites != null || eventInvites.Count != 0)
+            if (eventInvites.Count != 0)
             {
                 for (int i = 0; i < eventInvites.Count; i++)
                 {
                     eventInvites.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(eventInvites.ElementAt(i).Name);
-                    RequestNotifications.Add(eventInvites.ElementAt(i));
+                    EventInvites.Add(eventInvites.ElementAt(i));
                 }
             }
+            else
+            {
+                eventInvitesList.IsVisible = false;
+                eventInvitesLbl.IsVisible = false;
+            }
 
-            if (eventRequests != null || eventRequests.Count != 0)
+            if (eventRequests.Count != 0)
             {
                 for (int i = 0; i < eventRequests.Count; i++)
                 {
                     eventRequests.ElementAt(i).Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(eventRequests.ElementAt(i).Name);
-                    RequestNotifications.Add(eventRequests.ElementAt(i));
+                    EventRequests.Add(eventRequests.ElementAt(i));
                 }
             }
-
-
-            if (RequestNotifications.Count == 0)
+            else
             {
-
-                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
-
+                eventRequestsList.IsVisible = false;
+                eventRequestsLbl.IsVisible = false;
             }
 
-            notifications.ItemsSource = RequestNotifications;
+
+            NoNotifications();
+
+
+            double height = 40;
+            friendRequests.ItemsSource = FriendRequests;
+            friendRequests.HeightRequest = FriendRequests.Count * height;
+            commRequestsList.ItemsSource = CommunityRequests;
+            commRequestsList.HeightRequest = CommunityRequests.Count * height;
+            eventRequestsList.ItemsSource = EventRequests;
+            eventRequestsList.HeightRequest = EventRequests.Count * height;
+            commInvitesList.ItemsSource = CommunityInvites;
+            commInvitesList.HeightRequest = CommunityInvites.Count * height;
+            eventInvitesList.ItemsSource = EventInvites;
+            eventInvitesList.HeightRequest = EventInvites.Count * height;
         }
 
-        public async void OnAccept(object sender, EventArgs e)
+        private void NoNotifications()
         {
-            
+            if (FriendRequests.Count == 0 && CommunityRequests.Count == 0 && EventRequests.Count == 0 && CommunityInvites.Count == 0 && EventInvites.Count == 0)
+            {
+                NoNotificationsLbl.IsVisible = true;
+                friendRequestsLbl.IsVisible = false;
+                commRequestsLbl.IsVisible = false;
+                eventRequestsLbl.IsVisible = false;
+                commInivtesLbl.IsVisible = false;
+                eventInvitesLbl.IsVisible = false;
+            }
+            else
+            {
+                NoNotificationsLbl.IsVisible = false;
+            }
+
+
+        }
+
+        public async void OnAcceptERequest(object sender, EventArgs e)
+        {
+
             var type = (MenuItem)sender;
             if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
             {
                 UserProfile profile = (UserProfile)type.CommandParameter;
                 fb.AcceptRequest(null, null, profile);
-                RequestNotifications.Remove(type.CommandParameter);
-            }
-            else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
-            {
-                CommunityProfile profile = (CommunityProfile)type.CommandParameter;
-                string current =  fb.GetCurrentUser();
-                UserProfile currentUser = await fb.GetUserObject(current);
-                fb.AcceptRequest(null, profile, currentUser);
-                RequestNotifications.Remove(type.CommandParameter);
-
-            }
-            else if (type.CommandParameter.ToString() == "LetsGo.Model.EventProfile")
-            {
-                EventProfile profile = (EventProfile)type.CommandParameter;
-                string current = fb.GetCurrentUser();
-                UserProfile currentUser = await fb.GetUserObject(current);
-                fb.AcceptRequest(profile, null, currentUser);
-                RequestNotifications.Remove(type.CommandParameter);
+                EventRequests.Remove(type.CommandParameter);
             }
 
-            if (RequestNotifications.Count == 0)
-            {
 
-                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
+            NoNotifications();
 
-            }
-            
         }
-
-        public void OnDecline(object sender, EventArgs e)
-        {/*
-            var type = (MenuItem)sender;
-            
-            UserProfile profile = (UserProfile)type.CommandParameter;
-            fb.RemoveRequest(profile);
-            UserProfile listitem = (from pro in RequestNotifications
-                                    where pro == type.CommandParameter
-                                    select pro)
-                            .FirstOrDefault<UserProfile>();
-            RequestNotifications.Remove(listitem);
-            */
+        public async void OnAcceptFRequest(object sender, EventArgs e)
+        {
 
             var type = (MenuItem)sender;
             if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
             {
                 UserProfile profile = (UserProfile)type.CommandParameter;
-                fb.RemoveRequest(profile);
-                int index = RequestNotifications.IndexOf(profile);
-                RequestNotifications.RemoveAt(index);
+                fb.AcceptRequest(null, null, profile);
+                FriendRequests.Remove(type.CommandParameter);
             }
-            else if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+
+
+            NoNotifications();
+
+        }
+
+        public async void OnAcceptCRequest(object sender, EventArgs e)
+        {
+
+            var type = (MenuItem)sender;
+            if (type.CommandParameter.ToString() == "LetsGo.Model.UserProfile")
             {
-                CommunityProfile profile = (CommunityProfile)type.CommandParameter;
-                string current = fb.GetCurrentUser();
-                fb.RemoveInvite(null, profile.CommunityID, current);
-                int index = RequestNotifications.IndexOf(profile);
-                RequestNotifications.RemoveAt(index);
+                UserProfile profile = (UserProfile)type.CommandParameter;
+                fb.AcceptRequest(null, null, profile);
+                CommunityRequests.Remove(type.CommandParameter);
             }
-            else if (type.CommandParameter.ToString() == "LetsGo.Model.EventProfile")
+
+
+            NoNotifications();
+
+        }
+        public async void OnAcceptEInvite(object sender, EventArgs e)
+        {
+
+            var type = (MenuItem)sender;
+            if (type.CommandParameter.ToString() == "LetsGo.Model.EventProfile")
             {
                 EventProfile profile = (EventProfile)type.CommandParameter;
                 string current = fb.GetCurrentUser();
-                fb.RemoveInvite(profile.EventID, null, current);
-                int index = RequestNotifications.IndexOf(profile);
-                RequestNotifications.RemoveAt(index);
+                UserProfile currentUser = await fb.GetUserObject(current);
+                fb.AcceptRequest(profile, null, currentUser);
+                EventInvites.Remove(type.CommandParameter);
             }
-
-            if (RequestNotifications.Count == 0)
-            {
-
-                RequestNotifications.Add(new UserProfile() { Name = "No notifications!" });
-
-            }
+            NoNotifications();
         }
 
-    }
+        public async void OnAcceptCInvite(object sender, EventArgs e)
+        {
 
+            var type = (MenuItem)sender;
+            if (type.CommandParameter.ToString() == "LetsGo.Model.CommunityProfile")
+            {
+                CommunityProfile profile = (CommunityProfile)type.CommandParameter;
+                string current = fb.GetCurrentUser();
+                UserProfile currentUser = await fb.GetUserObject(current);
+                fb.AcceptRequest(null, profile, currentUser);
+                CommunityInvites.Remove(type.CommandParameter);
+            }
+            NoNotifications();
+
+        }
+
+        public async void OnDeclineFRequest(object sender, EventArgs e)
+        {
+            var type = (MenuItem)sender;
+
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            fb.RemoveRequest(profile);
+            FriendRequests.Remove(type.CommandParameter);
+            NoNotifications();
+        }
+
+        public async void OnDeclineERequest(object sender, EventArgs e)
+        {
+            var type = (MenuItem)sender;
+
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            fb.RemoveRequest(profile);
+            EventRequests.Remove(type.CommandParameter);
+            NoNotifications();
+        }
+
+        public async void OnDeclineCRequest(object sender, EventArgs e)
+        {
+            var type = (MenuItem)sender;
+
+            UserProfile profile = (UserProfile)type.CommandParameter;
+            fb.RemoveRequest(profile);
+            CommunityRequests.Remove(type.CommandParameter);
+            NoNotifications();
+        }
+
+        public async void OnDeclineCInvite(object sender, EventArgs e)
+        {
+            var type = (MenuItem)sender;
+            CommunityProfile profile = (CommunityProfile)type.CommandParameter;
+            string current = fb.GetCurrentUser();
+            fb.RemoveInvite(null, profile.CommunityID, current);
+            int index = CommunityInvites.IndexOf(profile);
+            CommunityInvites.RemoveAt(index);
+            NoNotifications();
+        }
+
+        public async void OnDeclineEInvite(object sender, EventArgs e)
+        {
+            var type = (MenuItem)sender;
+            EventProfile profile = (EventProfile)type.CommandParameter;
+            string current = fb.GetCurrentUser();
+            fb.RemoveInvite(profile.EventID, null, current);
+            int index = EventInvites.IndexOf(profile);
+            EventInvites.RemoveAt(index);
+            NoNotifications();
+        }
+
+
+
+    }
 }
+
+
