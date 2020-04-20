@@ -218,7 +218,7 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnAcceptERequest(object sender, EventArgs e)
+        public void OnAcceptERequest(object sender, EventArgs e)
         {
 
             var type = (MenuItem)sender;
@@ -233,7 +233,7 @@ namespace LetsGo.Controller
             NoNotifications();
 
         }
-        public async void OnAcceptFRequest(object sender, EventArgs e)
+        public void OnAcceptFRequest(object sender, EventArgs e)
         {
 
             var type = (MenuItem)sender;
@@ -249,7 +249,7 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnAcceptCRequest(object sender, EventArgs e)
+        public void OnAcceptCRequest(object sender, EventArgs e)
         {
 
             var type = (MenuItem)sender;
@@ -295,7 +295,7 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnDeclineFRequest(object sender, EventArgs e)
+        public void OnDeclineFRequest(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
 
@@ -305,7 +305,7 @@ namespace LetsGo.Controller
             NoNotifications();
         }
 
-        public async void OnDeclineERequest(object sender, EventArgs e)
+        public void OnDeclineERequest(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
 
@@ -315,7 +315,7 @@ namespace LetsGo.Controller
             NoNotifications();
         }
 
-        public async void OnDeclineCRequest(object sender, EventArgs e)
+        public void OnDeclineCRequest(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
 
@@ -325,7 +325,7 @@ namespace LetsGo.Controller
             NoNotifications();
         }
 
-        public async void OnDeclineCInvite(object sender, EventArgs e)
+        public void OnDeclineCInvite(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
             CommunityProfile profile = (CommunityProfile)type.CommandParameter;
@@ -336,7 +336,7 @@ namespace LetsGo.Controller
             NoNotifications();
         }
 
-        public async void OnDeclineEInvite(object sender, EventArgs e)
+        public void OnDeclineEInvite(object sender, EventArgs e)
         {
             var type = (MenuItem)sender;
             EventProfile profile = (EventProfile)type.CommandParameter;
@@ -347,7 +347,11 @@ namespace LetsGo.Controller
             NoNotifications();
         }
 
-
+        protected override void OnAppearing()
+        {
+            SetValues();
+            base.OnAppearing();
+        }
 
     }
 }

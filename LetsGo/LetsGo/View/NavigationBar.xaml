@@ -11,12 +11,13 @@
             BackgroundColor="LightGoldenrodYellow"
             x:Class="LetsGo.Controller.NavigationBarController">
 
-    
+
     <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
-        <local:FeedController Icon="homeicon.png" HeightRequest="20" WidthRequest="20" Title="Feed"/>
-        <local:SocialController Icon="socialicon.png" HeightRequest="20" WidthRequest="20"  Title="Social"/>
-        <local:NotificationController Icon="notificationicon.png" HeightRequest="20" WidthRequest="20" Title="Notifications"/>
-        <local:ProfileController Icon="profileicon.png" HeightRequest="20" WidthRequest="20" Title="Profile"    />
+        <local:FeedController Icon="homeicon.png" HeightRequest="18" WidthRequest="18"  Title="Feed"/>
+        <local:SocialController Icon="socialicon.png" HeightRequest="18" WidthRequest="18"  Title="Social"/>
+        <local:ProfileController Icon="profileicon.png" HeightRequest="18" WidthRequest="18" Title="Profile"    />
+        <local:NotificationController Icon="notificationicon.png" HeightRequest="18" WidthRequest="18" Title="Notifications" />
+        <local:ChatController Icon="chaticon.jpg" HeightRequest="18" WidthRequest="18" Title="Chat"    />
     </TabbedPage.Children>
 </TabbedPage>

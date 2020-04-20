@@ -89,7 +89,7 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnRemove_Clicked(object sender, EventArgs e)
+        public void OnRemove_Clicked(object sender, EventArgs e)
         {
             var item = (Xamarin.Forms.Button)sender;
             if (item.Text=="Remove")

@@ -40,7 +40,7 @@ namespace LetsGo.Controller
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
-            public async void SetValues(EventProfile evt)
+        public async void SetValues(EventProfile evt)
         {
             Members = evt.Members;
             
