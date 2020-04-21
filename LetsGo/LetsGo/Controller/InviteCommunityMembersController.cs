@@ -37,7 +37,7 @@ namespace LetsGo.Controller
             }
             for (int i = 0; i < friendsProfiles.Count; i++)
             {
-                if (friendsProfiles[i].Name.ToLower() == SearchStr)
+                if (friendsProfiles[i].Name.ToLower().Contains(SearchStr))
                 {
                     friendsProfiles[i].Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(friendsProfiles[i].Name);
                     SearchResults.Add(friendsProfiles[i]);

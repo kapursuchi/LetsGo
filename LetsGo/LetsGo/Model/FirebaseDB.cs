@@ -2527,6 +2527,72 @@ namespace LetsGo.Model
             }
         }
 
+        public async void StartConversationWithFriend(UserProfile friend)
+        {
+            string current = GetCurrentUser();
+            Conversation conversation = new Conversation(current, friend);
+
+            await firebase
+              .Child("FriendsMessages")
+              .PostAsync(conversation);
+
+        }
+
+        public async void SendMessageToFriend(string recipient, string message)
+        {
+            string current = GetCurrentUser();
+            List<string> sendTo = new List<string>() { recipient };
+            ChatMessage newMessage = new ChatMessage(current, sendTo, message, DateTime.Now);
+
+            var conversation = (await firebase.Child("FriendsMessages").OnceAsync<Conversation>()).Where(a => a.Object.ConversationBetween.Contains(current) &&
+                                                                                                    a.Object.ConversationBetween.Contains(recipient)).FirstOrDefault();
+
+            List<ChatMessage> messages = conversation.Object.Messages;
+            if (messages == null)
+                messages = new List<ChatMessage>();
+            messages.Add(newMessage);
+            await firebase
+                .Child("FriendsMessages")
+                .Child(conversation.Key)
+                .Child("Messages")
+                .PutAsync(messages);
+        }
+
+        public async Task<List<Conversation>> GetMyConversationsWithFriends()
+        {
+            string current = GetCurrentUser();
+            var allconversations = (await firebase.Child("FriendsMessages").OnceAsync<Conversation>()).Where(a => a.Object.ConversationBetween.Count == 2 && 
+                                                                                            a.Object.ConversationBetween.Contains(current)).ToList();
+
+            List<Conversation> myConversations = new List<Conversation>();
+            if (allconversations != null)
+            {
+                for (int i = 0; i < allconversations.Count; i++)
+                {
+                    myConversations.Add(allconversations.ElementAt(i).Object);
+                }
+            }
+            return myConversations;
+        }
+
+        public async Task<Conversation> GetConversationWith(string friend)
+        {
+            List<Conversation> convos = await GetMyConversationsWithFriends();
+            Conversation conversationWith = convos.Where(a => a.ConversationBetween.Contains(friend)).FirstOrDefault();
+            return conversationWith;
+        }
+
+        public async Task<bool> HaveConversationWith(string friend)
+        {
+            List<Conversation> conversations = await GetMyConversationsWithFriends();
+            foreach (Conversation convo in conversations)
+            {
+                if (convo.ConversationBetween.Contains(friend))
+                    return true;
+            }
+            return false;
+        }
+
 
     }
 }
