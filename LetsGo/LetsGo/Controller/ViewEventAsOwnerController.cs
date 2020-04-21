@@ -286,13 +286,17 @@ namespace LetsGo.Controller
             // user selects OK, delete community
             else
             {
-                //await fb.DeleteCommunity(Leader.ToLower(), Name.ToLower());
-                //await Navigation.PopToRootAsync();
+                await fb.DeleteEvent(thisEvent);
+                await Navigation.PopToRootAsync();
             }
         }
         public async void OnInviteUsers_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new InviteEventMembersController(thisEvent));
+        }
+        public async void OnUpdate_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UpdateEventController());
         }
     }
 }

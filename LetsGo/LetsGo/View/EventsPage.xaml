@@ -20,34 +20,37 @@
 
 
             <Label x:Name="YourEvents" Text="Your Events" TextColor="Black"  FontSize="Medium" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"  />
-                </Grid.RowDefinitions>
-                <ListView x:Name="ListEvents" ItemsSource="{Binding Events}" VerticalScrollBarVisibility="Default" SeparatorVisibility="None" SelectionMode="None" ItemTapped="Event_Tapped" BackgroundColor="LightGoldenrodYellow" HasUnevenRows="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Source = "{Binding EventImage}"
-                                           WidthRequest="70" HeightRequest="70"
-                                           Grid.Column="0" Aspect="Fill"/>
-                                    <StackLayout Orientation="Vertical" Grid.Column="1">
-                                        <Label Text="{Binding Name}" FontSize="Subtitle" TextColor="Black"/>
-                                        <Label Text="{Binding DateOfEvent,  StringFormat='{0:d}'}" TextColor="Black" FontSize="Subtitle"/>
-                                        <Label Text="{Binding StartOfEvent}" TextColor="Black" FontSize="Subtitle"/>
-                                    </StackLayout>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+            <ListView x:Name="viewEvents" SeparatorColor="Transparent" ItemsSource="{Binding EventList}" ItemTapped="Event_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                    Source="{Binding EventImage}"
+                                    Aspect="AspectFill"
+                                    HeightRequest="30"
+                                    WidthRequest="30"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"/>
+                                <Label  Grid.Column="1"
+                                        Text="{Binding Name}"
+                                        FontAttributes="Bold" />
+                                <Label  Grid.Column="2"
+                                        Text="{Binding DateOfEvent}"
+                                        FontAttributes="Bold" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" BackgroundColor="LightSteelBlue" TextColor="Black"
                     VerticalOptions="End" HorizontalOptions="Center" HeightRequest="40" Margin="0,0,0,10" WidthRequest="175" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>

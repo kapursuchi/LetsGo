@@ -18,6 +18,7 @@ namespace LetsGo.Controller
         private string Eventlocation { get; set; }
         private string Eventdescription { get; set; }
         //private List<string> EventInterests { get; set; }
+        public List<EventProfile> EventList { get; set; }
 
         private Image EventImg { get; set; }
 
@@ -28,6 +29,7 @@ namespace LetsGo.Controller
         {
 
             Events = new List<EventProfile>();
+            GrabEvents();
             SetValues();
 
             InitializeComponent();
@@ -99,7 +101,7 @@ namespace LetsGo.Controller
                 Events.Add(new EventProfile("There are no events you are a part of!", "No description available", DateTime.Today,
                             "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
             }
-            ListEvents.ItemsSource = Events;
+            viewEvents.ItemsSource = Events;
         }
 
         public async void Event_Tapped(object sender, ItemTappedEventArgs e)
@@ -119,6 +121,16 @@ namespace LetsGo.Controller
                 await Navigation.PushAsync(new EventMemberViewController(selectedEvent));
             }
 
+        }
+        public async void GrabEvents()
+        {
+            EventList = await fb.GetMyEvents();
+            viewEvents.ItemsSource = EventList;
+        }
+        protected override void OnAppearing()
+        {
+            GrabEvents();
+            base.OnAppearing();
         }
     }
 }

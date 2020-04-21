@@ -53,12 +53,13 @@ namespace LetsGo.Controller
             }
             if (token == true && community == null)
             {
-                await DisplayAlert("Success", "Event has been created.", "OK");
-                await Navigation.PushAsync(new EventsPageController());
+                await DisplayAlert("Success", "Event has been created. #1", "OK");
+                await Navigation.PopAsync();
+                //await Navigation.PushAsync(new EventsPageController());
             }
             else if (token == true)
             {
-                await DisplayAlert("Success", "Event has been created.", "OK");
+                await DisplayAlert("Success", "Event has been created. #2", "OK");
                 await Navigation.PopAsync();
 
             }

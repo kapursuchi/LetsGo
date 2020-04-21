@@ -321,18 +321,18 @@ namespace LetsGo.Model
             return true;
         }
 
-        /*public async Task<bool> UpdateEventProfile(string Name, string location, bool publicEvent, DateTime Date, List<string> interestList)
+        public async Task<bool> UpdateEventProfile(EventProfile _event, string uName, string description, string location, bool publicEvent, List<string> interestList)
         {
             string CurrentUserEmail = GetCurrentUser();
             var CurrentEvent = (await firebase
                 .Child("Events")
-                .OnceAsync<EventProfile>()).Where(a => a.Object.EventOwner == CurrentUserEmail).FirstOrDefault();
+                .OnceAsync<EventProfile>()).Where(a => a.Object.EventID == _event.EventID).FirstOrDefault();
 
             List<EventProfile> Events = await GetAllEvents();
 
 
 
-            var CurrentUser = Events.Where(a => a.EventOwner == CurrentUserEmail).FirstOrDefault();
+            var CurrentUser = Events.Where(a => a.EventID == _event.EventID).FirstOrDefault();
             DateTime date = CurrentUser.DateOfEvent;
             string email = CurrentUser.EventOwner;
             List<string> interests;
@@ -350,11 +350,24 @@ namespace LetsGo.Model
 
 
             await firebase
-            .Child("userprofiles")
-            .Child(userToUpdate.Key)
-            .PutAsync(new UserProfile() { Name = uName.ToLower(), Email = CurrentUser.Email, ProfileImage = CurrentUser.ProfileImage, FriendRequests = CurrentUser.FriendRequests, DateOfBirth = CurrentUser.DateOfBirth, Password = CurrentUser.Password, Location = location.ToLower(), Interests = interests, Friends = CurrentUser.Friends, PublicAcct = publicAccount });
+            .Child("Events")
+            .Child(CurrentEvent.Key)
+            .PutAsync(new EventProfile() 
+            { Name = uName.ToLower(), 
+              Description = description.ToLower(), 
+              EventImage = CurrentUser.EventImage, 
+              DateOfEvent = CurrentUser.DateOfEvent, 
+              StartOfEvent = CurrentUser.StartOfEvent, 
+              EndOfEvent = CurrentUser.EndOfEvent,
+              Location = location.ToLower(), 
+              Interests = interests,
+              EventOwner = CurrentUser.EventOwner,
+              Members = CurrentUser.Members,
+              EventID = CurrentUser.EventID,
+              PublicEvent = publicEvent 
+            });
             return true;
-        }*/
+        }
 
         public void SetCurrentUser(string email)
         {
@@ -510,6 +523,20 @@ namespace LetsGo.Model
             return interests;
         }
 
+        public async Task<List<string>> GetEventInterests(EventProfile _event)
+        {
+            List<EventProfile> thisEvent = await GetAllEvents();
+            var CurrentEvent = thisEvent.Where(a => a.EventID == _event.EventID).FirstOrDefault();
+            List<string> interests = new List<string>();
+            //if (CurrentCommunity.Interests == null)
+            //    return interests;
+            for (int i = 0; i < CurrentEvent.Interests.Count; i++)
+            {
+                interests.Add(textInfo.ToTitleCase(CurrentEvent.Interests.ElementAt(i)));
+            }
+            return interests;
+        }
+
         public async Task<List<string>> GetUsersInterests(string email)
         {
             UserProfile current = await GetProfileOfUser(email);
@@ -529,6 +556,14 @@ namespace LetsGo.Model
         {
             var communityToDelete = (await firebase.Child("Communities").OnceAsync<CommunityProfile>()).Where(a => a.Object.CommunityID == community.CommunityID).FirstOrDefault();
             await firebase.Child("Communities").Child(communityToDelete.Key).DeleteAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteEvent(EventProfile _event)
+        {
+            var eventToDelete = (await firebase.Child("Events").OnceAsync<EventProfile>()).Where(a => a.Object.EventID == _event.EventID).FirstOrDefault();
+            await firebase.Child("Events").Child(eventToDelete.Key).DeleteAsync();
 
             return true;
         }
@@ -1161,6 +1196,32 @@ namespace LetsGo.Model
                     CommunityRequests = communities.ElementAt(i).Object.CommunityRequests,
                     CommunityID = communities.ElementAt(i).Object.CommunityID,
                     AnnouncementIDs = communities.ElementAt(i).Object.AnnouncementIDs
+                });
+            }
+            return results;
+        }
+        public async Task<List<EventProfile>> GetMyEvents()
+        {
+            string userEmail = GetCurrentUser();
+            List<EventProfile> results = new List<EventProfile>();
+            var events = (await firebase
+                              .Child("Events")
+                              .OnceAsync<EventProfile>()).Where(a => a.Object.Members.Contains(userEmail)).ToList();
+            for (int i = 0; i < events.Count; i++)
+            {
+                results.Add(new EventProfile()
+                {
+                    Name = textInfo.ToTitleCase(events.ElementAt(i).Object.Name),
+                    Description = textInfo.ToTitleCase(events.ElementAt(i).Object.Description),
+                    Location = textInfo.ToTitleCase(events.ElementAt(i).Object.Location),
+                    EventOwner = events.ElementAt(i).Object.EventOwner,
+                    Interests = events.ElementAt(i).Object.Interests,
+                    PublicEvent = events.ElementAt(i).Object.PublicEvent,
+                    EventImage = events.ElementAt(i).Object.EventImage,
+                    DateOfEvent = events.ElementAt(i).Object.DateOfEvent,
+                    Members = events.ElementAt(i).Object.Members,
+                    EventRequests = events.ElementAt(i).Object.EventRequests,
+                    EventID = events.ElementAt(i).Object.EventID
                 });
             }
             return results;
@@ -2390,6 +2451,40 @@ namespace LetsGo.Model
                 for (int i = 0; i < community.Members.Count; i++)
                 {
                     var friend = users.Where(a => a.Email == community.Members.ElementAt(i)).FirstOrDefault();
+                    members.Add(new UserProfile()
+                    {
+                        Name = textInfo.ToTitleCase(friend.Name),
+                        Email = friend.Email,
+                        DateOfBirth = friend.DateOfBirth,
+                        Password = friend.Password,
+                        Location = textInfo.ToTitleCase(friend.Location),
+                        Interests = friend.Interests,
+                        Friends = friend.Friends,
+                        FriendRequests = friend.FriendRequests,
+                        PublicAcct = friend.PublicAcct,
+                        ProfileImage = friend.ProfileImage,
+                        EventRequests = friend.EventRequests,
+                        CommunityRequests = friend.CommunityRequests,
+                        CommunityInvites = friend.CommunityInvites
+                    });
+                }
+
+            }
+            return members;
+
+
+        }
+
+        public async Task<List<UserProfile>> GetEventMembers(EventProfile _event)
+        {
+            List<UserProfile> users = await GetAllUsers();
+
+            List<UserProfile> members = new List<UserProfile>();
+            if (_event.Members != null)
+            {
+                for (int i = 0; i < _event.Members.Count; i++)
+                {
+                    var friend = users.Where(a => a.Email == _event.Members.ElementAt(i)).FirstOrDefault();
                     members.Add(new UserProfile()
                     {
                         Name = textInfo.ToTitleCase(friend.Name),

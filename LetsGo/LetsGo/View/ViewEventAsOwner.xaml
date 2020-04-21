@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="LetsGo.Controller.ViewEventAsOwnerController">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Update Event" Clicked="OnUpdate_Clicked"  Order="Secondary"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Image  x:Name="imgChosen"

@@ -8,30 +8,23 @@
              x:Class="LetsGo.Controller.EventMembersListController">
     <ContentPage.Content>
         <StackLayout>
-            <!--<Label x:Name="ListEvents"
-                   Text="{Binding MemberList}"
-                   TextColor="DarkGray"
-                   HorizontalOptions="Center"
-                   FontSize="Medium"/>-->
-            <!--<ListView x:Name="ListEvents" ItemsSource="{Binding MemberList}" VerticalScrollBarVisibility="Default" SeparatorVisibility="None" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" HasUnevenRows="True">
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+            <ListView x:Name="members" SeparatorVisibility="None" ItemTapped="User_Tapped" ItemsSource="{Binding MembersList}" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                  
-                                <StackLayout Orientation="Vertical" Grid.Column="1">
-                                    <Label x:Name="Members" Text="{Binding MemberList}" FontSize="Subtitle" TextColor="Black"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
+
+                        <ImageCell ImageSource="{Binding ProfileImage}" Text="{Binding Name}" TextColor="Black" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
-            <Label Text="Work in progress" TextColor="Black" FontSize="Body"/>
+
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
