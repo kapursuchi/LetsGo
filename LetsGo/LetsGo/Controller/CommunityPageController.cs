@@ -28,7 +28,17 @@ namespace LetsGo.Controller
         public async void GrabCommunities()
         {
             CommunityList = await fb.GetMyCommunities();
-            viewComms.ItemsSource = CommunityList;
+            if (CommunityList == null || CommunityList.Count == 0)
+            {
+                viewComms.IsVisible = false;
+                noComms.IsVisible = true;
+            }
+            else
+            {
+                viewComms.ItemsSource = CommunityList;
+                noComms.IsVisible = false;
+            }
+            
         }
 
         public async void Community_Tapped(object sender, ItemTappedEventArgs e)

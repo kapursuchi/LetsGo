@@ -20,6 +20,8 @@
 
 
             <Label x:Name="YourEvents" Text="Your Events" TextColor="Black"  FontSize="Medium" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="noEvents" Text="You are not a member of any events... Join one or create your own!" HorizontalOptions="Center" VerticalOptions="Center" Margin="15" TextColor="Black" FontSize="Medium"/>
+
             <ListView x:Name="viewEvents" SeparatorColor="Transparent" ItemsSource="{Binding EventList}" ItemTapped="Event_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
                 <ListView.ItemTemplate>
                     <DataTemplate>

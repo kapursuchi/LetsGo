@@ -24,6 +24,7 @@
                    FontSize="Medium"
                    TextColor="Black"/>
 
+            <Label x:Name="noFeed" Text="There are no public events in your location..." HorizontalOptions="Center" FontSize="Medium" TextColor="Black" VerticalOptions="Center"/>
             <ListView x:Name="FeedView" SeparatorVisibility="None" ItemTapped="OnView" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 

@@ -95,13 +95,17 @@ namespace LetsGo.Controller
         public async void SetValues()
         {
             Events = await fb.GetUserEvents();
-            if(Events.Count == 0)
+            if(Events == null || Events.Count == 0)
             {
-                Events = new List<EventProfile>();
-                Events.Add(new EventProfile("There are no events you are a part of!", "No description available", DateTime.Today,
-                            "00:00:00", "00:00:00", "No location", "No owner", "no interests,", true));
+                viewEvents.IsVisible = false;
+                noEvents.IsVisible = true;
             }
-            viewEvents.ItemsSource = Events;
+            else
+            {
+                viewEvents.ItemsSource = Events;
+                noEvents.IsVisible = false;
+            }
+            
         }
 
         public async void Event_Tapped(object sender, ItemTappedEventArgs e)

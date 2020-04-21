@@ -22,7 +22,8 @@
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Medium"
                    TextColor="Black"
-                   Margin="20"/>
+                   Margin="10"/>
+            <Label x:Name="noComms" Text="You are not a part of any communities... Find one you like or create your own!" TextColor="Black" FontSize="Medium" Margin="15" HorizontalOptions="Center" VerticalOptions="Center"/>
             <ListView x:Name="viewComms" SeparatorColor="Transparent" ItemsSource="{Binding CommunityList}" ItemTapped="Community_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
                 <ListView.ItemTemplate>
                     <DataTemplate>

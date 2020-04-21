@@ -24,6 +24,8 @@
                    FontSize="Medium"
                    TextColor="Black"/>
 
+            <Label x:Name="noFriends" Text="You do not have any friends... Try finding your friends through search!" TextColor="Black" FontSize="Medium" Margin="15" HorizontalOptions="Center" VerticalOptions="Center"/>
+
             <ListView x:Name="friends" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
                 <ListView.ItemTemplate>
 

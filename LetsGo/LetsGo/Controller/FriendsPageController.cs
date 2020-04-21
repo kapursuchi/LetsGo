@@ -38,14 +38,18 @@ namespace LetsGo.Controller
             List<UserProfile> profiles = await fb.GetFriends(current);
             FriendsList = new ObservableCollection<UserProfile>(profiles);
 
-            if (FriendsList.Count == 0)
+            if (FriendsList == null || FriendsList.Count == 0)
             {
-
-                FriendsList.Add(new UserProfile() { Name = "You have no friends..." });
+                noFriends.IsVisible = true;
+                friends.IsVisible = false;
 
             }
-
-            friends.ItemsSource = FriendsList;
+            else
+            {
+                friends.ItemsSource = FriendsList;
+                noFriends.IsVisible = false;
+            }
+           
         }
 
         public async void OnView(object sender, EventArgs e)
