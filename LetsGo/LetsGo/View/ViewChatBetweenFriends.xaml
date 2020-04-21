@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="LightGoldenrodYellow"
+             x:Class="LetsGo.Controller.ViewChatBetweenFriendsController">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+            <StackLayout VerticalOptions="Start">
+                <ListView x:Name="Messages" SeparatorVisibility="None"  SeparatorColor="Transparent" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" SelectionMode="None" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell IsEnabled="False" >
+                                <StackLayout BackgroundColor="{Binding MsgColor}" HorizontalOptions="{Binding SetLayout}" Margin="2" >
+                                    <Label Text="{Binding Message}" VerticalOptions="Center" FontSize="Body" TextColor="Black" Padding="10,0,10,0" />
+                                    <Label Text="{Binding Time, StringFormat='{0:hh:mm tt}'}" TextColor="#6d6e70" Padding="10,0,10,0" FontSize="Micro"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout VerticalOptions="End">
+                <Editor x:Name="messageToSend" WidthRequest="800" HeightRequest="100" Placeholder="Send Message" VerticalOptions="End" TextChanged="OnEditorChanged" BackgroundColor="Ivory" TextColor="Black" PlaceholderColor="Black" Margin="5"/>
+                <Button x:Name="sendMessage" Text="Send" TextColor="Black" BackgroundColor="Gray" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" Clicked="OnSend_Clicked" CornerRadius="15" HeightRequest="40" WidthRequest="60"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

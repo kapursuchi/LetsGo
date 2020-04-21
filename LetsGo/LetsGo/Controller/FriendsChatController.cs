@@ -46,6 +46,7 @@ namespace LetsGo.Controller
                 activeChats.IsVisible = true;
                 noChats.IsVisible = false;
                 search.IsVisible = false;
+                noMatchingSearchResultsLbl.IsVisible = false;
             }
             else
             {
@@ -53,6 +54,7 @@ namespace LetsGo.Controller
                 activeChats.IsVisible = false;
                 noChats.IsVisible = true;
                 search.IsVisible = false;
+                noMatchingSearchResultsLbl.IsVisible = false;
             }
 
             //UserProfile user = await fb.GetUserObject("khali009@cougars.csusm.edu");
@@ -86,10 +88,25 @@ namespace LetsGo.Controller
 
                 }
             }
-            double height = 40 ;
-            search.HeightRequest = SearchResults.Count * height;
-            search.IsVisible = true;
-            search.ItemsSource = SearchResults;
+            if (SearchResults.Count != 0)
+            {
+                double height = 40;
+                search.HeightRequest = SearchResults.Count * height;
+                search.IsVisible = true;
+                search.ItemsSource = SearchResults;
+                noMatchingSearchResultsLbl.IsVisible = false;
+            }
+            else if (SearchResults.Count == 0 )
+            {
+                search.IsVisible = false;
+                noMatchingSearchResultsLbl.IsVisible = true;
+            }
+            else if (searchBar.Text == string.Empty || searchBar.Text == null)
+            {
+                search.IsVisible = false;
+                noMatchingSearchResultsLbl.IsVisible = false;
+            }
+
 
         }
 
@@ -108,6 +125,13 @@ namespace LetsGo.Controller
             SearchResults = new List<UserProfile>();
             search.ItemsSource = SearchResults;
             search.IsVisible = false;
+        }
+
+        public async void OnChat_Clicked(object sender, ItemTappedEventArgs e)
+        {
+            var type = e.ItemIndex;
+            Conversation conversation = await fb.GetConversationWith(ConversationsWith[type].Email);
+            await Navigation.PushAsync(new ViewChatBetweenFriendsController(conversation));
         }
 
        

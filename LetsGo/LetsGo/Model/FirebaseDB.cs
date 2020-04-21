@@ -169,7 +169,11 @@ namespace LetsGo.Model
                         ProfileImage = item.Object.ProfileImage,
                         EventRequests = item.Object.EventRequests,
                         CommunityRequests = item.Object.CommunityRequests,
-                        CommunityInvites = item.Object.CommunityInvites
+                        CommunityInvites = item.Object.CommunityInvites,
+                        EventInvites = item.Object.EventInvites,
+                        FriendRequests = item.Object.FriendRequests,
+                        
+                        
                     }).ToList();
 
             List<UserProfile> AllUsers = users.ToList();
@@ -455,17 +459,21 @@ namespace LetsGo.Model
 
         public async Task<UserProfile> GetUserObject(string email)
         {
-            List<UserProfile> users = await GetAllUsers();
-            var selectedUser = users.Where(a => a.Email == email).FirstOrDefault();
-            return selectedUser;
+            //List<UserProfile> users = await GetAllUsers();
+            var selectedUser = (await firebase.Child("userprofiles").OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
+
+            UserProfile user = selectedUser.Object;
+            return user;
         }
 
         public async Task<string> GetUsersName(string email)
         {
-            List<UserProfile> users = await GetAllUsers();
-            var selectedUser = users.Where(a => a.Email == email).FirstOrDefault();
-            return selectedUser.Name;
+            //List<UserProfile> users = await GetAllUsers();
+            var selectedUser = (await firebase.Child("userprofiles").OnceAsync<UserProfile>()).Where(a => a.Object.Email == email).FirstOrDefault();
+            string name = selectedUser.Object.Name;
+            return name;
         }
+
 
         public async Task<bool> IsPublicUser(string email)
         {
@@ -2538,14 +2546,13 @@ namespace LetsGo.Model
 
         }
 
-        public async void SendMessageToFriend(string recipient, string message)
+        public async Task<ChatMessage> SendMessageToFriend(string conversationID, string recipient, string message)
         {
             string current = GetCurrentUser();
             List<string> sendTo = new List<string>() { recipient };
             ChatMessage newMessage = new ChatMessage(current, sendTo, message, DateTime.Now);
 
-            var conversation = (await firebase.Child("FriendsMessages").OnceAsync<Conversation>()).Where(a => a.Object.ConversationBetween.Contains(current) &&
-                                                                                                    a.Object.ConversationBetween.Contains(recipient)).FirstOrDefault();
+            var conversation = (await firebase.Child("FriendsMessages").OnceAsync<Conversation>()).Where(a => a.Object.ConversationID == conversationID).FirstOrDefault();
 
             List<ChatMessage> messages = conversation.Object.Messages;
             if (messages == null)
@@ -2556,6 +2563,8 @@ namespace LetsGo.Model
                 .Child(conversation.Key)
                 .Child("Messages")
                 .PutAsync(messages);
+
+            return newMessage;
         }
 
         public async Task<List<Conversation>> GetMyConversationsWithFriends()
@@ -2591,6 +2600,24 @@ namespace LetsGo.Model
                     return true;
             }
             return false;
+        }
+
+        public async Task<List<ChatMessage>> GetMessagesFromFriendsConversation(string conversationID)
+        {
+            var conversation = (await firebase.Child("FriendsMessages").OnceAsync<Conversation>()).Where(a => a.Object.ConversationID == conversationID).FirstOrDefault();
+
+            List<ChatMessage> messages = new List<ChatMessage>();
+
+            if (conversation.Object.Messages != null)
+            {
+                for (int i = 0; i < conversation.Object.Messages.Count; i++)
+                {
+                    messages.Add(conversation.Object.Messages.ElementAt(i));
+                }
+            }
+            return messages;
+
+
         }
 
 
