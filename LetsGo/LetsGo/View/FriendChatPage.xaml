@@ -9,8 +9,27 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Friends Chat Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                VerticalOptions="Start" 
+                HorizontalOptions="Center"
+                   TextColor="Black"/>
+            <SearchBar x:Name="searchBar" Placeholder="Start Chat with a Friend" PlaceholderColor="Gray" VerticalOptions="Start" TextColor="Black" SearchButtonPressed="Search_Text"  CancelButtonColor="Transparent" />
+            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None" ItemTapped="OnSearch_Tapped" BackgroundColor="LightGoldenrodYellow">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding ProfileImage}" Text="{Binding Name}" TextColor="Black"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+             </ListView>
+
+            <Label x:Name="noChats" Text="You have no active chats with any friends!" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Margin="15"/>
+            <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" HorizontalOptions="Center" />
+            <ListView x:Name="chatWithFriends" HorizontalOptions="Center" HasUnevenRows="True" BackgroundColor="LightGoldenrodYellow" SeparatorVisibility="None" SelectionMode="None" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding ProfileImage}" Text="{Binding Name}" TextColor="Black" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

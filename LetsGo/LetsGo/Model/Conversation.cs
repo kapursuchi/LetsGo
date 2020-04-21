@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace LetsGo.Model
+{
+    public class Conversation
+    {
+        public List<string> ConversationBetween { get; set; }
+
+        public string ConversationID { get; set; }
+
+        public List<ChatMessage> Messages { get; set; }
+        public Conversation(string eventOrCommID)
+        {
+            List<string> usersInConversation = new List<string>();
+            usersInConversation.Add(eventOrCommID);
+            ConversationID = eventOrCommID;
+            ConversationBetween = usersInConversation;
+            Messages = new List<ChatMessage>();
+        }
+
+        public Conversation(string currentUser, UserProfile userToChatWith)
+        {
+            List<string> usersInConversation = new List<string>();
+            usersInConversation.Add(currentUser);
+            usersInConversation.Add(userToChatWith.Email);
+            ConversationID = Guid.NewGuid().ToString();
+            ConversationBetween = usersInConversation;
+            Messages = new List<ChatMessage>();
+        }
+
+        public Conversation()
+        {
+
+        }
+    }
+}
