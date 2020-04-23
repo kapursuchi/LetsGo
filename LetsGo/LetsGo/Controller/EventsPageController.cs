@@ -29,7 +29,7 @@ namespace LetsGo.Controller
         {
 
             Events = new List<EventProfile>();
-            GrabEvents();
+            //GrabEvents();
             SetValues();
 
             InitializeComponent();
@@ -133,7 +133,8 @@ namespace LetsGo.Controller
         }
         protected override void OnAppearing()
         {
-            GrabEvents();
+            //GrabEvents();
+            SetValues();
             base.OnAppearing();
         }
     }

@@ -128,7 +128,7 @@ namespace LetsGo.Controller
         {
             bool done = profile.LogoutUser();
             if (done)
-                await Navigation.PushAsync(new LoginController());
+                await Navigation.PopToRootAsync();
 
         }
 

@@ -147,7 +147,6 @@
 
 
                 <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
-                <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
             </StackLayout>
         </ScrollView>

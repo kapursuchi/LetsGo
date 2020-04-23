@@ -236,21 +236,6 @@ namespace LetsGo.Controller
             inviteOnly = e.Value;
         }
 
-        public async void Delete_Clicked(object sender, EventArgs e)
-        {
-            bool choice = await DisplayAlert("Delete Community", "Are you sure you want to delete this community? This action cannot be undone.", "OK", "Cancel");
-            // user selects cancel on prompt
-            if (choice == false)
-            {
-                return;
-            }
-            // user selects OK, delete community
-            else
-            {
-                await fb.DeleteCommunity(community);
-                await Navigation.PopToRootAsync();
-            }
-        }
 
         public async void Upload_Picture_Clicked(object sender, EventArgs e)
         {

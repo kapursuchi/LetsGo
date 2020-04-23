@@ -95,7 +95,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            
+            <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
+
 
         </StackLayout>
     </ContentPage.Content>

@@ -287,7 +287,7 @@ namespace LetsGo.Controller
             else
             {
                 await fb.DeleteEvent(thisEvent);
-                await Navigation.PopToRootAsync();
+                await Navigation.PopAsync();
             }
         }
         public async void OnInviteUsers_Clicked(object sender, EventArgs e)

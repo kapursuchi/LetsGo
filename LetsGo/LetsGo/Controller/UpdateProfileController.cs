@@ -205,7 +205,7 @@ namespace LetsGo.Controller
             if (deleted)
             {
                 await DisplayAlert("Success", "Your account has been deleted", "OK");
-                await Navigation.PushAsync(new LoginController());
+                await Navigation.PopToRootAsync();
             }    
         }
 

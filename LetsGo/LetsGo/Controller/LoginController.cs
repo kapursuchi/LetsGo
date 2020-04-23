@@ -29,9 +29,12 @@ namespace LetsGo.Controller
             string emailAddress = email.Text;
             string pass = password.Text;
 
+
             bool LoggedIn = await loginPage.LoginUserWithEmailPass(emailAddress, pass);
             if (LoggedIn)
             {
+                email.Text = string.Empty;
+                password.Text = string.Empty;
                 var auth = DependencyService.Get<IFirebaseAuthenticator>();
                 auth.SetCurrentUser(emailAddress);
                 await Navigation.PushAsync(new NavigationBarController());

@@ -130,7 +130,7 @@
                             Toggled="On_Toggled"
                             />
             </Grid>
-            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="100"/>
+            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

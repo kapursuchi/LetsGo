@@ -17,7 +17,7 @@
                 </Label.IsVisible>
             </Label>
 
-            <Label x:Name="noChats" Text="You have no active chats with any communities!" TextColor="Black" VerticalOptions="CenterAndExpand"   FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
+            <Label x:Name="noChats" Text="You have no currently active chats with any communities!" TextColor="Black" VerticalOptions="CenterAndExpand"   FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
             <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
             <ListView x:Name="chatWithCommunities" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="LightGoldenrodYellow" SeparatorVisibility="None" SelectionMode="None" >
                 <ListView.ItemTemplate>

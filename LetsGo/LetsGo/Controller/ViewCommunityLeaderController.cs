@@ -232,21 +232,6 @@ namespace LetsGo.Controller
 
         }
 
-        public async void OnDeleteCommunity_Pressed(object sender, EventArgs e)
-        {
-            bool choice = await DisplayAlert("Delete Community", "Are you sure you want to delete this community? This action cannot be undone.", "OK", "Cancel");
-            // user selects cancel on prompt
-            if (choice == false)
-            {
-                return;
-            }
-            // user selects OK, delete community
-            else
-            {
-                await fb.DeleteCommunity(community);
-                await Navigation.PopToRootAsync();
-            }
-        }
 
         public async void OnInviteUsers_Clicked(object sender, EventArgs e)
         {
@@ -258,10 +243,33 @@ namespace LetsGo.Controller
             await Navigation.PushAsync(new CreateEventController(community));
         }
 
+        public async void Delete_Clicked(object sender, EventArgs e)
+        {
+            bool choice = await DisplayAlert("Delete Community", "Are you sure you want to delete this community? This action cannot be undone.", "OK", "Cancel");
+            // user selects cancel on prompt
+            if (choice == false)
+            {
+                return;
+            }
+            // user selects OK, delete community
+            else
+            {
+                await fb.DeleteCommunity(community);
+                await Navigation.PopAsync();
+            }
+        }
+
         public async void OnUpdate_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new UpdateCommunityController());
         }
-        
+
+        protected override void OnAppearing()
+        {
+            var auth = DependencyService.Get<IFirebaseAuthenticator>();
+            community = auth.GetCurrentCommunity();
+            SetValues(community);
+            base.OnAppearing();
+        }
     }
 }
