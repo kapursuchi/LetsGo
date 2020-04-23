@@ -8,9 +8,24 @@
              x:Class="LetsGo.Controller.EventsChatController">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Events Chat Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="" Margin="15">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>true</OnPlatform.iOS>
+                        <OnPlatform.Android>false</OnPlatform.Android>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+
+            <Label x:Name="noChats" Text="You have no active chats with any events!" TextColor="Black" VerticalOptions="CenterAndExpand" FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
+            <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
+            <ListView x:Name="chatWithEvents" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="LightGoldenrodYellow" SeparatorVisibility="None" SelectionMode="None" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding EventImage}" Text="{Binding Name}" TextColor="Black" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

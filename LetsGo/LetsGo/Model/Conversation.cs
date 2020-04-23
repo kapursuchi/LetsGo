@@ -11,11 +11,18 @@ namespace LetsGo.Model
         public string ConversationID { get; set; }
 
         public List<ChatMessage> Messages { get; set; }
-        public Conversation(string eventOrCommID)
+        public Conversation(CommunityProfile community)
         {
-            List<string> usersInConversation = new List<string>();
-            usersInConversation.Add(eventOrCommID);
-            ConversationID = eventOrCommID;
+            List<string> usersInConversation = community.Members;
+            ConversationID = community.CommunityID;
+            ConversationBetween = usersInConversation;
+            Messages = new List<ChatMessage>();
+        }
+
+        public Conversation(EventProfile eventProfile)
+        {
+            List<string> usersInConversation = eventProfile.Members;
+            ConversationID = eventProfile.EventID;
             ConversationBetween = usersInConversation;
             Messages = new List<ChatMessage>();
         }
