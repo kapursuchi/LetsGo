@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.FriendsChatController">
     <ContentPage.Content>
         <StackLayout>
@@ -18,7 +18,7 @@
             </Label>
             <SearchBar x:Name="searchBar" Placeholder="Start Chat with a Friend" PlaceholderColor="Gray" VerticalOptions="Start" TextColor="Black" SearchButtonPressed="Search_Text"  CancelButtonColor="Transparent" />
             <Label x:Name="noMatchingSearchResultsLbl" Text="No Matching Search Results" TextColor="Black" HorizontalOptions="Center" Margin="10" />
-            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None" ItemTapped="OnSearch_Tapped" BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None" ItemTapped="OnSearch_Tapped" BackgroundColor="#FAF9F9">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ProfileImage}" Text="{Binding Name}" TextColor="Black"/>
@@ -28,7 +28,7 @@
 
             <Label x:Name="noChats" Text="You have no active chats with any friends!" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Margin="15"/>
             <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" />
-            <ListView x:Name="chatWithFriends" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="LightGoldenrodYellow" SeparatorVisibility="None" SelectionMode="None" >
+            <ListView x:Name="chatWithFriends" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="#FAF9F9" SeparatorVisibility="None" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ProfileImage}" Text="{Binding Name}" TextColor="Black" />

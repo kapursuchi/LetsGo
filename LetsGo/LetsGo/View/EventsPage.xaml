@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.EventsPageController">
     <ContentPage.Content>
         <StackLayout>
@@ -22,7 +22,7 @@
             <Label x:Name="YourEvents" Text="Your Events" TextColor="Black"  FontSize="Medium" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
             <Label x:Name="noEvents" Text="You are not a member of any events... Join one or create your own!" HorizontalOptions="Center" VerticalOptions="Center" Margin="15" TextColor="Black" FontSize="Medium"/>
 
-            <ListView x:Name="viewEvents" SeparatorColor="Transparent" ItemsSource="{Binding EventList}" ItemTapped="Event_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="viewEvents" SeparatorColor="Transparent" ItemsSource="{Binding EventList}" ItemTapped="Event_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="#FAF9F9">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -54,8 +54,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="End" HorizontalOptions="Center" HeightRequest="40" Margin="0,0,0,10" WidthRequest="175" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
+            <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" BackgroundColor="#bee3db" TextColor="Black"
+                    VerticalOptions="End" HorizontalOptions="Center" HeightRequest="40" Margin="0,0,0,10" WidthRequest="175" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
 
 
         </StackLayout>

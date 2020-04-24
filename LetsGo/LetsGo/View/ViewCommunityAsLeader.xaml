@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
@@ -46,7 +46,7 @@
                     />
             <Button x:Name="leader"
                     Text="{Binding LeaderName}"
-                    TextColor="Blue"
+                    TextColor="#51aec2"
                     BackgroundColor="Transparent"
                     BorderColor="Transparent"
                     FontSize="Medium"
@@ -77,7 +77,7 @@
                     HorizontalOptions="Center"
                     Margin="0,10,0,0"
                     />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="#FAF9F9" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

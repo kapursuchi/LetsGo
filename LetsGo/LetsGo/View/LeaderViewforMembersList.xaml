@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.LeaderMembersListController">
     <ContentPage.Content>
         <StackLayout>
@@ -23,7 +24,7 @@
                    Margin="5"
                    TextColor="Black"/>
 
-            <ListView x:Name="members" SeparatorVisibility="None" ItemTapped="User_Tapped" ItemsSource="{Binding MembersList}" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="members" SeparatorVisibility="None" ItemTapped="User_Tapped" ItemsSource="{Binding MembersList}" SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
@@ -32,7 +33,7 @@
                                 <Grid   x:Name="member"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Center"
-                                            BackgroundColor="LightGoldenrodYellow">
+                                            BackgroundColor="#FAF9F9">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
@@ -67,7 +68,7 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            <Button x:Name="done" Text="Update Members" Clicked="OnRemoveFinished_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
+            <Button x:Name="done" Text="Update Members" Clicked="OnRemoveFinished_Clicked" BackgroundColor="#bee3db" HorizontalOptions="Center" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
 
         </StackLayout>
     </ContentPage.Content>

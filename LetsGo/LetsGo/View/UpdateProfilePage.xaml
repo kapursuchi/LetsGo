@@ -4,21 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.UpdateProfileController">
 
     <ContentPage.Content>
-
-        <StackLayout>
-            <Label Text=" " Margin="15">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="x:Boolean">
-                        <OnPlatform.iOS>true</OnPlatform.iOS>
-                        <OnPlatform.Android>false</OnPlatform.Android>
-                    </OnPlatform>
-                </Label.IsVisible>
-            </Label>
-            <Label Text="Edit Profile"
+        <ScrollView>
+            <StackLayout>
+                <Label Text=" " Margin="15">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <OnPlatform.iOS>true</OnPlatform.iOS>
+                            <OnPlatform.Android>false</OnPlatform.Android>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
+                <Label Text="Edit Profile"
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" 
                    FontSize="Medium"
@@ -26,35 +26,35 @@
                    Margin="10"/>
 
 
-            <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
+                <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
 
-            <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#564aff"   WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"/>
+                <Button x:Name="changepicture" Text="Change Profile Picture" Clicked="Upload_Picture_Clicked" BackgroundColor="Transparent" TextColor="#51aec2"   WidthRequest="200" VerticalOptions="Start" HorizontalOptions="Center"/>
 
-            <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-            <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="Ivory" />
-            <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-            <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
-            <Label x:Name="interstLbl" Text="    Interests" TextColor="Black"  HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="#e6f4f7" />
+                <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="#e6f4f7"  />
+                <Label x:Name="interstLbl" Text="    Interests" TextColor="Black"  HorizontalOptions="Start" VerticalOptions="Center"/>
 
-            <ListView x:Name="interests" SeparatorVisibility="None" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
+                <ListView x:Name="interests" SeparatorVisibility="None" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
 
-                <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
 
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Grid   x:Name="interestList"
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid   x:Name="interestList"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Center"
-                                            BackgroundColor="LightGoldenrodYellow">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label      x:Name="interest"
+                                            BackgroundColor="#FAF9F9">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label      x:Name="interest"
                                                     Text="{Binding .}"
                                                     TextColor="Black"
                                                     FontSize="Body"
@@ -63,40 +63,40 @@
                                                     VerticalOptions="Center"
                                                     Grid.Row="0"
                                                     Grid.Column="0" />
-                                    <Button    x:Name="remove"
+                                        <Button    x:Name="remove"
                                                     Text="Remove"
                                                     HorizontalOptions="Center"
                                                    VerticalOptions="Center"
                                                     BackgroundColor="Transparent"
                                                CommandParameter="{Binding .}"
-                                                    TextColor="Crimson"
+                                                    TextColor="#4281a4"
                                                     Grid.Row="0"
                                                     Grid.Column="1"
                                                     Clicked="OnRemove"/>
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
-            </ListView>
+                </ListView>
 
-            <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
 
-            <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="Ivory"/>
+                <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="#e6f4f7"/>
 
-            <!--<Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>-->
-            <Grid   x:Name="publicAccountSwitch"
+                <!--<Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>-->
+                <Grid   x:Name="publicAccountSwitch"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label      x:Name="publicAcct"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label      x:Name="publicAcct"
                             Text="Public Account"
                             Margin="10"
                             TextColor="Black"
@@ -104,7 +104,7 @@
                             HorizontalOptions="Center"
                             Grid.Row="0"
                             Grid.Column="0" />
-                <Switch     x:Name="publicAcctSwitch"
+                    <Switch     x:Name="publicAcctSwitch"
                             OnColor="PowderBlue"
                             ThumbColor="Black"
                             Margin="10"
@@ -115,15 +115,15 @@
                             IsToggled="{Binding istoggled}"
                             Toggled="On_Toggled"
                             />
-            </Grid>
+                </Grid>
 
 
 
-            <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
-            <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
+                <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="#bee3db" TextColor="Black"  HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
+                <Button x:Name="delete" Text="Delete Account" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
-        </StackLayout>
-
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 </ContentPage>

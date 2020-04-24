@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenRodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.UpdateEventController">
     <ContentPage.Content>
         <ScrollView>
@@ -23,7 +23,7 @@
 
                 <Button x:Name="changePicture"
                         Text="Choose Image"
-                        BackgroundColor="LightSteelBlue"
+                        BackgroundColor="#bee3db"
                         FontSize="Micro"
                         TextColor="Black"
                         HeightRequest="32"
@@ -31,16 +31,16 @@
                         Grid.Column="1"
                         Margin="5"
                         HorizontalOptions="Center"
-                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"
                         WidthRequest="100"
                         />
 
                 <Label x:Name="nameLbl" Text="    Name" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="Ivory" />
+                <Entry x:Name="name" Text="{Binding Name}"  TextColor="Black" VerticalOptions="Center"  BackgroundColor="#e6f4f7" />
                 <Label x:Name="locationLbl" Text="    Location" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
+                <Entry x:Name="location" Text="{Binding Location}" TextColor="Black" VerticalOptions="Center" BackgroundColor="#e6f4f7"  />
                 <Label x:Name="descriptionLbl" Text="    Description" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Entry x:Name="desc" Text="{Binding Description}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"  />
+                <Entry x:Name="desc" Text="{Binding Description}" TextColor="Black" VerticalOptions="Center" BackgroundColor="#e6f4f7"  />
                 <Label x:Name="interstLbl" Text="    Interests" TextColor="Black"  HorizontalOptions="Start" VerticalOptions="Center"/>
 
                 <ListView x:Name="interests" SeparatorVisibility="None"  Margin="10" HasUnevenRows="True" SeparatorColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" SelectionMode="None"  >
@@ -53,7 +53,7 @@
                                     <Grid   x:Name="interestList"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Center"
-                                            BackgroundColor="LightGoldenrodYellow">
+                                            BackgroundColor="#FAF9F9">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                         </Grid.RowDefinitions>
@@ -75,7 +75,7 @@
                                                    VerticalOptions="Center"
                                                     BackgroundColor="Transparent"
                                                CommandParameter="{Binding .}"
-                                                    TextColor="Crimson"
+                                                    TextColor="#4281a4"
                                                     Grid.Row="0"
                                                     Grid.Column="1"
                                                     Clicked="OnRemove"/>
@@ -91,7 +91,7 @@
 
                 <Label x:Name="intersttoadd" Text="    Add Interests" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
 
-                <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="Ivory"/>
+                <Entry x:Name="intToAdd" Placeholder="Interests to add (comma separated)" TextColor="Black" BackgroundColor="#e6f4f7"/>
 
                 <!--<Entry x:Name="interests" Text="{Binding Interests}" TextColor="Black" VerticalOptions="Center" BackgroundColor="Ivory"/>-->
                 <Grid   x:Name="publicAccountSwitch"
@@ -127,7 +127,7 @@
 
 
 
-                <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="LightSteelBlue" TextColor="Black"  HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
+                <Button x:Name="update" Text="Save" Clicked="Save_Update_Clicked" WidthRequest="75" HeightRequest="40" BackgroundColor="#bee3db" TextColor="Black"  HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
                 <Button x:Name="delete" Text="Delete Event" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
             </StackLayout>

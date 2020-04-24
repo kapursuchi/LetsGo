@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controller="clr-namespace:LetsGo.Controller"
              mc:Ignorable="d"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.CommunityMembersListController">
     <ContentPage.Content>
         <StackLayout>
@@ -23,7 +24,7 @@
                    Margin="5"
                    TextColor="Black"/>
 
-            <ListView x:Name="members" SeparatorVisibility="None" ItemTapped="User_Tapped" ItemsSource="{Binding MembersList}" SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="members" SeparatorVisibility="None" ItemTapped="User_Tapped" ItemsSource="{Binding MembersList}" SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
 

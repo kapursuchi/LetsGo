@@ -4,28 +4,28 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundImageSource="backgroundimage.png"
              x:Class="LetsGo.Controller.CreateAccountController">
 
     <ContentPage.Content>
 
         <StackLayout VerticalOptions="Start">
-            <Image Source="LetsGoLogo.PNG" VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="35"/>
+            <Image Source="transparentlogowithname.png" VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="35"/>
             <Label Text="Create Account" 
                    VerticalOptions="Start"
                    HorizontalOptions="Center" 
-                   TextColor="Black" 
+                   TextColor="White" 
                    FontSize="Title"  
             />
 
-            <Entry x:Name="name" Placeholder="Name" VerticalOptions="Start" BackgroundColor="Ivory" />
+            <Entry x:Name="name" Placeholder="Name" TextColor="White" VerticalOptions="Start" BackgroundColor="#faf9f9" />
 
-            <Entry x:Name="email" Placeholder="Email" VerticalOptions="Start" BackgroundColor="Ivory"/>
+            <Entry x:Name="email" Placeholder="Email" TextColor="White" VerticalOptions="Start" BackgroundColor="#faf9f9"/>
 
             <!--Password Entry-->
-            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" Placeholder="Password" BackgroundColor="Ivory"/>
+            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" TextColor="White" Placeholder="Password" BackgroundColor="#faf9f9"/>
 
-            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" VerticalOptions="Start" IsPassword="True" BackgroundColor="Ivory"/>
+            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" TextColor="White" VerticalOptions="Start" IsPassword="True" BackgroundColor="#faf9f9"/>
 
             <Grid   x:Name="dateofbirth"
                     VerticalOptions="Center"
@@ -39,13 +39,14 @@
                 </Grid.ColumnDefinitions>
                 <Label      x:Name="dob"
                             Text="Date of Birth"
-                            TextColor="Black"
+                            TextColor="White"
                             FontSize="Body"
                             HorizontalOptions="Center"
                             Grid.Row="0"
                             Grid.Column="0" />
                 <DatePicker MaximumDate="3/16/2008"
-                            BackgroundColor="Ivory"
+                            BackgroundColor="#FAFA9"
+                            TextColor="White"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
                             Grid.Column="1"
@@ -67,7 +68,7 @@
                 </Grid.ColumnDefinitions>
                 <Label      x:Name="publicAcct"
                             Text="Public Account"
-                            TextColor="Black"
+                            TextColor="White"
                             FontSize="Body"
                             HorizontalOptions="Center"
                             Grid.Row="0"
@@ -81,9 +82,9 @@
                             Toggled="On_Toggled"
                             />
             </Grid>
-                       
-            <Button x:Name="createAccount" Text="Create Account" WidthRequest="150" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="LightSteelBlue" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
-            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Transparent" TextColor="Red"/>
+
+            <Button x:Name="createAccount" Text="Create Account" WidthRequest="150" HeightRequest="40" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="#bee3db" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
+            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Transparent" TextColor="White"/>
         </StackLayout>
 
     </ContentPage.Content>

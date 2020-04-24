@@ -5,10 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local ="clr-namespace:LetsGo.Controller;assembly=LetsGo"
-            BarBackgroundColor="#80b3d1"
+            BarBackgroundColor="#51aec2"
             BarTextColor="Black"
             SelectedTabColor="White"
-            BackgroundColor="LightGoldenrodYellow"
+            BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.EventMemberViewController">
     <!--Pages can be added as references or inline-->
     <TabbedPage.Children>

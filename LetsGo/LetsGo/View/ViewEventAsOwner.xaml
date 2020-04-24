@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.ViewEventAsOwnerController">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Update Event" Clicked="OnUpdate_Clicked"  Order="Secondary"/>
@@ -50,7 +51,7 @@
                     />
             <Button x:Name="owner"
                     Text="{Binding OwnerName}"
-                    TextColor="Blue"
+                    TextColor="#51aec2"
                     BackgroundColor="Transparent"
                     BorderColor="Transparent"
                     FontSize="Medium"
@@ -80,7 +81,7 @@
                     HorizontalOptions="Center"
                     Margin="0,10,0,0"
                     />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="#FAF9F9" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -109,40 +110,40 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="changePicture"
                         Text="Choose Image"
-                        BackgroundColor="LightSteelBlue"
+                        BackgroundColor="#bee3db"
                         FontSize="Micro"
                         HeightRequest="50"
                         Clicked="Upload_Picture_Clicked"
                         Grid.Column="0"
                         Margin="5"
                         HorizontalOptions="Center"
-                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"
                         WidthRequest="100"
                         />
                 <Button x:Name="deleteSelected"
                         Text="Delete Event"
                         TextColor="Red"
-                        BackgroundColor="LightSteelBlue"
+                        BackgroundColor="#bee3db"
                         FontSize="Micro"
                         HeightRequest="50"
                         Clicked="OnDeleteEvent_Pressed"
                         Grid.Column="1"
                         Margin="5"
                         HorizontalOptions="Center"
-                        BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+                        BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"
                         WidthRequest="120"
                          />
                 <Button x:Name="inviteUsers"
                         Text="Invite Users"
                         Clicked="OnInviteUsers_Clicked"
                         TextColor="Black"
-                        BackgroundColor="LightSteelBlue"
+                        BackgroundColor="#bee3db"
                         FontSize="Micro"
                         HeightRequest="50"
                         WidthRequest="100"
                         Margin="5"
-                        BorderWidth="3" 
-                        BorderColor="Navy" CornerRadius="15"
+                        BorderWidth="1" 
+                        BorderColor="#89b0ae" CornerRadius="15"
                         Grid.Column="2"/>
             </Grid>
         </StackLayout>

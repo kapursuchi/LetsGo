@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.FeedController">
     <ContentPage.Content>
         <StackLayout>
@@ -25,7 +25,7 @@
                    TextColor="Black"/>
 
             <Label x:Name="noFeed" Text="There are no public events in your location..." HorizontalOptions="Center" FontSize="Medium" TextColor="Black" VerticalOptions="Center"/>
-            <ListView x:Name="FeedView" SeparatorVisibility="None" ItemTapped="OnView" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="FeedView" SeparatorVisibility="None" ItemTapped="OnView" SeparatorColor="Transparent" ItemsSource="{Binding FeedEvents}" BackgroundColor="#FAF9F9" SelectionMode="None" >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>

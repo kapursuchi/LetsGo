@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.CreateEventController">
     <ContentPage.Content>
         <StackLayout>
@@ -14,12 +14,12 @@
                    FontSize="Medium"
                    TextColor="Black"
                    Margin="20"/>
-            <Entry x:Name="Ename" Placeholder="Event Name" VerticalOptions="Start" BackgroundColor="Ivory" />
+            <Entry x:Name="Ename" Placeholder="Event Name" VerticalOptions="Start" BackgroundColor="#e6f4f7" />
 
-            <Entry x:Name="Edetails" Placeholder="Event Details" VerticalOptions="Start" BackgroundColor="Ivory"/>
+            <Entry x:Name="Edetails" Placeholder="Event Details" VerticalOptions="Start" BackgroundColor="#e6f4f7"/>
 
-            <Entry x:Name="city" Placeholder="Location of Event"  VerticalOptions="Start" BackgroundColor="Ivory"/>
-            <Entry x:Name="interests" Placeholder="Interest Tags for Event (Comma Separated)" VerticalOptions="Start" BackgroundColor="Ivory"/>
+            <Entry x:Name="city" Placeholder="Location of Event"  VerticalOptions="Start" BackgroundColor="#e6f4f7"/>
+            <Entry x:Name="interests" Placeholder="Interest Tags for Event (Comma Separated)" VerticalOptions="Start" BackgroundColor="#e6f4f7"/>
 
             <Grid   x:Name="dateofEvent"
                     VerticalOptions="Center"
@@ -39,7 +39,7 @@
                             Grid.Row="0"
                             Grid.Column="0" />
                 <DatePicker 
-                            BackgroundColor="Ivory"
+                            BackgroundColor="#e6f4f7"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
                             Grid.Column="1"
@@ -66,12 +66,13 @@
                             Grid.Column="0" />
                 <TimePicker 
                     x:Name="_startTime"
-                            BackgroundColor="Ivory"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
+                    BackgroundColor="#e6f4f7"
                             Grid.Column="1"
                             Time ="01:00:00"
                             Format="T"
+                    
                             PropertyChanged="OnStartTimeSelected"
                             />
             </Grid>
@@ -95,7 +96,7 @@
                             Grid.Column="0" />
                 <TimePicker 
                             x:Name="_endTime"
-                            BackgroundColor="Ivory"
+                            BackgroundColor="#e6f4f7"
                             HorizontalOptions="CenterAndExpand"
                             Grid.Row="0"
                             Grid.Column="1"
@@ -130,7 +131,7 @@
                             Toggled="On_Toggled"
                             />
             </Grid>
-            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
+            <Button x:Name="createEvent" Text="Create Event" Clicked="CreateEvent_Clicked" BackgroundColor="#bee3db" HorizontalOptions="Center" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

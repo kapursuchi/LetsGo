@@ -5,10 +5,10 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:local ="clr-namespace:LetsGo.Controller;assembly=LetsGo"
             mc:Ignorable="d"
-            BarBackgroundColor="#80b3d1"
+            BarBackgroundColor="#51aec2"
             BarTextColor="Black"
             SelectedTabColor="White"
-            BackgroundColor="LightGoldenrodYellow"
+            BackgroundColor="#FAF9F9"
             x:Class="LetsGo.Controller.NavigationBarController">
 
 
@@ -18,6 +18,6 @@
         <local:SocialController Icon="socialicon.png" HeightRequest="18" WidthRequest="18"  Title="Social"/>
         <local:ProfileController Icon="profileicon.png" HeightRequest="18" WidthRequest="18" Title="Profile"    />
         <local:NotificationController Icon="notificationicon.png" HeightRequest="18" WidthRequest="18" Title="Notifications" />
-        <local:ChatController Icon="chaticon.jpg" HeightRequest="18" WidthRequest="18" Title="Chat"    />
+        <local:ChatController Icon="chaticon.png" HeightRequest="18" WidthRequest="18" Title="Chat"    />
     </TabbedPage.Children>
 </TabbedPage>

@@ -247,6 +247,12 @@
     <BundleResource Include="Resources\communityimage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\chaticon.jpg" />
+    <BundleResource Include="Resources\transparentlogowithname.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\backgroundimage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chaticon.png" />
   </ItemGroup>
 </Project>

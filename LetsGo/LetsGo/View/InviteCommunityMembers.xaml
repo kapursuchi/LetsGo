@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="LetsGo.Controller.InviteCommunityMembersController"
-             BackgroundColor="LightGoldenrodYellow">
+             BackgroundColor="#FAF9F9">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="" Margin="15">
@@ -21,7 +21,7 @@
             <ScrollView>
                 <SearchBar x:Name="searchBar" Placeholder="Search for Friend to Invite"  PlaceholderColor="Gray" VerticalOptions="StartAndExpand" TextColor="Black" SearchButtonPressed="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>
             </ScrollView>
-            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="search" SeparatorVisibility="None"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="#FAF9F9">
                 <ListView.ItemTemplate>
                     <DataTemplate>
 
@@ -30,7 +30,7 @@
                                 <Grid   x:Name="friends"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Center"
-                                            BackgroundColor="LightGoldenrodYellow">
+                                            BackgroundColor="#FAF9F9">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
@@ -65,7 +65,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button x:Name="done" Text="Done Inviting!" Clicked="OnDone_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="100"/>
+            <Button x:Name="done" Text="Done Inviting!" Clicked="OnDone_Clicked" BackgroundColor="#bee3db" HorizontalOptions="Center" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" HeightRequest="40" WidthRequest="100"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

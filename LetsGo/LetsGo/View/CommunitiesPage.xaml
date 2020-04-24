@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.CommunityPageController">
     <ContentPage.Content>
         <StackLayout>
@@ -24,7 +24,7 @@
                    TextColor="Black"
                    Margin="10"/>
             <Label x:Name="noComms" Text="You are not a part of any communities... Find one you like or create your own!" TextColor="Black" FontSize="Medium" Margin="15" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <ListView x:Name="viewComms" SeparatorColor="Transparent" ItemsSource="{Binding CommunityList}" ItemTapped="Community_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="viewComms" SeparatorColor="Transparent" ItemsSource="{Binding CommunityList}" ItemTapped="Community_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="#FAF9F9">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -53,8 +53,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button x:Name="startCommunity" Text="Start a Community" Clicked="StartCommunity_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" WidthRequest="175" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
+            <Button x:Name="startCommunity" Text="Start a Community" Clicked="StartCommunity_Clicked" BackgroundColor="#bee3db" TextColor="Black"
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" WidthRequest="175" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.PrivateEventController">
     <ContentPage.Content>
         <StackLayout>
@@ -35,7 +35,7 @@
             <Label x:Name="privateEvt" Text="This event is private. Request to join this event to view more details!" TextColor="Black" FontSize="Medium"
                    HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="15"/>
 
-            <Button x:Name="request" Clicked="Request_Clicked" WidthRequest="150" Text="Request to Join" BackgroundColor="LightSteelBlue" HeightRequest="40" Margin="15" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End" BorderColor="Navy" BorderWidth="3" CornerRadius="15"/>
+            <Button x:Name="request" Clicked="Request_Clicked" WidthRequest="150" Text="Request to Join" BackgroundColor="#bee3db" HeightRequest="40" Margin="15" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

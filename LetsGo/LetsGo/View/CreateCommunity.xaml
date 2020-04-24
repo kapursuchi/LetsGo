@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.CreateCommunityController">
     <ContentPage.Content>
         <StackLayout>
@@ -14,10 +14,10 @@
                    FontSize="Medium"
                    TextColor="Black"
                    Margin="20"/>
-            <Entry x:Name="eName" Placeholder="Community Name" VerticalOptions="Start" BackgroundColor="Ivory" />
-            <Entry x:Name="eDesc" Placeholder="What is your community about?" VerticalOptions="Start" BackgroundColor="Ivory"/>
-            <Entry x:Name="eLoc" Placeholder="Location" VerticalOptions="Start" BackgroundColor="Ivory" />
-            <Entry x:Name="interests" Placeholder="Community Interests (Comma Separated)" VerticalOptions="Start" BackgroundColor="Ivory"/>
+            <Entry x:Name="eName" Placeholder="Community Name" VerticalOptions="Start" BackgroundColor="#e6f4f7" />
+            <Entry x:Name="eDesc" Placeholder="What is your community about?" VerticalOptions="Start" BackgroundColor="#e6f4f7"/>
+            <Entry x:Name="eLoc" Placeholder="Location" VerticalOptions="Start" BackgroundColor="#e6f4f7" />
+            <Entry x:Name="interests" Placeholder="Community Interests (Comma Separated)" VerticalOptions="Start" BackgroundColor="#e6f4f7"/>
             <Grid   x:Name="publicCommunitySwitch"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
@@ -76,8 +76,8 @@
                         />
             </Grid>
             <Image x:Name="imgChosen" Source="{Binding ProfileImage}" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="70"/>
-            
-            <Button x:Name="createCommunity" Text="Create Community" Clicked="CreateCommunity_Clicked" VerticalOptions="End" WidthRequest="175" HorizontalOptions="Center" Margin="20" BackgroundColor="LightSteelBlue" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
+
+            <Button x:Name="createCommunity" Text="Create Community" Clicked="CreateCommunity_Clicked" VerticalOptions="End" WidthRequest="175" HorizontalOptions="Center" Margin="20" BackgroundColor="#bee3db" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
 
         </StackLayout>
     </ContentPage.Content>

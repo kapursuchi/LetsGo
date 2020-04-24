@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.CommunityChatController">
     <ContentPage.Content>
         <StackLayout>
@@ -19,7 +19,7 @@
 
             <Label x:Name="noChats" Text="You have no currently active chats with any communities!" TextColor="Black" VerticalOptions="CenterAndExpand"   FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
             <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" Margin="15"/>
-            <ListView x:Name="chatWithCommunities" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="LightGoldenrodYellow" SeparatorVisibility="None" SelectionMode="None" >
+            <ListView x:Name="chatWithCommunities" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="#FAF9F9" SeparatorVisibility="None" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding CommunityImage}" Text="{Binding Name}" TextColor="Black" />

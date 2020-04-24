@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.PublicCommunityController">
     <ContentPage.Content>
         <StackLayout>
@@ -88,7 +88,7 @@
                         Padding="5"/>
             </Grid>
 
-            <Button x:Name="join" Text="Join Community" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,15,0,0"/>
+            <Button x:Name="join" Text="Join Community" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="#bee3db" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,15,0,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

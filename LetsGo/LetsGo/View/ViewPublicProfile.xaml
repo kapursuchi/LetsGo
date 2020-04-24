@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.PublicProfileController">
     <ContentPage.Content>
         <StackLayout>
@@ -50,7 +50,7 @@
                         HorizontalOptions="Center"
                         />
 
-            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -67,7 +67,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="addFriend" Clicked="OnAdd" BackgroundColor="LightSteelBlue" Text="Add Friend" WidthRequest="150" TextColor="Black" HorizontalOptions="Center" HeightRequest="40" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,0,0,10"/>
+            <Button x:Name="addFriend" Clicked="OnAdd" BackgroundColor="#bee3db" Text="Add Friend" WidthRequest="150" TextColor="Black" HorizontalOptions="Center" HeightRequest="40" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,0,0,10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
