@@ -71,9 +71,9 @@ namespace LetsGo.Controller
         public void OnEditorChanged(object sender, TextChangedEventArgs e)
         {
             if (messageToSend.Text != string.Empty || messageToSend.Text != null)
-                sendMessage.BackgroundColor = Color.FromHex("#80b3d1");
+                sendMessage.BackgroundColor = Color.FromHex("#bee3db");
             else
-                sendMessage.BackgroundColor = Color.Gray;
+                sendMessage.BackgroundColor = Color.LightGray;
         }
 
         public async void OnSend_Clicked(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace LetsGo.Controller
                 messageViews.Add(new MessageView(currentUser.Name, true, sentMessage.Message, sentMessage.TimeSent));
                 //Messages.HeightRequest = chats.Count * (double)40;
                 messageToSend.Text = string.Empty;
-                sendMessage.BackgroundColor = Color.Gray;
+                sendMessage.BackgroundColor = Color.LightGray;
             }
 
         }

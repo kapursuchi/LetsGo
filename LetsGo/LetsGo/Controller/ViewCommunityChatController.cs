@@ -70,9 +70,9 @@ namespace LetsGo.Controller
         public void OnEditorChanged(object sender, TextChangedEventArgs e)
         {
             if (messageToSend.Text != string.Empty || messageToSend.Text != null)
-                sendMessage.BackgroundColor = Color.FromHex("#80b3d1");
+                sendMessage.BackgroundColor = Color.FromHex("#bee3db");
             else
-                sendMessage.BackgroundColor = Color.Gray;
+                sendMessage.BackgroundColor = Color.LightGray;
         }
 
         public async void OnSend_Clicked(object sender, EventArgs e)
@@ -88,7 +88,7 @@ namespace LetsGo.Controller
                 messageViews.Add(new MessageView(currentUser.Name, true, sentMessage.Message, sentMessage.TimeSent));
                 //Messages.HeightRequest = chats.Count * (double)40;
                 messageToSend.Text = string.Empty;
-                sendMessage.BackgroundColor = Color.Gray;
+                sendMessage.BackgroundColor = Color.LightGray;
             }
 
         }
@@ -119,9 +119,9 @@ namespace LetsGo.Controller
             Time = timeSent;
             if (IsSender)
             {
-                MsgColor = Color.FromHex("#80b3d1");
+                MsgColor = Color.FromHex("#63c6db");
                 SetLayout = LayoutOptions.End;
-                MessageTextColor = Color.White;
+                MessageTextColor = Color.FromHex("#043240");
                 //MessageImage.Source = ImageSource.FromFile("");
                 if (message.Length < 10 && (message.Length + 4 <= 10))
                 {
@@ -134,8 +134,8 @@ namespace LetsGo.Controller
             }
             else
             {
-                MessageTextColor = Color.DarkGray;
-                MsgColor = Color.FromHex("#fffff2");
+                MessageTextColor = Color.Black;
+                MsgColor = Color.FromHex("#dce0e0");
                 SetLayout = LayoutOptions.Start;
             }
 
