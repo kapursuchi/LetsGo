@@ -6,6 +6,10 @@
              mc:Ignorable="d"
              BackgroundColor="LightGoldenrodYellow"
              x:Class="LetsGo.Controller.ViewEventAsMemberController">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Invite Users" Clicked="OnInviteUsers_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="Leave Event" Clicked="OnLeave_Clicked"  Order="Secondary"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Image  x:Name="imgChosen"

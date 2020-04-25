@@ -283,5 +283,26 @@ namespace LetsGo.Controller
             }
 
         }
+
+        public async void OnInviteUsers_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new InviteEventMembersController(thisEvent));
+        }
+        public async void OnLeave_Clicked(object sender, EventArgs e)
+        {
+            string current = fb.GetCurrentUser();
+            bool choice = await DisplayAlert("Confirm", "Are you sure you want to leave this Event?", "YES", "NO");
+            if (choice)
+            {
+                fb.RemoveEventMember(thisEvent, current);
+                await DisplayAlert("Success", "You are no longer a member of this Event. You will now be redirected to your Events page.", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                return;
+            }
+
+        }
     }
 }

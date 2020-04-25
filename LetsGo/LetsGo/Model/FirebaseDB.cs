@@ -2560,6 +2560,25 @@ namespace LetsGo.Model
             UpdateCommunityConversationMembers(community);
         }
 
+        public async void RemoveEventMember(EventProfile _event, string memberToRemove)
+        {
+            var thisEvent = (await firebase.Child("Events").OnceAsync<EventProfile>()).Where(a => a.Object.EventID == _event.EventID).FirstOrDefault();
+            if (_event.Members != null)
+            {
+                List<string> newMemberList = new List<string>();
+                for (int i = 0; i < _event.Members.Count; i++)
+                {
+                    if (_event.Members.ElementAt(i) != memberToRemove)
+                    {
+                        newMemberList.Add(_event.Members.ElementAt(i));
+                    }
+                }
+
+                await firebase.Child("Events").Child(thisEvent.Key).Child("Members").PutAsync(newMemberList);
+            }
+            UpdateEventConversationMembers(_event);
+        }
+
         public async void StartConversationWithFriend(UserProfile friend)
         {
             string current = GetCurrentUser();
