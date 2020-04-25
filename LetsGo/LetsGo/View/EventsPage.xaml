@@ -48,6 +48,9 @@
                                 <Label  Grid.Column="2"
                                         Text="{Binding DateOfEvent}"
                                         FontAttributes="Bold" />
+                                <Label Grid.Column="3"
+                                       Text="{Binding StartOfEvent}"
+                                       FontAttributes="Bold"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
