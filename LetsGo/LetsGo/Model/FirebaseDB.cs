@@ -2838,5 +2838,23 @@ namespace LetsGo.Model
 
 
         }
+
+        public async void ReadMessages(string messageType, string conversationID)
+        {
+            var conversation = (await firebase.Child(messageType).OnceAsync<Conversation>()).Where(a => a.Object.ConversationID == conversationID).FirstOrDefault();
+
+            List<ChatMessage> messages = conversation.Object.Messages;
+
+            if (messages != null)
+            {
+                foreach (ChatMessage message in messages)
+                {
+                    message.IsRead = true;
+                }
+                await firebase.Child(messageType).Child(conversation.Key).Child("Messages").PutAsync(messages);
+            }
+
+            
+        }
     }
 }

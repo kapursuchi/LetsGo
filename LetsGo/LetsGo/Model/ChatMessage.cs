@@ -10,6 +10,8 @@ namespace LetsGo.Model
 
         public List<string> Recipients { get; set; }
 
+        public bool IsRead { get; set; }
+
         public string Message { get; set; }
 
         public DateTime TimeSent { get; set; }
@@ -19,6 +21,7 @@ namespace LetsGo.Model
             Recipients = recipients;
             Message = message;
             TimeSent = dateTimeSent;
+            IsRead = false;
         }
     }
 }

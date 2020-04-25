@@ -1,6 +1,8 @@
 ﻿using LetsGo.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
@@ -11,8 +13,10 @@ namespace LetsGo.Controller
     {
         private readonly FirebaseDB fb = new FirebaseDB();
         public string SearchStr { get; set; }
+
+        public string current { get; set; }
         public List<UserProfile> SearchResults { get; set; }
-        List<UserProfile> ConversationsWith { get; set; }
+        public ObservableCollection<object> ConversationsWith { get; set; }
         public FriendsChatController()
         {
             SetValues();
@@ -22,9 +26,9 @@ namespace LetsGo.Controller
 
         public async void SetValues()
         {
-            string current = fb.GetCurrentUser();
+            current = fb.GetCurrentUser();
             string email = "";
-            ConversationsWith = new List<UserProfile>();
+            ConversationsWith = new ObservableCollection<object>();
             List<Conversation> conversations = await fb.GetMyConversationsWithFriends();
             if (conversations != null && conversations.Count != 0)
             {
@@ -38,7 +42,17 @@ namespace LetsGo.Controller
                     }
                     UserProfile userprofile = await fb.GetUserObject(email);
                     userprofile.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(userprofile.Name);
-                    ConversationsWith.Add(userprofile);
+                    
+                    if (convo.Messages != null)
+                    {
+                        ConversationsWith.Add(new ViewConversations(userprofile, userprofile.Name, current, convo.Messages[convo.Messages.Count - 1].IsRead));
+                    }
+                    else
+                    {
+                        ConversationsWith.Add(new ViewConversations(userprofile, userprofile.Name, current, true));
+                    }
+                        
+                    
                 }
                 double height = 40;
                 chatWithFriends.HeightRequest = ConversationsWith.Count * height;
@@ -65,7 +79,6 @@ namespace LetsGo.Controller
 
         public async void Search_Text(object sender, EventArgs e)
         {
-            string current = fb.GetCurrentUser();
             SearchStr = searchBar.Text.ToLower();
             List<string> myFriends = await fb.GetAllFriends(current);
             List<UserProfile> friendsProfiles = new List<UserProfile>();
@@ -118,22 +131,69 @@ namespace LetsGo.Controller
             if (choice)
             {
                 fb.StartConversationWithFriend(SearchResults[type]);
-
+                SearchResults[type].Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(SearchResults[type].Name);
+                
+                ConversationsWith.Add(new ViewConversations(SearchResults[type], SearchResults[type].Name, current, true));
                 //navigate user to chat page
             }
             searchBar.Text= string.Empty;
             SearchResults = new List<UserProfile>();
             search.ItemsSource = SearchResults;
             search.IsVisible = false;
+            noChats.IsVisible = false;
+            chatWithFriends.IsVisible = true;
+            chatWithFriends.HeightRequest = ConversationsWith.Count * (double)40.0;
         }
 
         public async void OnChat_Clicked(object sender, ItemTappedEventArgs e)
         {
             var type = e.ItemIndex;
-            Conversation conversation = await fb.GetConversationWith(ConversationsWith[type].Email);
+            ViewConversations user = (ViewConversations)ConversationsWith[type];
+            Conversation conversation = await fb.GetConversationWith(user.sender.Email);
+            fb.ReadMessages("FriendsMessages", conversation.ConversationID);
             await Navigation.PushAsync(new ViewChatBetweenFriendsController(conversation));
         }
 
-       
+        protected override void OnAppearing()
+        {
+            SetValues();
+            base.OnAppearing();
+        }
+
+
+    }
+    public class ViewConversations 
+    {
+        private readonly FirebaseDB fb = new FirebaseDB();
+
+
+        public ImageSource UnReadMessage { get; set; }
+        public string Recipient { get; set; }
+
+        public UserProfile sender { get; set; }
+
+        public ViewConversations(UserProfile recipient, string name, string current, bool read)
+        {
+            Recipient = name;
+            sender = recipient;
+
+            if (!read && recipient.Email != current)
+            {
+                UnReadMessage = ImageSource.FromFile("newmessage.png");
+
+            }
+            else
+            {
+                if (recipient.ProfileImage != "defaultProfilePic.jpg")
+                    UnReadMessage = ImageSource.FromUri(new Uri(recipient.ProfileImage));
+                else
+                    UnReadMessage = ImageSource.FromFile("defaultProfilePic.jpg");
+            }
+            
+        }
+
+
+
+
     }
 }
