@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.ProfileController">
 
     <ContentPage.Content>
@@ -51,7 +51,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="#FAF9F9" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -68,13 +68,13 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        
-            <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                        HorizontalOptions="Center" HeightRequest="40" WidthRequest="175" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
 
-            <Button x:Name="resetPass" Text="Change Password" WidthRequest="175" HeightRequest="40" Clicked="ChangePass_Clicked" BackgroundColor="LightSteelBlue"  HorizontalOptions="CenterAndExpand" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
+            <Button x:Name="updateProfile" Text="Update Profile"  Clicked="UpdateProfile_Clicked" BackgroundColor="#bee3db" TextColor="Black" 
+                        HorizontalOptions="Center" HeightRequest="40" WidthRequest="175" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
 
-            <Button x:Name="logout" Text="Logout" HeightRequest="40" WidthRequest="175" Clicked="Logout_Clicked" BackgroundColor="Navy" TextColor="Red" BorderColor="Navy" BorderWidth="3" CornerRadius="15"
+            <Button x:Name="resetPass" Text="Change Password" WidthRequest="175" HeightRequest="40" Clicked="ChangePass_Clicked" BackgroundColor="#bee3db"  HorizontalOptions="CenterAndExpand" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
+
+            <Button x:Name="logout" Text="Logout" HeightRequest="40" WidthRequest="175" Clicked="Logout_Clicked" BackgroundColor="#89b0ae" TextColor="White" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"
                         HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" />
             
         </StackLayout>

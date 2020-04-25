@@ -4,34 +4,43 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundImageSource="backgroundimage.jpg"
              x:Class="LetsGo.Controller.LoginController">
-    
+
 
     <ContentPage.Content>
 
         <StackLayout VerticalOptions="Center" >
-            <Image Source="LetsGoLogo.PNG" VerticalOptions="Start" HorizontalOptions="Center" Margin="40"/>
+            <Image Source="transparentlogowithname.png" VerticalOptions="Start" HorizontalOptions="Center" Margin="40"/>
             <Label Text="Login" 
                    VerticalOptions="Start" 
                    HorizontalOptions="Center" 
-                   TextColor="Black" 
+                   TextColor="White" 
                    FontSize="Title" 
             />
 
-            <!--User Name Entry-->
-            <Entry x:Name="email" Placeholder="Email" BackgroundColor="Ivory" VerticalOptions="CenterAndExpand" />
 
-            <!--Password Entry-->
-            <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="Ivory" VerticalOptions="CenterAndExpand" />
+            <Frame CornerRadius="15"
+                                            Padding="0"
+                                            Margin="15,10,15,10" 
+                                       BackgroundColor="Transparent"
+                                            HasShadow="False">
+                <StackLayout>
+                    <!--User Name Entry-->
+                    <Entry x:Name="email" Placeholder="Email" BackgroundColor="#faf9f9" VerticalOptions="CenterAndExpand" TextColor="Black" PlaceholderColor="DarkGray"/>
 
+                    <!--Password Entry-->
+                    <Entry x:Name="password" IsPassword="True" Placeholder="Password" BackgroundColor="#faf9f9" VerticalOptions="CenterAndExpand" TextColor="Black" PlaceholderColor="DarkGray"/>
+                </StackLayout>
+            </Frame>
             <!-- Login Button-->
-            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" HeightRequest="40" WidthRequest="100" VerticalOptions="End" HorizontalOptions="Center" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,15,0,0" />
+            <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="#bee3db"  TextColor="Black" HeightRequest="40" WidthRequest="100" VerticalOptions="End" HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,15,0,0" />
 
             <Button x:Name="forgotpassword" Text="Forgot Password?" Clicked="Navigate_ForgotPasswordPage"
-                    BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End"  WidthRequest="200" HorizontalOptions="Center" />
+                    BackgroundColor="Transparent" TextColor="White" VerticalOptions="End"  WidthRequest="200" HorizontalOptions="Center" />
             <!--Create Account Button -->
-            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" WidthRequest="600" BackgroundColor="Transparent" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+            <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" WidthRequest="600" BackgroundColor="Transparent" TextColor="White" VerticalOptions="End" HorizontalOptions="Center"/>
+
         </StackLayout>
 
     </ContentPage.Content>

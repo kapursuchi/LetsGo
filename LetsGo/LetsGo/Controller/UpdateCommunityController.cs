@@ -171,7 +171,7 @@ namespace LetsGo.Controller
 
             }
             double height = 40;
-            interests.HeightRequest = InterestList.Count * height;
+            interests.HeightRequest = InterestList.Count * (double)40;
             interests.ItemsSource = InterestList;
 
             string communityImageStr = await fb.GetCommunityPicture(community.CommunityID);

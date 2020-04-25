@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.NotificationController">
     <ContentPage.Content>
         <ScrollView x:Name="notificationsScroll">
@@ -29,7 +29,7 @@
             <StackLayout>
                 <Label x:Name="friendRequestsLbl" Text="  Friend Requests" HorizontalOptions="Start" TextColor="Black" FontAttributes="Italic" FontSize="Medium" />
 
-                <ListView x:Name="friendRequests" SeparatorVisibility="None" ItemsSource="{Binding FriendRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView x:Name="friendRequests" SeparatorVisibility="None" ItemsSource="{Binding FriendRequests}"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
@@ -56,7 +56,7 @@
             <StackLayout>
                     <Label x:Name="commRequestsLbl" Text="  Community Requests" HorizontalOptions="Start" FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
 
-                <ListView x:Name="commRequestsList" SeparatorVisibility="None" ItemsSource="{Binding CommunityRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView x:Name="commRequestsList" SeparatorVisibility="None" ItemsSource="{Binding CommunityRequests}"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
@@ -86,7 +86,7 @@
             
             <StackLayout>
                     <Label x:Name="eventRequestsLbl" Text="  Event Requests" HorizontalOptions="Start" FontAttributes="Italic"  TextColor="Black" FontSize="Medium"/>
-                <ListView x:Name="eventRequestsList" SeparatorVisibility="None" ItemsSource="{Binding EventRequests}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView x:Name="eventRequestsList" SeparatorVisibility="None" ItemsSource="{Binding EventRequests}"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -112,7 +112,7 @@
             <StackLayout>
                     <Label x:Name="commInivtesLbl" Text="  Community Invites" HorizontalOptions="Start" FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
 
-                <ListView x:Name="commInvitesList" SeparatorVisibility="None" ItemsSource="{Binding CommunityInvites}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView x:Name="commInvitesList" SeparatorVisibility="None" ItemsSource="{Binding CommunityInvites}"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
@@ -141,7 +141,7 @@
             <StackLayout>
                     <Label x:Name="eventInvitesLbl" Text="  Event Invites" HorizontalOptions="Start"  FontAttributes="Italic" TextColor="Black" FontSize="Medium" />
 
-                <ListView x:Name="eventInvitesList" SeparatorVisibility="None" ItemsSource="{Binding EventInvites}"  SeparatorColor="Transparent" BackgroundColor="LightGoldenrodYellow" SelectionMode="None" >
+                    <ListView x:Name="eventInvitesList" SeparatorVisibility="None" ItemsSource="{Binding EventInvites}"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
                     <ListView.ItemTemplate>
 
                         <DataTemplate>

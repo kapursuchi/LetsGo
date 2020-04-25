@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.ViewChatBetweenFriendsController">
     <ContentPage.Content>
         <StackLayout>
@@ -38,8 +38,8 @@
                 </ListView>
             </StackLayout>
             <StackLayout VerticalOptions="End">
-                <Editor x:Name="messageToSend" WidthRequest="800" HeightRequest="100" Placeholder="Send Message" VerticalOptions="End" TextChanged="OnEditorChanged" BackgroundColor="#ffffee" TextColor="Black" PlaceholderColor="Black" Margin="5"/>
-                <Button x:Name="sendMessage" Text="Send" TextColor="Black" BackgroundColor="Gray" VerticalOptions="End" HorizontalOptions="Center" BorderWidth="3" Clicked="OnSend_Clicked" CornerRadius="15" HeightRequest="40" WidthRequest="60"/>
+                <Editor x:Name="messageToSend" WidthRequest="800" HeightRequest="100" Placeholder="Send Message" VerticalOptions="End" TextChanged="OnEditorChanged" BackgroundColor="#e6ebed" TextColor="Black" PlaceholderColor="Black" Margin="5"/>
+                <Button x:Name="sendMessage" Text="Send" TextColor="Black" BackgroundColor="LightGray" VerticalOptions="End" HorizontalOptions="Center" BorderWidth="1" Clicked="OnSend_Clicked" CornerRadius="15" HeightRequest="40" WidthRequest="60"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

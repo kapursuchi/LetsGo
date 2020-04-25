@@ -143,9 +143,7 @@ namespace LetsGo.Controller
                 InterestList.Add("No interests listed yet...");
 
             }
-            double height = InterestList.Count;
-            height *= 2.0;
-            interests.HeightRequest = height;
+            interests.HeightRequest = InterestList.Count * (double)40;
             interests.ItemsSource = InterestList;
 
             string profileImageStr = await fb.GetProfilePicture();

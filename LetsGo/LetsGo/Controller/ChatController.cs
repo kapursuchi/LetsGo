@@ -10,7 +10,7 @@ namespace LetsGo.Controller
         public ChatController()
         {
             InitializeComponent();
-            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#51aec2");
             UpdateChildrenLayout();
 
         }

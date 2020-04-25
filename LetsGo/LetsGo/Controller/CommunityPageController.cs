@@ -18,7 +18,7 @@ namespace LetsGo.Controller
             CommunityList = new List<CommunityProfile>();
             GrabCommunities();
             InitializeComponent();
-            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#51aec2");
         }
         public async void StartCommunity_Clicked(object sender, EventArgs e)
         {

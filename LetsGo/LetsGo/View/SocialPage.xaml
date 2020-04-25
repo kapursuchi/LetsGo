@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.SocialController">
     <ContentPage.Content>
         <StackLayout>
@@ -22,7 +22,7 @@
             <ScrollView>
                 <SearchBar Placeholder="Search by Interest Tag"  PlaceholderColor="Gray" VerticalOptions="StartAndExpand" TextColor="Black" TextChanged="Search_Text" HorizontalOptions="CenterAndExpand" CancelButtonColor="Transparent" FontSize="Medium"/>
             </ScrollView>
-            <ListView x:Name="search" SeparatorVisibility="None" ItemTapped="OnView"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="LightGoldenrodYellow">
+            <ListView x:Name="search" SeparatorVisibility="None" ItemTapped="OnView"  SeparatorColor="Transparent" SelectionMode="None"  BackgroundColor="#FAF9F9">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell Text="{Binding Name}" TextColor="Black"  CommandParameter="{Binding .}"/>
@@ -31,12 +31,12 @@
             </ListView>
 
 
-            <Button x:Name="manageCommunities" Text="Manage Communities" Clicked="Communities_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" WidthRequest="200" HeightRequest="40" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
-            <Button x:Name="manageEvents" Text="Manage Events" Clicked="Events_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black" 
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40" BorderColor="Navy" BorderWidth="3" CornerRadius="15" />
-            <Button x:Name="manageFriends" Text="Manage Friends" Clicked="Friends_Clicked" BackgroundColor="LightSteelBlue" TextColor="Black"
-                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40" BorderColor="Navy" BorderWidth="3" CornerRadius="15" Margin="0,0,0,10"/>
+            <Button x:Name="manageCommunities" Text="Manage Communities" Clicked="Communities_Clicked" BackgroundColor="#bee3db" TextColor="Black" 
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" WidthRequest="200" HeightRequest="40" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
+            <Button x:Name="manageEvents" Text="Manage Events" Clicked="Events_Clicked" BackgroundColor="#bee3db" TextColor="Black" 
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" />
+            <Button x:Name="manageFriends" Text="Manage Friends" Clicked="Friends_Clicked" BackgroundColor="#bee3db" TextColor="Black"
+                    VerticalOptions="End" HorizontalOptions="CenterAndExpand" WidthRequest="200"  HeightRequest="40" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,0,0,10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

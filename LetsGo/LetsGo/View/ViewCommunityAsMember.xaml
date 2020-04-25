@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.ViewCommunityMemberController">
     <ContentPage.Content>
         <StackLayout>
@@ -41,7 +41,7 @@
                     />
             <Button x:Name="leader"
                     Text="{Binding LeaderName}"
-                    TextColor="Blue"
+                    TextColor="#51aec2"
                     BackgroundColor="Transparent"
                     BorderColor="Transparent"
                     FontSize="Medium"
@@ -72,7 +72,7 @@
                     HorizontalOptions="Center"
                     Margin="0,10,0,0"
                     />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="LightGoldenrodYellow" >
+            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="#FAF9F9" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -89,7 +89,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="leave" Text="Leave Community" Clicked="OnLeave_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
+            <Button x:Name="leave" Text="Leave Community" Clicked="OnLeave_Clicked" BackgroundColor="#bee3db" HorizontalOptions="Center" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" HeightRequest="40" WidthRequest="150"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

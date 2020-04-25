@@ -20,14 +20,14 @@ namespace LetsGo.Controller
         {
             community = null;
             InitializeComponent();
-            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#51aec2");
         }
 
         public CreateEventController(CommunityProfile c)
         {
             community = c;
             InitializeComponent();
-            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#80b3d1");
+            ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#51aec2");
         }
         readonly private CreateEvent _createEvent = new CreateEvent();
         public async void CreateEvent_Clicked(object sender, EventArgs e)

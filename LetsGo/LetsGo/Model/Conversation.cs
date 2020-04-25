@@ -11,6 +11,8 @@ namespace LetsGo.Model
         public string ConversationID { get; set; }
 
         public List<ChatMessage> Messages { get; set; }
+
+
         public Conversation(CommunityProfile community)
         {
             List<string> usersInConversation = community.Members;

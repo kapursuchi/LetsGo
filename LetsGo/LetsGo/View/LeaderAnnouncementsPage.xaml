@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="LightGoldenrodYellow"
+             BackgroundColor="#FAF9F9"
              x:Class="LetsGo.Controller.LeaderAnnouncementsController">
     <ContentPage.Content>
 
@@ -20,12 +20,12 @@
             </Label>
 
 
-            <Editor x:Name="newAnnouncement" Placeholder="Create a new announcement..."  BackgroundColor="Ivory" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="100" WidthRequest="800" Margin="15"/>
-            <Button x:Name="post" Text="Post Announcement" Clicked="OnPost_Clicked" BackgroundColor="LightSteelBlue" HorizontalOptions="Center" TextColor="Black" BorderColor="Navy" BorderWidth="3" CornerRadius="15" HeightRequest="40" WidthRequest="65"/>
+            <Editor x:Name="newAnnouncement" Placeholder="Create a new announcement..."  BackgroundColor="#e6f4f7" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="100" WidthRequest="800" Margin="15"/>
+            <Button x:Name="post" Text="Post Announcement" Clicked="OnPost_Clicked" BackgroundColor="#bee3db" HorizontalOptions="Center" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" HeightRequest="40" WidthRequest="65"/>
             <Label x:Name="Title" Text="Announcements" HorizontalOptions="Center" VerticalOptions="Start" Margin="5" TextColor="Black" FontSize="Medium"/>
 
             <ScrollView>
-                <ListView x:Name="announcements" SeparatorColor="Transparent" SelectionMode="None" ItemsSource="{Binding AnnouncementsList}" BackgroundColor="LightGoldenrodYellow" HorizontalOptions="Center" VerticalOptions="Center">
+                <ListView x:Name="announcements" SeparatorColor="Transparent" SelectionMode="None" ItemsSource="{Binding AnnouncementsList}" BackgroundColor="#FAF9F9" HorizontalOptions="Center" VerticalOptions="Center">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Description}" TextColor="Black"  DetailColor="Gray" />
