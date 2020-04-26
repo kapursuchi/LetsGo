@@ -22,40 +22,33 @@
             <Label x:Name="YourEvents" Text="Your Events" TextColor="Black"  FontSize="Medium" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
             <Label x:Name="noEvents" Text="You are not a member of any events... Join one or create your own!" HorizontalOptions="Center" VerticalOptions="Center" Margin="15" TextColor="Black" FontSize="Medium"/>
 
-            <ListView x:Name="viewEvents" SeparatorColor="Transparent" ItemsSource="{Binding EventList}" ItemTapped="Event_Tapped" SeparatorVisibility="Default" SelectionMode="None" BackgroundColor="#FAF9F9">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="15">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.RowSpan="2"
-                                    Source="{Binding EventImage}"
-                                    Aspect="AspectFill"
-                                    HeightRequest="30"
-                                    WidthRequest="30"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"/>
-                                <Label  Grid.Column="1"
-                                        Text="{Binding Name}"
-                                        FontAttributes="Bold" />
-                                <Label  Grid.Column="2"
-                                        Text="{Binding DateOfEvent}"
-                                        FontAttributes="Bold" />
-                                <Label Grid.Column="3"
-                                       Text="{Binding StartOfEvent}"
-                                       FontAttributes="Bold"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"  />
+                </Grid.RowDefinitions>
+                <ListView x:Name="viewEvents" ItemsSource="{Binding EventsList}" VerticalScrollBarVisibility="Default" SeparatorVisibility="None" SelectionMode="None" ItemTapped="Event_Tapped" BackgroundColor="#FAF9F9" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source = "{Binding EventImage}"
+                                           WidthRequest="70" HeightRequest="70"
+                                           Grid.Column="0" Aspect="Fill"/>
+                                    <StackLayout Orientation="Vertical" Grid.Column="1">
+                                        <Label Text="{Binding Name}" FontSize="Subtitle" TextColor="Black"/>
+                                        <Label Text="{Binding DateOfEvent,  StringFormat='{0:d}'}" TextColor="Black" FontSize="Subtitle"/>
+                                        <Label Text="{Binding StartOfEvent}" TextColor="Black" FontSize="Subtitle"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
 
             <Button x:Name="Event_Creation" Text="Create Event" Clicked="NavigateToCreateEvent" BackgroundColor="#bee3db" TextColor="Black"
                     VerticalOptions="End" HorizontalOptions="Center" HeightRequest="40" Margin="0,0,0,10" WidthRequest="175" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15"/>
