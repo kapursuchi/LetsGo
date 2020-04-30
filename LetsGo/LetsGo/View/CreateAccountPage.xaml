@@ -18,14 +18,14 @@
                    FontSize="Title"  
             />
 
-            <Entry x:Name="name" Placeholder="Name" TextColor="White" VerticalOptions="Start" BackgroundColor="#faf9f9" />
+            <Entry x:Name="name" Placeholder="Name" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9" />
 
-            <Entry x:Name="email" Placeholder="Email" TextColor="White" VerticalOptions="Start" BackgroundColor="#faf9f9"/>
+            <Entry x:Name="email" Placeholder="Email" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9"/>
 
             <!--Password Entry-->
-            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" TextColor="White" Placeholder="Password" BackgroundColor="#faf9f9"/>
+            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" TextColor="Black" Placeholder="Password" BackgroundColor="#faf9f9"/>
 
-            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" TextColor="White" VerticalOptions="Start" IsPassword="True" BackgroundColor="#faf9f9"/>
+            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" TextColor="Black" VerticalOptions="Start" IsPassword="True" BackgroundColor="#faf9f9"/>
 
             <Grid   x:Name="dateofbirth"
                     VerticalOptions="Center"

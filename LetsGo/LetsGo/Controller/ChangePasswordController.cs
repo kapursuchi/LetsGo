@@ -24,7 +24,7 @@ namespace LetsGo.Controller
                 if (changed)
                 {
                     await DisplayAlert("Success", "Your password has been changed!", "OK");
-                    await Navigation.PushAsync(new ProfileController());
+                    await Navigation.PopAsync();
                 }
                 else
                 {
@@ -43,7 +43,7 @@ namespace LetsGo.Controller
 
         public async void Cancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ProfileController());
+            await Navigation.PopAsync();
         }
     }
 }

@@ -186,7 +186,8 @@ namespace LetsGo.Controller
             {
                 await DisplayAlert("Update Unsuccessful", "Your profile update was unsuccessful.", "OK");
             }
-            await Navigation.PushAsync(new NavigationBarController());
+            await Navigation.PopAsync();
+            //await Navigation.PushAsync(new NavigationBarController());
             
         }
 
