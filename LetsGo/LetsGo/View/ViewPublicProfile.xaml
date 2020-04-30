@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="#FAF9F9"
+             BackgroundImageSource="profilebackground.jpg"
              x:Class="LetsGo.Controller.PublicProfileController">
     <ContentPage.Content>
         <StackLayout>
@@ -50,7 +50,7 @@
                         HorizontalOptions="Center"
                         />
 
-            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="#FAF9F9" SelectionMode="None" >
+            <ListView x:Name="interests" SeparatorVisibility="None"  SeparatorColor="Transparent" BackgroundColor="Transparent" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

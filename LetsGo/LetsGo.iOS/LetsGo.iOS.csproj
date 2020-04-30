@@ -261,4 +261,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\newmessage.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\profilebackground.jpg" />
+  </ItemGroup>
 </Project>

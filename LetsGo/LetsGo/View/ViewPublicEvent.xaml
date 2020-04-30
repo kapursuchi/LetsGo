@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="#FAF9F9"
+             BackgroundImageSource="profilebackground.jpg"
              x:Class="LetsGo.Controller.PublicEventController">
     <ContentPage.Content>
         <StackLayout>
@@ -37,11 +37,11 @@
                             HorizontalOptions="Center" />
             <Label      x:Name="location"
                             Text="{Binding Location}"
-                            TextColor="Gray"
+                            TextColor="Black"
                             HorizontalOptions="Center"
                             FontSize="Medium"
                             FontAttributes="Italic" />
-            <Grid>
+            <Grid BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -65,7 +65,7 @@
                         Grid.Row="1"
                         Margin="-8"/>
             </Grid>
-            <Grid ColumnSpacing="0">
+            <Grid ColumnSpacing="0" BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
