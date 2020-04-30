@@ -200,9 +200,14 @@ namespace LetsGo.Controller
 
         public async void Delete_Clicked(object sender, EventArgs e)
         {
-            bool deleted = await profile.DeleteUser();
-            if (deleted)
+            bool choice = await DisplayAlert("Delete Account", "Are you sure you want to delete your account? This action cannot be undone.", "OK", "Cancel");
+            if (choice == false)
             {
+                return;
+            }
+            else
+            {
+                await profile.DeleteUser();
                 await DisplayAlert("Success", "Your account has been deleted", "OK");
                 await Navigation.PopToRootAsync();
             }    
