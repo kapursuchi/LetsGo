@@ -4,8 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using LetsGo.Controller;
 using LetsGo.Model.Authentication;
+using System.Linq;
 using Xamarin.Forms;
 using LetsGo.Model;
+using System.Text.RegularExpressions;
 
 namespace LetsGo.Controller
 {
@@ -27,6 +29,10 @@ namespace LetsGo.Controller
             if (confirmpassword.Text != password.Text)
             {
                 await DisplayAlert("Alert", "Passwords do not match!", "OK");
+            }
+            else if (PasswordCheck(password.Text) == false)
+            {
+                await DisplayAlert("Alert", "Password must be at least 8 characters, and contain an uppercase letter, a number, and a special character.", "OK");
             }
             else
             {
@@ -66,5 +72,35 @@ namespace LetsGo.Controller
             dobChosen = e.NewDate;
         }
 
+        public bool PasswordCheck(string pass)
+        {
+            bool cleared = false;
+            if (pass.Length >= 8)
+            {
+                if (pass.Any(char.IsUpper))
+                {
+                    if (pass.Any(char.IsDigit))
+                    {
+                        if (HasSpecialChar(pass))
+                        {
+                            cleared = true;
+                        }
+                    }
+                }
+            }
+
+            return cleared;
+        }
+
+        public static bool HasSpecialChar(string input)
+        {
+            string specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+            foreach (var item in specialChar)
+            {
+                if (input.Contains(item)) return true;
+            }
+
+            return false;
+        }
     }
 }
