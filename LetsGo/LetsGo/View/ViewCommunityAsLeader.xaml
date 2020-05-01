@@ -4,100 +4,104 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundImageSource="profilebackground.jpg"
              x:Class="LetsGo.Controller.ViewCommunityLeaderController">
+             <!--BackgroundImageSource="profilebackground.jpg"-->
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
         <ToolbarItem Text="Update Community" Clicked="OnUpdate_Clicked"  Order="Secondary"/>
         <ToolbarItem Text="Add Event" Clicked="OnAddEvent_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Image  x:Name="imgChosen"
-                            Source="{Binding CommunityImage}"
-                            Aspect="AspectFill"
-                            HeightRequest="80"
-                            WidthRequest="80"
-                            Grid.Column="1"
-                            Grid.Row="1"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            Margin="0,15,0,0"
-                            />
-            <Label  x:Name="name"
-                            Text="{Binding Name}"
-                            FontAttributes="Bold"
-                            FontSize="Title"
-                            VerticalOptions="Start"
-                            HorizontalOptions="Center" />
-            <Label      x:Name="location"
-                            Text="{Binding Location}"
-                            TextColor="Black"
-                            HorizontalOptions="Center"
-                            FontSize="Medium"
-                            FontAttributes="Italic" />
+        <Grid>
+            <Image Source="profilebackground.jpg" Aspect="AspectFill" />
+            <StackLayout>
+                <Image  x:Name="imgChosen"
+                                Source="{Binding CommunityImage}"
+                                Aspect="AspectFill"
+                                HeightRequest="80"
+                                WidthRequest="80"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Margin="0,15,0,0"
+                                />
+                <Label  x:Name="name"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="Title"
+                                VerticalOptions="Start"
+                                HorizontalOptions="Center" />
+                <Label      x:Name="location"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                FontSize="Medium"
+                                FontAttributes="Italic" />
                   
-            <Label  Text="Community Leader: "
-                    HorizontalOptions="Center"
-                    TextColor="Gray"
-                    FontAttributes="Bold"
-                    VerticalOptions="Start"
-                    Margin="0,10,0,0"
-                    />
-            <Button x:Name="leader"
-                    Text="{Binding LeaderName}"
-                    TextColor="#1892ab"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    FontSize="Medium"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start"
-                    Margin="-8"
-                    BorderWidth="0"
-                    Clicked="OnLeaderName_Clicked"/>
-            <Label  Text="Community Description: "
-                    HorizontalOptions="Center"
-                    TextColor="Gray"
-                    FontAttributes="Bold"
-                    Margin="0,10,0,0"
-                    />
-            <Label x:Name="description"
-                    Text="{Binding Description}"
-                    FontSize="Medium"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    Padding="5"/>
+                <Label  Text="Community Leader: "
+                        HorizontalOptions="Center"
+                        TextColor="Gray"
+                        FontAttributes="Bold"
+                        VerticalOptions="Start"
+                        Margin="0,10,0,0"
+                        />
+                <Button x:Name="leader"
+                        Text="{Binding LeaderName}"
+                        TextColor="#1892ab"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        Margin="-8"
+                        BorderWidth="0"
+                        Clicked="OnLeaderName_Clicked"/>
+                <Label  Text="Community Description: "
+                        HorizontalOptions="Center"
+                        TextColor="Gray"
+                        FontAttributes="Bold"
+                        Margin="0,10,0,0"
+                        />
+                <Label x:Name="description"
+                        Text="{Binding Description}"
+                        FontSize="Medium"
+                        TextColor="Black"
+                        HorizontalOptions="Center"
+                        Padding="5"/>
             
-            <Label  x:Name="interestslabel"
-                    Text="Community Interests:"
-                    TextColor="Gray"
-                    FontSize="Medium"
-                    FontAttributes="Bold"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Margin="0,10,0,0"
-                    />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="Transparent" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout x:Name="layout">    
-                                <Label  x:Name="interest"
-                                        Text="{Binding .}"
-                                        TextColor="Black"
-                                        FontSize="Body"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <Label  x:Name="interestslabel"
+                        Text="Community Interests:"
+                        TextColor="Gray"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,10,0,0"
+                        />
+                <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="Transparent" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:Name="layout">    
+                                    <Label  x:Name="interest"
+                                            Text="{Binding .}"
+                                            TextColor="Black"
+                                            FontSize="Body"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
+                <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
 
 
-        </StackLayout>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -4,99 +4,103 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundImageSource="profilebackground.jpg"
              x:Class="LetsGo.Controller.ViewEventAsMemberController">
+             <!--BackgroundImageSource="profilebackground.jpg"-->
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Invite Users" Clicked="OnInviteUsers_Clicked" Order="Secondary"/>
         <ToolbarItem Text="Leave Event" Clicked="OnLeave_Clicked"  Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Image  x:Name="imgChosen"
-                            Source="{Binding EventImage}"
-                            Aspect="AspectFill"
-                            HeightRequest="80"
-                            WidthRequest="80"
-                            Grid.Column="1"
-                            Grid.Row="1"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            Margin="0,15,0,0"
-                            />
-            <Label  x:Name="name"
-                            Text="{Binding Name}"
-                            FontAttributes="Bold"
-                            FontSize="Title"
-                            VerticalOptions="Start"
-                            HorizontalOptions="Center" />
-            <Label      x:Name="location"
-                            Text="{Binding Location}"
-                            TextColor="Black"
-                            HorizontalOptions="Center"
-                            FontSize="Medium"
-                            FontAttributes="Italic" />
-            <Label x:Name="timeLbl" Text="Time: " TextColor="Gray" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,10,0,0"/>
-            <Label      x:Name="eventTime"
-                            Text="{Binding EventTime}"
-                            TextColor="Black"
-                            HorizontalOptions="Center"
-                            FontSize="Medium" />
+        <Grid>
+            <Image Source="profilebackground.jpg" Aspect="AspectFill" />
+            <StackLayout>
+                <Image  x:Name="imgChosen"
+                                Source="{Binding EventImage}"
+                                Aspect="AspectFill"
+                                HeightRequest="80"
+                                WidthRequest="80"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Margin="0,15,0,0"
+                                />
+                <Label  x:Name="name"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="Title"
+                                VerticalOptions="Start"
+                                HorizontalOptions="Center" />
+                <Label      x:Name="location"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                FontSize="Medium"
+                                FontAttributes="Italic" />
+                <Label x:Name="timeLbl" Text="Time: " TextColor="Gray" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,10,0,0"/>
+                <Label      x:Name="eventTime"
+                                Text="{Binding EventTime}"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                FontSize="Medium" />
 
-            <Label  Text="Event Owner: "
-                    HorizontalOptions="Center"
-                    TextColor="Gray"
-                    FontAttributes="Bold"
-                    VerticalOptions="Start"
-                    Margin="0,10,0,0"
-                    />
-            <Button x:Name="owner"
-                    Text="{Binding OwnerName}"
-                    TextColor="#1892ab"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    FontSize="Medium"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start"
-                    Margin="-8"
-                    BorderWidth="0"
-                    Clicked="OnOwnerName_Clicked"/>
-            <Label  Text="Event Description: "
-                    HorizontalOptions="Center"
-                    TextColor="Gray"
-                    FontAttributes="Bold"
-                    Margin="0,10,0,0"
-                    />
-            <Label x:Name="description"
-                    Text="{Binding Description}"
-                    FontSize="Medium"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    Padding="5"/>
+                <Label  Text="Event Owner: "
+                        HorizontalOptions="Center"
+                        TextColor="Gray"
+                        FontAttributes="Bold"
+                        VerticalOptions="Start"
+                        Margin="0,10,0,0"
+                        />
+                <Button x:Name="owner"
+                        Text="{Binding OwnerName}"
+                        TextColor="#1892ab"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        Margin="-8"
+                        BorderWidth="0"
+                        Clicked="OnOwnerName_Clicked"/>
+                <Label  Text="Event Description: "
+                        HorizontalOptions="Center"
+                        TextColor="Gray"
+                        FontAttributes="Bold"
+                        Margin="0,10,0,0"
+                        />
+                <Label x:Name="description"
+                        Text="{Binding Description}"
+                        FontSize="Medium"
+                        TextColor="Black"
+                        HorizontalOptions="Center"
+                        Padding="5"/>
 
-            <Label  x:Name="interestslabel"
-                    Text="Event Interests:"
-                    TextColor="Gray"
-                    FontAttributes="Bold"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Margin="0,10,0,0"
-                    />
-            <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="Transparent" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout x:Name="layout">
-                                <Label  x:Name="interest"
-                                        Text="{Binding .}"
-                                        TextColor="Black"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                <Label  x:Name="interestslabel"
+                        Text="Event Interests:"
+                        TextColor="Gray"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,10,0,0"
+                        />
+                <ListView x:Name="interests" HasUnevenRows="True" SeparatorVisibility="None" SeparatorColor="Transparent" SelectionMode="None" BackgroundColor="Transparent" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout x:Name="layout">
+                                    <Label  x:Name="interest"
+                                            Text="{Binding .}"
+                                            TextColor="Black"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

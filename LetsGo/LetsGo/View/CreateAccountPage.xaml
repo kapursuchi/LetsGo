@@ -4,92 +4,93 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundImageSource="backgroundimage.jpg"
              x:Class="LetsGo.Controller.CreateAccountController">
+             <!--BackgroundImageSource="backgroundimage.jpg"-->
 
     <ContentPage.Content>
+        <Grid>
+            <Image Source="backgroundimage.jpg" Aspect="AspectFill"/>
+            <StackLayout VerticalOptions="Start">
+                <Image Source="transparentlogowithname.png" VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="35"/>
+                <Label Text="Create Account" 
+                       VerticalOptions="Start"
+                       HorizontalOptions="Center" 
+                       TextColor="White" 
+                       FontSize="Title"  
+                />
 
-        <StackLayout VerticalOptions="Start">
-            <Image Source="transparentlogowithname.png" VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="35"/>
-            <Label Text="Create Account" 
-                   VerticalOptions="Start"
-                   HorizontalOptions="Center" 
-                   TextColor="White" 
-                   FontSize="Title"  
-            />
+                <Entry x:Name="name" Placeholder="Name" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9" />
 
-            <Entry x:Name="name" Placeholder="Name" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9" />
+                <Entry x:Name="email" Placeholder="Email" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9"/>
 
-            <Entry x:Name="email" Placeholder="Email" TextColor="Black" VerticalOptions="Start" BackgroundColor="#faf9f9"/>
+                <!--Password Entry-->
+                <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" TextColor="Black" Placeholder="Password" BackgroundColor="#faf9f9"/>
 
-            <!--Password Entry-->
-            <Entry x:Name="password" IsPassword="True" VerticalOptions="Start" TextColor="Black" Placeholder="Password" BackgroundColor="#faf9f9"/>
+                <Entry x:Name="confirmpassword" Placeholder="Confirm Password" TextColor="Black" VerticalOptions="Start" IsPassword="True" BackgroundColor="#faf9f9"/>
 
-            <Entry x:Name="confirmpassword" Placeholder="Confirm Password" TextColor="Black" VerticalOptions="Start" IsPassword="True" BackgroundColor="#faf9f9"/>
+                <Grid   x:Name="dateofbirth"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label      x:Name="dob"
+                                Text="Date of Birth"
+                                TextColor="White"
+                                FontSize="Body"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Grid.Row="0"
+                                Grid.Column="0" />
+                    <DatePicker MaximumDate="3/16/2008"
+                                BackgroundColor="#FAFA9"
+                                TextColor="White"
+                                HorizontalOptions="CenterAndExpand"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                DateSelected="OnDateSelected"
+                                />
+                </Grid>
 
-            <Grid   x:Name="dateofbirth"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Margin="0,20,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label      x:Name="dob"
-                            Text="Date of Birth"
-                            TextColor="White"
-                            FontSize="Body"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Grid.Row="0"
-                            Grid.Column="0" />
-                <DatePicker MaximumDate="3/16/2008"
-                            BackgroundColor="#FAFA9"
-                            TextColor="White"
-                            HorizontalOptions="CenterAndExpand"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            DateSelected="OnDateSelected"
-                            />
-            </Grid>
-
-            <!--Add switch for public/private account-->
+                <!--Add switch for public/private account-->
             
-            <Grid   x:Name="publicAccountSwitch"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Margin="0,20,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label      x:Name="publicAcct"
-                            Text="Public Account"
-                            TextColor="White"
-                            FontSize="Body"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Grid.Row="0"
-                            Grid.Column="0" />
-                <Switch     x:Name="publicAcctSwitch"
-                            OnColor="PowderBlue"
-                            ThumbColor="Black"
-                            HorizontalOptions="Center"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Toggled="On_Toggled"
-                            />
-            </Grid>
+                <Grid   x:Name="publicAccountSwitch"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label      x:Name="publicAcct"
+                                Text="Public Account"
+                                TextColor="White"
+                                FontSize="Body"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Grid.Row="0"
+                                Grid.Column="0" />
+                    <Switch     x:Name="publicAcctSwitch"
+                                OnColor="PowderBlue"
+                                ThumbColor="Black"
+                                HorizontalOptions="Center"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Toggled="On_Toggled"
+                                />
+                </Grid>
 
-            <Button x:Name="createAccount" Text="Create Account" WidthRequest="150" HeightRequest="40" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="#bee3db" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,10,0,0"/>
-            <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Transparent" TextColor="White"/>
-        </StackLayout>
-
+                <Button x:Name="createAccount" Text="Create Account" WidthRequest="150" HeightRequest="40" Clicked="CreateAccount_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="#bee3db" TextColor="Black" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,10,0,0"/>
+                <Button x:Name="cancel" Text="Cancel" Clicked="Cancel_Clicked" VerticalOptions="End" HorizontalOptions="Center" BackgroundColor="Transparent" TextColor="White"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

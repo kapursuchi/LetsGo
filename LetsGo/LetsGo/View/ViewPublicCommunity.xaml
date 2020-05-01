@@ -4,91 +4,95 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundImageSource="profilebackground.jpg"
              x:Class="LetsGo.Controller.PublicCommunityController">
+                <!--BackgroundImageSource="profilebackground.jpg"-->
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="" Margin="15">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="x:Boolean">
-                        <OnPlatform.iOS>true</OnPlatform.iOS>
-                        <OnPlatform.Android>false</OnPlatform.Android>
-                    </OnPlatform>
-                </Label.IsVisible>
-            </Label>
-            <Image  x:Name="imgChosen"
-                            Source="{Binding CommunityImage}"
-                            Aspect="AspectFill"
-                            HeightRequest="100"
-                            WidthRequest="100"
+        <Grid>
+            <Image Source="profilebackground.jpg" Aspect="AspectFill" />
+            <StackLayout>
+                <Label Text="" Margin="15">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <OnPlatform.iOS>true</OnPlatform.iOS>
+                            <OnPlatform.Android>false</OnPlatform.Android>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
+                <Image  x:Name="imgChosen"
+                                Source="{Binding CommunityImage}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"
+                                WidthRequest="100"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Margin="15"
+                                />
+                <Label  x:Name="name"
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="Title"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                <Label      x:Name="location"
+                                Text="{Binding Location}"
+                                TextColor="Black"
+                                HorizontalOptions="Center"
+                                FontSize="Medium"
+                                FontAttributes="Italic" />
+                <Grid BackgroundColor="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Community Leader: "
+                             HorizontalOptions="End"
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             Padding="5" />
+                    <Label x:Name="leader"
+                            Text="{Binding LeaderName}"
+                            TextColor="Black"
+                            FontSize="Medium"
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Center"
                             Grid.Column="1"
                             Grid.Row="1"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            Margin="15"
-                            />
-            <Label  x:Name="name"
-                            Grid.Column="1"
-                            Grid.Row="2"
-                            Text="{Binding Name}"
-                            FontAttributes="Bold"
-                            FontSize="Title"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center" />
-            <Label      x:Name="location"
-                            Text="{Binding Location}"
-                            TextColor="Black"
-                            HorizontalOptions="Center"
+                            Margin="-8"/>
+                </Grid>
+                <Grid ColumnSpacing="0" BackgroundColor="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Community Description: "
+                             HorizontalOptions="End"
+                             Grid.Column="0"
+                             Padding="5"/>
+                    <Label x:Name="description"
+                            Text="{Binding Description}"
                             FontSize="Medium"
-                            FontAttributes="Italic" />
-            <Grid BackgroundColor="Transparent">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Community Leader: "
-                         HorizontalOptions="End"
-                         Grid.Column="0"
-                         Grid.Row="1"
-                         Padding="5" />
-                <Label x:Name="leader"
-                        Text="{Binding LeaderName}"
-                        TextColor="Black"
-                        FontSize="Medium"
-                        HorizontalOptions="StartAndExpand"
-                        VerticalOptions="Center"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Margin="-8"/>
-            </Grid>
-            <Grid ColumnSpacing="0" BackgroundColor="Transparent">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Community Description: "
-                         HorizontalOptions="End"
-                         Grid.Column="0"
-                         Padding="5"/>
-                <Label x:Name="description"
-                        Text="{Binding Description}"
-                        FontSize="Medium"
-                        TextColor="Black"
-                       VerticalOptions="Center"
-                        HorizontalOptions="StartAndExpand"
-                        Grid.Column="1"
-                        Padding="5"/>
-            </Grid>
+                            TextColor="Black"
+                           VerticalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
+                            Grid.Column="1"
+                            Padding="5"/>
+                </Grid>
 
-            <Button x:Name="join" Text="Join Community" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="#bee3db" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,15,0,0"/>
-        </StackLayout>
+                <Button x:Name="join" Text="Join Community" WidthRequest="150" Clicked="Join_Clicked" BackgroundColor="#bee3db" TextColor="Black" HeightRequest="40" VerticalOptions="End" HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,15,0,0"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
