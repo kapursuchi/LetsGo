@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             BackgroundColor="#FAF9F9"
-             BarBackgroundColor="#51aec2"
-             BarTextColor="Black"
-             xmlns:local ="clr-namespace:LetsGo.Controller;assembly=LetsGo"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            BackgroundColor="#FAF9F9"
+            BarBackgroundColor="#51aec2"
+            BarTextColor="Black"
+            xmlns:local ="clr-namespace:LetsGo.Controller;assembly=LetsGo"
             SelectedTabColor="White"
-             x:Class="LetsGo.Controller.ChatController"
-             Title="Chat">
+            x:Class="LetsGo.Controller.ChatController"
+            Title="Chat">
     <TabbedPage.Children>
         <local:FriendsChatController Title="Friends" />
         <local:CommunityChatController Title="Communities" />

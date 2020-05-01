@@ -30,7 +30,7 @@
                                             HasShadow="False">
 
                                     <StackLayout>
-                                        <Label Text="{Binding Sender}" TextColor="{Binding MessageTextColor}"  FontSize="Micro" Padding="10,0,10,0"/>
+                                        <Label Text="{Binding Sender}" TextColor="{Binding MessageTextColor}"  FontSize="Micro" Padding="10,0,10,0" Margin="0,5,0,0"/>
                                         <Label Text="{Binding Message}" VerticalOptions="Center" FontSize="Body" TextColor="Black"  Padding="10,0,10,0"  />
                                         <Label Text="{Binding Time, StringFormat='{0:hh:mm tt}'}" TextColor="{Binding MessageTextColor}" Padding="10,0,10,2" FontSize="Micro"/>
                                     </StackLayout>

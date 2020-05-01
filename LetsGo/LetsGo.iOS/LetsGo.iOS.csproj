@@ -250,9 +250,6 @@
     <BundleResource Include="Resources\transparentlogowithname.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\backgroundimage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\chaticon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -263,5 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\profilebackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\backgroundimage.jpg" />
   </ItemGroup>
 </Project>

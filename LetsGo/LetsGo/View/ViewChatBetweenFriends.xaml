@@ -22,13 +22,13 @@
                         <DataTemplate>
                             <ViewCell IsEnabled="False">
                                 <Frame CornerRadius="15"
-                                            Padding="0"
-                                            Margin="15,10,15,10" 
+                                       Padding="0"
+                                       Margin="15,10,15,10" 
                                        BackgroundColor="{Binding MsgColor}"
                                        HorizontalOptions="{Binding SetLayout}"
-                                            HasShadow="False">
+                                       HasShadow="False">
                                     <StackLayout>
-                                        <Label Text="{Binding Message}" VerticalOptions="Center" FontSize="Body" TextColor="Black"  Padding="10,0,10,0"  />
+                                        <Label Text="{Binding Message}" VerticalOptions="Center" FontSize="Body" TextColor="Black"  Padding="10,5,10,0"  />
                                         <Label Text="{Binding Time, StringFormat='{0:hh:mm tt}'}" TextColor="{Binding MessageTextColor}" Padding="10,0,10,2" FontSize="Micro"/>
                                     </StackLayout>
                                 </Frame>

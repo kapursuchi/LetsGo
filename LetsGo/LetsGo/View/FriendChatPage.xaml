@@ -27,49 +27,48 @@
              </ListView>
 
             <Label x:Name="noChats" Text="You have no active chats with any friends!" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Margin="15"/>
-            <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" />
+            <Label x:Name="activeChats" Text="Current Chats" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" Margin="0,5,0,0" />
             <ListView x:Name="chatWithFriends" HorizontalOptions="Center" HasUnevenRows="True"  ItemTapped="OnChat_Clicked" BackgroundColor="#FAF9F9" SeparatorVisibility="None" SelectionMode="None" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-
                         <ViewCell>
                             <StackLayout>
                                 <Grid   x:Name="user"
-                                                VerticalOptions="Center"
-                                                HorizontalOptions="Start"
-                                            BackgroundColor="#FAF9F9">
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Start"
+                                        BackgroundColor="#FAF9F9"
+                                        Padding="0,15,0,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Image x:Name="profilePicture" Source="{Binding UnReadMessage}" HeightRequest="20" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
-                                    <Label      x:Name="friendName"
-                                                    Text="{Binding Recipient}"
-                                                    TextColor="Black"
-                                                    FontSize="Body"
-                                                    HorizontalOptions="Start"
-                                                    VerticalOptions="Center"
-                                                    Grid.Row="0"
-                                                    Grid.Column="1" />
+                                    <Label x:Name="friendName"
+                                           Text="{Binding Recipient}"
+                                           TextColor="Black"
+                                           FontSize="Body"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Grid.Row="0"
+                                           Grid.Column="1" />
                                     <Label  
-                                                    Text=" "
-                                                    TextColor="Black"
-                                                    FontSize="Body"
-                                                    HorizontalOptions="Start"
-                                                    VerticalOptions="Center"
-                                                    Grid.Row="0"
-                                                    Grid.Column="2" />
+                                            Text=" "
+                                            TextColor="Black"
+                                            FontSize="Body"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Grid.Row="0"
+                                            Grid.Column="2" />
                                     <Label 
-                                                    Text=" "
-                                                    TextColor="Black"
-                                                    FontSize="Body"
-                                                    HorizontalOptions="Start"
-                                                    VerticalOptions="Center"
-                                                    Grid.Row="0"
-                                                    Grid.Column="3" />
+                                            Text=" "
+                                            TextColor="Black"
+                                            FontSize="Body"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Grid.Row="0"
+                                            Grid.Column="3" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>

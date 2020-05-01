@@ -37,7 +37,7 @@
             <Button x:Name="login" Text="Login" Clicked="Login_Clicked" BackgroundColor="#bee3db"  TextColor="Black" HeightRequest="40" WidthRequest="100" VerticalOptions="End" HorizontalOptions="Center" BorderColor="#89b0ae" BorderWidth="1" CornerRadius="15" Margin="0,15,0,0" />
 
             <Button x:Name="forgotpassword" Text="Forgot Password?" Clicked="Navigate_ForgotPasswordPage"
-                    BackgroundColor="Transparent" TextColor="White" VerticalOptions="End"  WidthRequest="200" HorizontalOptions="Center" />
+                    BackgroundColor="Transparent" TextColor="White" VerticalOptions="End"  WidthRequest="200" HorizontalOptions="Center" Margin="0,15,0,0" />
             <!--Create Account Button -->
             <Button x:Name="register" Text="Don't have an account? Create one!" Clicked="Navigate_CreateAccount_Page" WidthRequest="600" BackgroundColor="Transparent" TextColor="White" VerticalOptions="End" HorizontalOptions="Center"/>
 
