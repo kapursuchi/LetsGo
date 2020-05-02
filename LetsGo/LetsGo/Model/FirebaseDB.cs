@@ -870,11 +870,22 @@ namespace LetsGo.Model
                                 .OnceAsync<EventProfile>()).Where(a => a.Object.EventID == eventID).FirstOrDefault();
             string photo = await UploadFile(filestream, "events", eventID, "eventimage.jpg");
 
-            await firebase
-                .Child("Events")
-                .Child(evtToUpdate.Key)
-                .Child("EventID")
-                .PutAsync(photo);
+            await firebase.Child("Events").Child(evtToUpdate.Key).PutAsync(new EventProfile()
+            {
+                EventOwner = evtToUpdate.Object.EventOwner,
+                Description = evtToUpdate.Object.Description,
+                Location = evtToUpdate.Object.Location,
+                Interests = evtToUpdate.Object.Interests,
+                Name = evtToUpdate.Object.Name,
+                DateOfEvent = evtToUpdate.Object.DateOfEvent,
+                StartOfEvent = evtToUpdate.Object.StartOfEvent,
+                EndOfEvent = evtToUpdate.Object.EndOfEvent,
+                PublicEvent = evtToUpdate.Object.PublicEvent,
+                Members = evtToUpdate.Object.Members,
+                EventID = evtToUpdate.Object.EventID,
+                EventImage = photo,
+                EventRequests = evtToUpdate.Object.EventRequests
+            });
 
             return photo;
         }
