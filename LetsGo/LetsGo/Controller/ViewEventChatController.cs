@@ -31,6 +31,13 @@ namespace LetsGo.Controller
             ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#51aec2");
             Messages.BindingContext = this;
             ((Xamarin.Forms.NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
+            Device.StartTimer(TimeSpan.FromSeconds(3), RefreshValues);
+        }
+
+        private bool RefreshValues()
+        {
+            SetValues();
+            return true;
         }
 
         public async void SetValues()
