@@ -11,10 +11,9 @@
             SelectedTabColor="White"
             x:Class="LetsGo.Controller.ChatController"
             Title="Chat">
-    <TabbedPage.Children>
-        <local:FriendsChatController Title="Friends" />
-        <local:CommunityChatController Title="Communities" />
-        <local:EventsChatController Title="Events" />
-
-    </TabbedPage.Children>
+        <TabbedPage.Children>
+            <local:FriendsChatController Title="Friends" />
+            <local:CommunityChatController Title="Communities" />
+            <local:EventsChatController Title="Events" /> 
+        </TabbedPage.Children>
 </TabbedPage>

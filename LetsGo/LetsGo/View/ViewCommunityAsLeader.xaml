@@ -8,8 +8,8 @@
              <!--BackgroundImageSource="profilebackground.jpg"-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Secondary" />
-        <ToolbarItem Text="Update Community" Clicked="OnUpdate_Clicked"  Order="Secondary"/>
+        <ToolbarItem Text="Invite Members" Clicked="OnInviteUsers_Clicked" Order="Primary" />
+        <ToolbarItem Text="Update Community" Clicked="OnUpdate_Clicked" Order="Secondary"/>
         <ToolbarItem Text="Add Event" Clicked="OnAddEvent_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -98,8 +98,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center"/>
-
+                <Button x:Name="delete" Text="Delete Community" Clicked="Delete_Clicked" WidthRequest="200" BackgroundColor="Transparent" TextColor="Crimson"  HorizontalOptions="Center" Margin="0,0,0,10"/>
 
             </StackLayout>
         </Grid>

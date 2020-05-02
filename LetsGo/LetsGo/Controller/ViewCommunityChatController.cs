@@ -138,7 +138,6 @@ namespace LetsGo.Controller
                 MsgColor = Color.FromHex("#dce0e0");
                 SetLayout = LayoutOptions.Start;
             }
-
         }
     }
 }
