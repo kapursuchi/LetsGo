@@ -35,6 +35,12 @@ namespace LetsGo.Controller
             
         }
 
+        protected override void OnAppearing()
+        {
+            SetValues();
+            base.OnAppearing();
+        }
+
         public ProfileController(UserProfile profile)
         {
             user = profile;
