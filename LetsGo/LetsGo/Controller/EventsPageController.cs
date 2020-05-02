@@ -137,5 +137,11 @@ namespace LetsGo.Controller
             SetValues();
             base.OnAppearing();
         }
+        protected override void OnDisappearing()
+        {
+            GrabEvents();
+            SetValues();
+            base.OnDisappearing();
+        }
     }
 }
