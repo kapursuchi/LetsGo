@@ -1,4 +1,4 @@
-# LetsGoApplication
+# LetsGo 
 
 This application, LetsGo, was a group project for CSUSM's Software Engineering course (CS441) for the Spring 2020 semester. 
 
