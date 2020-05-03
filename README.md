@@ -12,3 +12,4 @@ The requirements specification document, architecture description document, and 
 
 This repository is uploaded for my purposes only, and any recruiters or future employers. The collaborators of this 
 project (including myself) are not responsible for any other use of this repository by any students or other people.
+There are three contributors for this application: Suchi Kapur, Nick Garrett, Khaled Khalil.
